@@ -11,6 +11,7 @@ typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef
 typedef unsigned long long K,UJ;
 
 #define R return
+#define O printf
 #define P(b,a...)   if(b)return(a);
 #define N(n,a...)   {I i=0,_n=(n);while(i<_n){a;++i;}}
 #define W(b...)     while((b))              //while
@@ -37,5 +38,10 @@ typedef unsigned long long K,UJ;
 #define rC ptr(r)
 
 #define _ static inline
-#define AB(s)       (os(s),exit(1),(K)0L) //abort string
+#define AB(s)       (os((S)s),exit(1),(K)0L) //abort string
+
+#define sl(s) strlen((char*)s)
+
+//:~
+
 
