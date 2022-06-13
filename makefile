@@ -1,7 +1,7 @@
 SRC=a.c b.c
 CC=gcc-10
 O=-O0 -g
-CF=-Wno-unused-value -minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
+CF=-minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
 LF=
 #-s -nostdlib A.S
 
@@ -15,7 +15,7 @@ b: cln a.c b.c *.h makefile
 	./$@ t/t.b
 
 l: cln a.c b.c *.h makefile
-	clang -o $@ $(LF) $(SRC) $(CF)
+	clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
 	./$@ t/t.b
 
 tcc:

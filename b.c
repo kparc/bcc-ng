@@ -59,7 +59,6 @@ K v(I r,K x,I n){K y=xz,z;I c=!n&&!Ay&&a==*yC,l=M;
 ZV mm(K x){I i;$(Ax,if(26u>xi-'a'&&L[i=xi-'a'])M|=1<<L[i])$(':'==*xC&&A(xy),i=I(xy)-'a',M&=~(1<<L[i]),mm(xz))N(xn,mm(sc("{WNC",*xC)?xK[xn-1-i]:Xx))}
 K1(w){I i='N'==*xC?L[N++]:0,j=0;mm(x);K y=xy,z=xz;I jj;
  P(!i&&!Az&&'$'==*zC,x=b(1,y),z=v(0,z,-xn-1),jj=-xn-1-zn-2,j3(jc(x,zn+2),z,jmp(jj)))
- //P(!i&&!Az&&'$'==*zC,x=b(1,y),z=v(0,z,-xn-1),j3(jc(x,zn+2),z,jmp(-xn-1-zn-2)))
  x=i?M|=1<<i,jc(cm(0,i,j=(j=q(y))?j:*D),JJ[1]):b(0,y),z=i?j2(e(0,z),o2(0,1,i,i,129)):e(0,z);
  I n=-zn-xn-1;z=j3(jmp(zn),z,n<-128?--xn,j2(x,Jj(x,n)):jc(x,n));R i?--N,M&=~(1<<i),j3(f(j,y),ZR(0,i),z):z;}
 
@@ -95,9 +94,9 @@ ZK p(){K x,y;I a,b;
   C('a',
    x='['==*tp?++tp,
    pE(T[b=a-'a']?T[b]-8:(x=G[b],x=xy,*D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a):kc(a)),
-  AB(tp-1))
+  R AB(tp-1))
  P(pq(),x)
- if('+'-c(a=*tp++))AB(tp-1);
+ P('+'-c(a=*tp++),AB(tp-1))
  if(':'==*tp)++tp,a+=128;
  b=t(y=p());
  $(':'==a&&Ax,T[xi-'a']=b)b='%'-a?MX(b,t(x)):KF;
