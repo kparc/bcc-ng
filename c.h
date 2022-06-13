@@ -1,4 +1,7 @@
-typedef unsigned char C,*S,*K;typedef int I;typedef long J;typedef double F;typedef void V;V*memcpy();J strlen(const char*);
+#include <string.h>
+#include <stdio.h>
+typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef void V;
+typedef unsigned long long K,UJ;
 
 #define R return
 #define P(b,a...)   if(b)return(a);
@@ -18,6 +21,13 @@ typedef unsigned char C,*S,*K;typedef int I;typedef long J;typedef double F;type
 #define ZF static F
 #define ZK static K
 #define ZV static V
+
+#define ptr(x) (*(S*)&x)
+#define xC ptr(x)
+#define yC ptr(y)
+#define zC ptr(z)
+#define fC ptr(f)
+#define rC ptr(r)
 
 #define _ static inline
 #define AB(s)       (os(s),exit(1),(V*)0L) //abort string
