@@ -3,12 +3,9 @@ CF=-O0 -g -pagezero_size 1000 -lm -Wno-unused-value -minline-all-stringops -fno-
 LF= 
 #-s -nostdlib A.S
 
-b: a.c b.c *.h makefile
+b: a.c b.c *.h *.b makefile
 	$(CC) -o $@ $(LF) a.c b.c $(CF)
 	./$@ m.b
+	@objdump -b binary -m i386 -M intel,x86-64 -D lnk.bin | tail -n+8
 
-k: a.c k.c *.h makefile
-	$(CC) -o $@ $(LF) a.c k.c $(CF)
-
-all: b k
-
+all: b

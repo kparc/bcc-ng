@@ -11,7 +11,7 @@
 #define X3 13L
 #define QQ 15L
 //extern J nt[],ip();extern K G[],r1(),tn(),j2(),k0(),sS(),enm(),o();V exit(),w2(),r0();S pi(),pf(),px();F fp();
-extern J nt[],ip();extern K G[],ex(K),ps(S),r1(K),tn(I,I),k0(),l1(),sS(I,K),enm(J x),o(K);I cl(I c);V exit(I),w2(S),r0(K);S pi(J),pf(F),px(J);J ws();F fp(S,I);
+extern J nt[],ip();extern K G[],ex(K),ps(S),r1(K),tn(I,I),k0(),l1(),sS(I,K),enm(J x),o(K),dmp(S s,K x);I cl(I c);V exit(I),w2(S),r0(K);S pi(J),pf(F),px(J);J ws();F fp(S,I);
 _ K X(K*k,K y){R r0(*k),*k=y,NL;}
 _ I oc(I i){R w2((S)&i),i;}_ V nl(){w2("\n");}_ S os(S s){R w2(s),nl(),s;}_ J oi(J j){R os(pi(j)),j;}_ F of(F f){R os(pf(f)),f;}_ J ox(J j){R os(px(j)),j;}
 _ S sc(S s,I c){W(*s-c)P(!*s++,0)R s;}_ I scn(S s,I c,I n){N(n,P(c==s[i],i))R n;}//_ K P1(J x){R(K)(X1<<48|x);}_ K P2(J x){R(K)(X2<<48|x);}_ K P3(J x){R(K)(X3<<48|x);}
@@ -102,6 +102,14 @@ _ K pn(S s,I n){R(K)memcpy((V*)kC(n),s,n);}_ K kp(S s){R pn(s,strlen(s));}
 #define K1(f)   K f(K x)
 #define K2(f)   K f(K x,K y)
 #define K3(f)   K f(K x,K y,K z)
+
 extern K2(j2);
-_ K1(k1){K r=kK(1);R rx=x,r;}_ K2(k2){K r=kK(2);R rx=x,ry=y,r;}_ K3(k3){K r=kK(3);R rx=x,ry=y,rz=z,r;}_ K3(j3){R j2(j2(x,y),z);}_ K2(jk){R j2(x,k1(y));}_ K cj(C c,K y){R j2(c1(c),y);}
+_ K1(k1){K r=kK(1);R rx=x,r;}
+_ K2(k2){K r=kK(2);R rx=x,ry=y,r;}
+_ K3(k3){K r=kK(3);R rx=x,ry=y,rz=z,r;}
+_ K3(j3){R j2(j2(x,y),z);}
+_ K2(jk){R j2(x,k1(y));}
+_ K cj(C c,K y){R j2(c1(c),y);}
 _ K jc(K x,K c){R j2(x,kc(c));}
+
+//:~

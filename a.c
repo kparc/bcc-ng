@@ -1,11 +1,3 @@
-#include<unistd.h>
-#include<sys/syscall.h>
-#include<errno.h>
-#include<sys/types.h>
-#include<sys/mman.h>
-#include<sys/stat.h>
-#include<fcntl.h>
-
 #include"a.h"// read/write mmap/munmap printf/scanf malloc/free
 #define BASE 0x70000000L
 #define O printf
@@ -13,6 +5,7 @@
 _ I clzl(I n){R 60-__builtin_clzl(n);}
 ZF ms(){J a,d;asm volatile("rdtsc":"=a"(a),"=d"(d));R((d<<32)+a)*.58e-6;}
 V w2(S s){write(2,s,strlen((char*)s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
+ZK _dmp(S s,S x,J n){I d=open((V*)s,O_RDWR|O_CREAT|O_TRUNC,S_IRWXU);Qs(0>d,(S)s)write(d,x,n);R close(d),0;}K dmp(S s,K x){R _dmp(s,xC,xn-2);}
 
 ZK M[31];ZJ W=-32;//!< M memory buckets, W wssize (W0 initial offset for GT header and seed alloc c0() \see init()
 S ma(I d,size_t n){ZJ p=BASE;p+=d?0:n;V*r=mmap((V*)(d?0:p-n),n,PROT_READ|PROT_WRITE|PROT_EXEC,d?MAP_PRIVATE:(MAP_ANON|MAP_PRIVATE|MAP_FIXED),d-!d,0);

@@ -1,5 +1,12 @@
-#include <string.h>
-#include <stdio.h>
+#include<unistd.h>
+#include<string.h>
+#include<stdio.h>
+#include<errno.h>
+#include<fcntl.h>
+#include<sys/syscall.h>
+#include<sys/types.h>
+#include<sys/mman.h>
+#include<sys/stat.h>
 typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef void V;
 typedef unsigned long long K,UJ;
 
@@ -30,5 +37,5 @@ typedef unsigned long long K,UJ;
 #define rC ptr(r)
 
 #define _ static inline
-#define AB(s)       (os(s),exit(1),(V*)0L) //abort string
+#define AB(s)       (os(s),exit(1),(K)0L) //abort string
 
