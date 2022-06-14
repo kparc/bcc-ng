@@ -1,5 +1,12 @@
-r[I]{n:#x;h:/#x;c:0;N(h){t:x[i];j:-1+n-i;x[i]:x[j];x[j]:t};x}
-\\
+/r[I]{n:#x;h:/n;h}
+/x:!10
+/r[x]
+/\\
+/r[I]{n:#x;h:/#x;c:0;N(h){t:x[i];j:-1+n-i;x[i]:x[j];x[j]:t};x}
+/x:!10
+/r[x]
+/\\
+
 m[i]{k:0;N(x){r:-1.5+2*i%x;N(x){s:-1+2*j%x;p:q:0.;m:50;W(m*4>(t:p*p)+u:q*q){m-:1;q:s+2*p*q;p:r+t-u};k+:0=m}};k}
 a[ii]$[x;a[-x;$[y;a[x;-y];1]];+y]
 b[Ii]{h:#x;l:0;W(h>l)$[y>x[i:/l+h];l:i+1;h:i];l}
@@ -30,7 +37,7 @@ w:t[0;2]
 3963=m[100]
 
 /collatz
-18=z[30]
+/18=z[30]
 
 /reverse
 x:!10
