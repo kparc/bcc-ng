@@ -23,6 +23,17 @@ I m(I x){I k=0;N(x,F r=-1.5+i*2./x;N(x,F s=-1+i*2./x,p,q,t,u;p=q=0;I m=50;W(m*(4
 //timer
 F ms(){J a,d;asm volatile("rdtsc":"=a"(a),"=d"(d));R((d<<32)+a)*.58e-6;}
 
+
+I*rev(I*a,I n){
+    I t;
+    for(I i = 0; i<n/2; i++){
+        t = a[i];
+        a[i] = a[n-i-1];
+        a[n-i-1] = t;
+    }
+    return a;
+}
+
 //enm
 V*malloc(),free();I*enm(I n){I*r=malloc(4+4*n);N(*r++=n,r[i]=i)R r;}
 #define MS(n,e) {F _t=ms();I s=0;N(n,s+=e)O("%d %d\n",(I)(ms()-_t),s);}
@@ -32,6 +43,14 @@ MS(1000000,b(x,1023&i))
 MS(20,f(8,y,z))
 MS(100,(p=t(0,13),c(p),u(p),1))
 MS(30,m(100))
+
+I arr[6] = {9, 8, 7, 2, 4, 3};
+rev(&arr,6);
+for(int i = 0; i < 6; i++){
+	printf("%d,", arr[i]);
+}
+
+
 R 0;}
 
 //tree

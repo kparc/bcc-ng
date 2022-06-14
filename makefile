@@ -11,12 +11,12 @@ ifeq ($(shell uname),Darwin)
 endif
 
 b: cln a.c b.c *.h makefile
-	$(CC) -o $@ $(LF) $(SRC) $(CF)
-	./$@ t/t.b
+	@$(CC) -o $@ $(LF) $(SRC) $(CF)
+	@./$@ t/t.b
 
 l: cln a.c b.c *.h makefile
-	clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
-	./$@ t/t.b
+	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
+	@./$@ t/t.b
 
 tcc:
 	tcc -std=c99 -O0 -g $(SRC) $(CF) -o bt
@@ -27,6 +27,6 @@ dis:
 	#sudo lldb ./b
 
 cln:
-	rm -f b l
+	@rm -f b l
 
 all: d
