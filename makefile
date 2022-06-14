@@ -3,11 +3,16 @@ CC=gcc-10
 O=-Os -g
 CF=$O -minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
 LF=
+OD=objdump
 #-s -nostdlib A.S
 
 ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
+ ifeq ($(shell uname -m),arm64)
+	CF+= -arch x86_64 -msse
+ endif
+ OD=/opt/homebrew/opt/binutils/bin/objdump
 endif
 
 b: cln a.c b.c *.h makefile
@@ -23,7 +28,7 @@ tcc:
 	./bt t.b
 
 dis:
-	@objdump -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
+	@$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
 	#sudo lldb ./b
 
 cln:
