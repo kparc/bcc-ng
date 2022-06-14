@@ -1,7 +1,7 @@
 SRC=a.c b.c p.c
 CC=gcc-10
-O=-O0 -g
-CF=-minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
+O=-Os -g
+CF=$O -minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
 LF=
 #-s -nostdlib A.S
 
