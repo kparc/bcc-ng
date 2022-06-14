@@ -97,6 +97,7 @@ _ K pn(S s,I n){R(K)memcpy((V*)kC(n),s,n);}_ K kp(S s){R pn(s,strlen(s));}
 #define ZK1(f) ZK f(K x)
 #define ZK2(f) ZK f(K x,K y)
 #define ZK3(f) ZK f(K x,K y,K z)
+#define ZI1(f) ZI f(K x)
 #define V1(f)   V f(K x)
 #define I1(f)   I f(K x)
 #define K1(f)   K f(K x)

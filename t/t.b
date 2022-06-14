@@ -6,18 +6,25 @@ t[ii]$[y;[x;t[-x*2;y];t[x*2;y-:1]];[x;;]]
 c[J]$[x[1];(*x)+c[x[1]]-c[x[2]];*x]
 m[i]{k:0;N(x){r:-1.5+2*i%x;N(x){s:-1+2*j%x;p:q:0.;m:50;W(m*4>(t:p*p)+u:q*q){m-:1;q:s+2*p*q;p:r+t-u};k+:0=m}};k}
 
-/test
-a[3;4]
+/ackermann
+125=a[3;4]
+
+/binsearch
 x:!9
-b[x;7]
+7=b[x;7]
+
+/fannkuch
 y:!8
 z:!8
-f[#y;y;z]
+22=f[#y;y;z]
+
+/mandelbrot
 w:t[0;2]
-c[w]
-m[100]
+c[w]=-1
+3963=m[100]
 
 \\
+
 /time
 \t:2000 a[3;4]
 x:!1000
