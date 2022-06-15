@@ -1,18 +1,18 @@
 #include"a.h" //asm("push %rbp;push %rbx");asm("pop %rbx;pop %rbp");MIN(y^(x^y)&x-y>>63)I low()__builtin_ctz(~i&-2);}V qq(I o,I r,I x,I y){oc(":+-*%?  c"[o]),oc('0'+r),oc('0'+x),oi(y);}
-K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
+K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);ZK c5(I o,I n){R cj(o,pn((S)&n,4));}K u(I u,K x){R xu=u,x;}
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
 K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 
 ZI A[]={0,7,6,2,1,8,9,10,11,3,12,13,14,15,5,4},B=5,//!< x64 abi
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
-  JJ[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83};I RET=0xc3;
+  JJ[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83};I RET=0xc3,CLL=0xe8;
 
-ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);} //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
+ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                                           //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
 ZK rex(I r,I x,I b,K y){R(r=7<A[r])+(x=7<A[x])+(b=7<A[b])?cj(0x40+4*r+2*x+b,y):y;} //!< use rex prefix to access newer regs
 ZK h(I o,I x,I y){R j2(256>o?c1(o):c2(o>>8,o),16>y?c1(m(3,x,y)):c5(m(0,x,5),y));}  //!< opcode o, arguments x y (not rex, x should never be >15)
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?A[x]:x-16,16>y?A[y]:y));}     //!< opcode o, arguments xy (maybe rex)
-ZK cll(I c){R c5(0xe8,c);}
+ZK cll(I c){R c5(CLL,c);}
 ZK psh(I t,I x){R rex(0,0,x,c1(0x50+(7&A[x])));}
 ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}
 ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}
@@ -28,15 +28,21 @@ R 127>y  //    0    1    2     3      4    5    6   7   8   9   10
     ?i((I[]){0x8b,0x03,0x2b,0x0faf, 0x0,0x3b,0x23,0x0,0x0,0x0,0x33}[o],x,y)
     :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],A[x]),y-128):c5(0xb8+(7&A[x]),y-128));}//!< move to register x
 //                            0 1 234 5 6 78910                                            //!< add,sub,cmp,and,or,xor
-//R 127>y
-//    ?i((I[]){0x8b,0x03,0x2b,0x0faf,0,0x3b,0x23}[o],x,y)
-//    :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1"[o],A[x]),y-128):c5(0xb8+(7&A[x]),y-128));}
 
-ZK o2(I t,I o,I r,I x,I y){K z;P(KF==t,8u>y-8?AB("vex"):j2(c2(0xc5,16*(8&~r)+8*(15&~x)+(5-o?3:1)),h((C[]){0x10,0x58,0x5c,0x59,0x5e,0x2e,0,0,0x2a}[o],r,y))) 
- I a=126<y,s;P(0<=o&&r==x&&(!a||3-o),4-o?o2f(o,r,y):129-y?AB("/"):i(0xd1,16+7,r))P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y)))
+//!return object code to execute opcode o with arguments x and y and leave the argument of type t in register r
+ZK o2(I t,I o,I r,I x,I y){K z;//O("o2: t=%c o=%d r=%d x=%p y=%p\n"," chijefs CHIJEFS"[t],o,r,x,y);
+ P(KF==t,8u>y-8?AB("vex"):j2(c2(0xc5,16*(8&~r)+8*(15&~x)+(5-o?3:1)),
+  // for fp (with 0f prefix): i2f int to float
+  //         0    1    2    3    4    5 6 7    8
+  //       mov  add  sub  mul  div  cmp      i2f
+  h((C[]){0x10,0x58,0x5c,0x59,0x5e,0x2e,0,0,0x2a}[o],r,y)))
+ I a=126<y,s;
+ P(0<=o&&r==x&&(!a||3-o),4-o?o2f(o,r,y):129-y?AB("/"):i(0xd1,16+7,r))    //!< shl|shr
+ P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))                    //!< neg
+ P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y))) //     mov  mov      lea imul
  R s=0<o?0:3+(o+1)/2,rex(r,a?0:y,x,c3(0>o?1&o?0x8b:0x89:3-o?0x8d:0x6b,m(3-o?a:3,A[r],a?A[x]:4),a?(2-o?y-128:128-y)<<s:m(s,A[y],A[x])));}
 
-//!cm compare, cv convert to float, sh nyi
+//!compare                             convert to float                    nyi
 ZK cm(I t,I x,I y){R o2(t,5,x,x,y);}ZK cv(I x,I y){R o2(KF,8,x,x,A[y]);}ZK sh(I t,I r){R AB("sh");}
 
 //!opcode length
@@ -51,7 +57,6 @@ V1(lnk){S s=xC;W(s<xC+xn){
  s+=n;}}
 
 V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
-K u(I u,K x){R xu=u,x;}
 ZK jmp(I n){R n<-128||n>127?c5(JJ[4],0>n?n-3:n):c2(*JJ,n);}
 
 //!comparison|operator|funcall dispatch
