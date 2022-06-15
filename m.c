@@ -24,7 +24,7 @@ V1(l0){if((J)xy)l0(xy),l0(xz);xx=M[xm],M[xm]=x;}K3(l1){K r=m1(24);R rt=8,rn=3,rx
 //      0 1 2 3 4 5 6 7
 //!     K c h i j e f s ()
 J nt[]={8,1,2,4,8,4,8,4};//!< list int8 int16 int32 int64 real double sym
-J ws(){R W;}K1(r1){P(Ax,x)R++xr?x:(O("r1\n"),exit(1),(K)0L);/*AB("r1");*/}
+J ws(){R W;}K1(r1){P(Ax,x)R++xr?x:(O("r1\n"),exit(1),AB("r1"));}
 V1(r0){//O("r0 %llx Ax %d xn %d\n",x,Ax,!Ax?xn:0);
  if(Ax||!x||KS==xt)R;if(8==xt){l0(x);R;}if(xr){--xr;R;}if(!xt||KS<xt)N1(xn,r0(Xx))W-=16L<<xm,xx=M[xm],M[xm]=x;}
 K tn(I t,I n){K x=m1(MX(1,n)*nt[KS<t?0:t]);R W+=16L<<xm,xu=0,xt=t,xn=n,x;}
@@ -43,7 +43,5 @@ K2(j2){I m=xn,n=m+(Ay?1:yn);    //!< m is the old size of x, n is the new one (i
     else xu=0,xn=n;             //!< otherwise, set the size of x to the new size, then:
     Ay?(K)memcpy(xC+NX*m,&y,NX) //<! for atoms, append the new item via memcpy
       :xiy(x,m,y);R x;}         //<! for lists, use xiy to append y items to the x's tail.
-
-
 
 //:~
