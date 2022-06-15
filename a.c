@@ -70,7 +70,12 @@ K1(o){K y=QQ-Ax?se(x):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));R Y0(write(2,y
 ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=0,a=t[1]?0:(*t=='/')-(*t=='\\');if(!d&&!a&&'/'-*t)Q(pr(es(t)))d+=a,t=u;}if(n)munmap(s,n);R NL;}
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}
 ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(W):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}
-V km(S*a){N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}
+
+// floating point numbers in 64 bits use the first 12 bits for the sign and the exponent.
+// the exponent will only be zero for negative zeros and subnormal numbers, but these are not supported,
+// since DAZ (denormal-as-zero) and FTZ (flush to zero) are set.
+ZV csr(){R;asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);");}
+V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}
 
 //V _start(){asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);lea 8(%rsp),%rdi;jmp km");}
 int main(I c,char**a){R km((S*)a),0;}
