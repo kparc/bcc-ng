@@ -42,7 +42,7 @@ ZK h(I o,I x,I y){R j2(
 
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?A[x]:x-16,16>y?A[y]:y));}     //!< opcode o, arguments xy (maybe rex)
 ZK psh(I t,I x){R rex(0,0,x,c1(0x50+(7&A[x])));}                                   //!< push from reg A[x]
-ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}                                   //!< pop to regr A[x]
+ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}                                   //!< pop to reg A[x]
 ZK jmp(I n){R n<-128||n>127?c5(JJ[4],0>n?n-3:n):c2(*JJ,n);}                        //!< c5|c2 long|shortjmp
 ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}                          //!< cond (set byte on conditon functions: 0x0f90,...)
 ZK tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                                    //!< test (sets sz if x is not zero), nyi for floats
