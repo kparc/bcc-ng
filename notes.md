@@ -1,0 +1,1 @@
+https://docs.google.com/document/u/1/d/1W83ME5JecI2hd5hAUqQ1BVF32wtCel8zxb7WPq-D4f8/mobilebasic
