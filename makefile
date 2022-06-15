@@ -11,17 +11,17 @@ ifeq ($(shell uname),Darwin)
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  OD=/usr/local/opt/binutils/bin/objdump
  ifeq ($(shell uname -m),arm64)
-	CF+= -arch x86_64 -mavx2
+	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
  endif
  
 endif
 
-g: cln a.c b.c *.h makefile
+g: cln a.c b.c p.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
 
-l: cln a.c b.c *.h makefile
+l: cln a.c b.c p.c *.h makefile
 	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
 
 tcc:
