@@ -1,6 +1,5 @@
 #include"a.h"
-
-extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x);I1(t);I U(I i);I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
+extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 
                 // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
@@ -51,7 +50,7 @@ K ps(S s){
  S b;P(b=bb(s),qs(*b?b:(S)"bal")) //<! balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
- P('!'==*tp,++tp,X(k,enm(ki(ip(tp,sl(tp))))))
+ P('!'==*tp,++tp,X(k,til(ki(ip(tp,sl(tp))))))
  z=k2(kp(tp),NL);
  if(!tp[1]&&26u>*tp-'a')r1(G[*tp-'a']);
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}

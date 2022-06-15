@@ -44,4 +44,6 @@ K2(j2){I m=xn,n=m+(Ay?1:yn);    //!< m is the old size of x, n is the new one (i
     Ay?(K)memcpy(xC+NX*m,&y,NX) //<! for atoms, append the new item via memcpy
       :xiy(x,m,y);R x;}         //<! for lists, use xiy to append y items to the x's tail.
 
+K til(J x){K r=kI(xi);N(rn,Ri=i)R r;}
+
 //:~

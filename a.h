@@ -18,7 +18,7 @@ _ S sc(S s,I c){W(*s-c)P(!*s++,0)R s;}_ I scn(S s,I c,I n){N(n,P(c==s[i],i))R n;
 _ K kK(I n){R tn(0,n);}_ K kC(I n){R tn(KC,n);}_ K kI(I n){R tn(KI,n);}_ K kc(J x){R(K)(KC<<48|x);}_ K ki(unsigned x){R(K)(KI<<48|(J)x);}_ K kf(F f){R*(K*)&f;}_ K ks(J x){R(K)(KS<<48|x);}
 _ K kS(I n){R tn(KS,n);}_ K qs(S s){R(K)(QQ<<48|(J)s);}
 _ K c0(){R kC(0);}_ K c1(C x){K r=kC(1);R*rC=x,r;}_ K c2(C x,C y){K r=kC(2);R*rC=x,rC[1]=y,r;}_ K c3(C x,C y,C z){K r=kC(3);R*rC=x,rC[1]=y,rC[2]=z,r;}
-_ K pn(S s,I n){R(K)memcpy((V*)kC(n),s,n);}_ K kp(S s){R pn(s,strlen(s));}
+_ K pn(S s,I n){R(K)memcpy((V*)kC(n),s,n);}_ K kp(S s){R pn(s,sl(s));}
 
 #define A(x) ({J _j=(J)(x);!_j||_j>>52?KF:15&_j>>48;})
 #define I(x) (I)(J)(x) //(-1UL>>16&(J)(x))
