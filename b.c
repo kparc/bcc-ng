@@ -109,6 +109,7 @@ K d(I r,K x){
   C('{',R E(r,x))
   C('[',R g(26,x))
   C('a',R T[a-'a']?O2(0,1+hh(xx),s,d(0,xx),d(0,y)):g(a-'a',x))
+  //C('O',R O("aha\n"),o(xy),O("--\n"))
   C(0,R y=d(0,y),O2(t(x),U(a-128),yu,y,d(s,xz))),
 
   if(':'==a){

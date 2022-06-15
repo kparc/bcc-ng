@@ -3,7 +3,7 @@
 extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x);I1(t);I U(I i);
 
                 // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNaaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
+I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
 
 ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));}
 ZS pq(){R sc((S)";})]",*tp);}K1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}ZK p();
@@ -13,6 +13,7 @@ ZK p(){K x,y;I a,b;
  S('0'-c('-'==(a=*tp++)?tp['.'==*tp]:'.'==a?*tp:a)?c(a):'0',
   case'N':T[N++]=KI;
   C('W',R++tp,x=p(),++tp,x=k3(kc(a),x,p()),N-='N'==a,x)
+  //C('O',R++tp,x=p(),++tp,x=k2(kc(a),x),x)
   case'$':++tp;
   C('{',R pE(0,a))
   C('+',R x=p(),u('#'==a?KI:'%'==a?KF:t(x)-8*('*'==a),k2(kc(a),x)))
@@ -33,8 +34,25 @@ ZK p(){K x,y;I a,b;
 
 extern I M,a,RET;K v(I r,K x,I n),f(I r,K x);I l(S s,I c);I1(q);V1(lnk);K1(ev);
 
+//!bracket balancer
+#define BLIM 16
+ZI m2(S s,S t){R*s==*t&&s[1]==t[1];}ZS bq(S x){W((x=sc(++x,'"'))&&!({I i=0;W('\\'==x[--i]);1&i;})){};R x;} //!< parse quoted string with esc sequences
+ZS str(S s){}
+ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
+ W(*++x){
+  $(m2((S)" /",x),s=sc(x,'\n');
+  P(!s,n?x:0)x=s)
+  $('"'==(a=c(*x)),s=bq(x);
+  P(!s,x)x=s)
+  $(sc("{[(",a),P(BLIM==++n,x)b[n]=*x)
+   if(sc("}])",a))P(!n||b[n--]!=*x-1-*x/64,x)
+ }R n?x:0;}//!< bracket balancer
+
 K ps(S s){
+ O("bb: %s\n", bq("  \"asf\\\"asdf"));
+ R 0;
  O("%s\n",s);
+ S b=bb(s);P(b,qs(*b?b:AB("bal"))) //<! balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
  P('!'==*tp,++tp,X(k,enm(ki(ip(tp,sl(tp))))))
