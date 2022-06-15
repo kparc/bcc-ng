@@ -114,7 +114,11 @@ _ K cj(C c,K y){R j2(c1(c),y);}
 _ K jc(K x,K c){R j2(x,kc(c));}
 
 #if (__x86_64__||i386)&&!__TINYC__
-ZI clzl(I n){R 60-__builtin_clzl(n);}ZV csr(){volatile I mxcsr=0x9fc0;asm("ldmxcsr %0":"=m"(mxcsr));};//Z_ V csr(){R;asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);");}
+ZI clzl(I n){R 60-__builtin_clzl(n);}
+// floating point numbers in 64 bits use the first 12 bits for the sign and the exponent.
+// the exponent will only be zero for negative zeros and subnormal numbers, but these are not supported,
+// since DAZ (denormal-as-zero) and FTZ (flush to zero) are set.
+ZV csr(){volatile I mxcsr=0x9fc0;asm("ldmxcsr %0":"=m"(mxcsr));};//Z_ V csr(){R;asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);");}
 #else
 ZI clzl(I n){I i=0;W(n)n/=2,++i;R i-4;}ZV csr(){R;}  //<! FIXME tcc ldmxcsr nyi //printf("CSR\n");UJ m;asm volatile("mrs %0, s3_4_c15_c2_7" : "=r"(m): :);asm volatile("msr s3_4_c15_c2_7, %0" : : "r"(m & 0xfffffffff0ffffff) :);
 #endif
@@ -130,11 +134,5 @@ ZF ms(){UJ a,d;asm volatile("rdtsc":"=a"(a),"=d"(d));R(a|d<<32)*.58e-6;}
 #elif __EMSCRIPTEN__
 F emscripten_get_now();Z_ UJ ut(){R(U)emscripten_get_now();}
 #endif
-
-// floating point numbers in 64 bits use the first 12 bits for the sign and the exponent.
-// the exponent will only be zero for negative zeros and subnormal numbers, but these are not supported,
-// since DAZ (denormal-as-zero) and FTZ (flush to zero) are set.
-//ZV csr(){R;asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);");}
-
 
 //:~
