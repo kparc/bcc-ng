@@ -1,7 +1,6 @@
 #include"a.h"
 
-extern S tp;extern C N,L[26],T[26],D[2];extern I M,a,RET;
-extern K z,u(I u,K x),v(I r,K x,I n),f(I r,K x);extern I U(I i),l(S s,I c);I1(q);I1(t);V1(lnk);K1(ev);
+extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x);
 
                 // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNaaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
@@ -31,6 +30,8 @@ ZK p(){K x,y;I a,b;
  $(':'==a&&Ax,T[xi-'a']=b)b='%'-a?MX(b,t(x)):KF;
  #define ff(x) (KF-b||KF==t(x)?x:Ax&&126<xi?n(kf(xi-128)):u(KF,k2(kc('%'),x)))
  R u(U('<')<U(a)?KI:b,k3(kc(a),ff(x),ff(y)));}
+
+extern I M,a,RET;extern K v(I r,K x,I n),f(I r,K x);extern I U(I i),l(S s,I c);I1(q);I1(t);V1(lnk);K1(ev);
 
 K ps(S s){
  O("%s\n",s);
