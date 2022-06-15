@@ -31,7 +31,7 @@ ZK p(){K x,y;I a,b;
  #define ff(x) (KF-b||KF==t(x)?x:Ax&&126<xi?n(kf(xi-128)):u(KF,k2(kc('%'),x)))
  R u(U('<')<U(a)?KI:b,k3(kc(a),ff(x),ff(y)));}
 
-extern I M,a,RET;K v(I r,K x,I n),f(I r,K x);I l(S s,I c);I1(q);V1(lnk);K1(ev);
+extern I M,a,RET;K v(I r,K x,I n),f(I r,K x),ev(K);I l(S s,I c),q(K);V1(lnk);
 
 //!bracket balancer
 #define BLIM 16
@@ -64,7 +64,7 @@ K ps(S s){
   lnk(zy);
  }
  //dis(zy); // disasm
- //N(26,O("%c: %p\n",'a'+i,G[i]))  // globals
+ //N(26,O("%c: %p\n",'a'+i,G[i]))  // dump globals
 
  // k!=0 is assignment: function values are (src;bin) tuples,
  // everything else gets assigned with the evaluation result.
