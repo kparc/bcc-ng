@@ -12,12 +12,13 @@ ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                                        
 ZK rex(I r,I x,I b,K y){R(r=7<A[r])+(x=7<A[x])+(b=7<A[b])?cj(0x40+4*r+2*x+b,y):y;} //!< use rex prefix to access newer regs
 ZK h(I o,I x,I y){R j2(256>o?c1(o):c2(o>>8,o),16>y?c1(m(3,x,y)):c5(m(0,x,5),y));}  //!< opcode o, arguments x y (not rex, x should never be >15)
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?A[x]:x-16,16>y?A[y]:y));}     //!< opcode o, arguments xy (maybe rex)
-ZK cll(I c){R c5(CLL,c);}
 ZK psh(I t,I x){R rex(0,0,x,c1(0x50+(7&A[x])));}
 ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}
-ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}
+ZK jmp(I n){R n<-128||n>127?c5(JJ[4],0>n?n-3:n):c2(*JJ,n);}                        //!< c5|c2 long|shortjmp
+ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}                          //!< conditional
 ZK tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}
 ZK Jj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
+ZK cll(I c){R c5(CLL,c);}
 
 //!opmap         01234567890123
 I U(I i){R l((S)" +-*% &|  <=>",i);}           //!< TODO cst mod neq not flr ...
@@ -45,20 +46,6 @@ ZK o2(I t,I o,I r,I x,I y){K z;//O("o2: t=%c o=%d r=%d x=%p y=%p\n"," chijefs CH
 //!compare                             convert to float                    nyi
 ZK cm(I t,I x,I y){R o2(t,5,x,x,y);}ZK cv(I x,I y){R o2(KF,8,x,x,A[y]);}ZK sh(I t,I r){R AB("sh");}
 
-//!opcode length
-ZI ln(S s){I o=*s++,h=o/16,p=0xc5==o?2:0x0f==o;R 4==h?1+ln(s):RET==o||5==h?1:*JJ==o||7==h?2:0xe==h||0xb==h?5:p&&8==*s/16?6:p+(3==s[p]/64?2+(0x83==o||0x6b==o):5==(0xc7&s[p])?6:3);}
-
-//!fix relative addresses
-V1(lnk){S s=xC;W(s<xC+xn){
- I n=ln(s+=4==*s/16),p=0xc5==*s?2:0x0f==*s;S r=s+n-4; //!< 4==*s/16 => rex instruction, skip it
- if(0xe8==*s|| //!< function call
-    (p?8-s[1]/16:4>*s/16||8==*s/16)&&5==(0xc7&s[1+p])) //!< check if instruction uses relative address argument:
-  *(I*)r=(0xe8==*s?a-'a'==*r?x:26==*r?(K)l1:((K*)G[*r])[1]:32>*r?(K)&zF[2+*r-16]:(K)(G+*r-'a'))-(K)r-4;
- s+=n;}}
-
-V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
-ZK jmp(I n){R n<-128||n>127?c5(JJ[4],0>n?n-3:n):c2(*JJ,n);}
-
 //!comparison|operator|funcall dispatch
 ZK O2(I t,I f,I r,K x,K y){I i=Ay?yi:yu; //!< y is either value or function name
  R u(r,j3(Ay?c0():y,x,
@@ -70,7 +57,14 @@ ZK SH(I t,K y){R u(yu,j2(y,sh(t,yu)));}         //!< nyi
 
 ZI1(hh){I t=T[xi-'a'];R 14==t?-2:13==t?-4:2*t-26;}
 ZI1(q){I i=xi-'a';R Ax?26u>i&&L[i]?L[i]:0:':'==*xC?I(xy):0;}
-I1(t){I a=xi-'a';R!Ax?xu:126<xi?KI:26u>a&&T[a]?T[a]:A(x=26u>a?G[a]:zK[2+xi-16])?Ax:xt+8;}
+
+I1(t){I a=xi-'a';                         //!< determine type of x
+ I r=!Ax?xu:                              //!< not an atom is a function: xu holds rettype
+  126<xi?KI:                              //!< small integer atom encoded in a single byte
+  26u>a&&T[a]?T[a]:                       //!< local variable
+  A(x=26u>a?G[a]:                         //!< global variable
+    zK[2+xi-16])?Ax:                      //!< function argument (additional element of z)
+  xt+8;R r;}                              //!< array (element type + 4th bit)
 
 ZK e(I r,K x){K y=d(r,x);if(Ay){          //!< expr x to register r
     I qz=128==yi||(32>yi&&!zK[2+yi-16]);  //!< if y is zero, either coded as a small int(128), or in the z array
@@ -150,5 +144,19 @@ K d(I r,K x){
    ?O2(b,U('<')<a?11-a+11:a,r,e(s,z),y)
    :O2(b,a,r,e(s,y),d(s,z))
  )}
+
+//!opcode length
+ZI ln(S s){I o=*s++,h=o/16,p=0xc5==o?2:0x0f==o;R 4==h?1+ln(s):RET==o||5==h?1:*JJ==o||7==h?2:0xe==h||0xb==h?5:p&&8==*s/16?6:p+(3==s[p]/64?2+(0x83==o||0x6b==o):5==(0xc7&s[p])?6:3);}
+
+//!fix relative addresses
+V1(lnk){S s=xC;W(s<xC+xn){
+ I n=ln(s+=4==*s/16),p=0xc5==*s?2:0x0f==*s;S r=s+n-4; //!< 4==*s/16 => rex instruction, skip it
+ if(0xe8==*s|| //!< function call
+    (p?8-s[1]/16:4>*s/16||8==*s/16)&&5==(0xc7&s[1+p])) //!< check if instruction uses relative address argument:
+  *(I*)r=(0xe8==*s?a-'a'==*r?x:26==*r?(K)l1:((K*)G[*r])[1]:32>*r?(K)&zF[2+*r-16]:(K)(G+*r-'a'))-(K)r-4;
+ s+=n;}}
+
+//!disasm
+V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
 
 //:~
