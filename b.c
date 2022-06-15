@@ -1,24 +1,53 @@
 #include"a.h" //asm("push %rbp;push %rbx");asm("pop %rbx;pop %rbp");MIN(y^(x^y)&x-y>>63)I low()__builtin_ctz(~i&-2);}V qq(I o,I r,I x,I y){oc(":+-*%?  c"[o]),oc('0'+r),oc('0'+x),oi(y);}
-K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);ZK c5(I o,I n){R cj(o,pn((S)&n,4));}K u(I u,K x){R xu=u,x;}
+K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
 K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 
-ZI A[]={0,7,6,2,1,8,9,10,11,3,12,13,14,15,5,4},B=5,//!< x64 abi
+// 0 000 eax
+// 1 001 ecx
+// 2 010 edx
+// 3 011 ebx
+// 4 100 esp
+// 5 101 ebp
+// 6 110 esi
+// 7 111 edi
+
+//      eax edi esi edx ecx r8 r9,        ebx              ebp esp
+ZI A[]={0,  7,  6,  2,  1,  8, 9,  10,11, 3,  12,13,14,15, 5,  4  },B=5,           //!< addresses of registers in function calling convention order
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   JJ[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83};I RET=0xc3,CLL=0xe8;
 
+K u(I u,K x){R xu=u,x;}                                                            //!< assign return type to function value
 ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                                           //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
-ZK rex(I r,I x,I b,K y){R(r=7<A[r])+(x=7<A[x])+(b=7<A[b])?cj(0x40+4*r+2*x+b,y):y;} //!< use rex prefix to access newer regs
-ZK h(I o,I x,I y){R j2(256>o?c1(o):c2(o>>8,o),16>y?c1(m(3,x,y)):c5(m(0,x,5),y));}  //!< opcode o, arguments x y (not rex, x should never be >15)
+
+ZK rex(I r,I x,I b,K y){    //!< rex instructions
+ // 0x41=rex.b  0x42=rex.x  0x43=rex.xb 0x44=rex.r
+ // 0x45=rex.rb 0x46=rex.rx 0x47=rex.rxb
+ R(r=7<A[r])+(x=7<A[x])+(b=7<A[b])?cj(0x40+4*r+2*x+b,y):y;}
+
+//! opcode o, arguments x y (not rex, x should never be >15)
+ZK h(I o,I x,I y){R j2(
+ 256>o?c1(o):   //!< 1 byte opcode
+ c2(o>>8,o),    //!< 2 byte opcode
+ // 3 bit for mod, 3 bit for reg, 3 bit for r/m
+ // mod 3 => register addressing mode:
+ // 1st arg (x) in reg
+ // 2nd arg (y) in r/m
+ 16>y?c1(m(3,x,y)):
+ // mod 0 and r/m 5 => displacement only addressing mode:
+ // 1st arg (x) in reg
+ // 2nd arg (y) in 32 bit address following the instruction
+ c5(m(0,x,5),y));}
+
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?A[x]:x-16,16>y?A[y]:y));}     //!< opcode o, arguments xy (maybe rex)
-ZK psh(I t,I x){R rex(0,0,x,c1(0x50+(7&A[x])));}
-ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}
+ZK psh(I t,I x){R rex(0,0,x,c1(0x50+(7&A[x])));}                                   //!< push from reg A[x]
+ZK pop(I t,I x){R rex(0,0,x,c1(0x58+(7&A[x])));}                                   //!< pop to regr A[x]
 ZK jmp(I n){R n<-128||n>127?c5(JJ[4],0>n?n-3:n):c2(*JJ,n);}                        //!< c5|c2 long|shortjmp
-ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}                          //!< conditional
-ZK tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}
+ZK cc(I o,I x){R j2(i(0x0f20+JJ[o],16,x),i(0x0fb6,x,x));}                          //!< cond (set byte on conditon functions: 0x0f90,...)
+ZK tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                                    //!< test (sets sz if x is not zero), nyi for floats
 ZK Jj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
-ZK cll(I c){R c5(CLL,c);}
+ZK cll(I c){R c5(CLL,c);}                                                          //!< call
 
 //!opmap         01234567890123
 I U(I i){R l((S)" +-*% &|  <=>",i);}           //!< TODO cst mod neq not flr ...
@@ -98,9 +127,10 @@ ZK g(I c,K x){K y=c0(),z,r=c0();I i=0,l=a?M:0;W(++i<xn){z=Xx;I l=M&1<<i,b=Az||12
  if(l)z=j2(b?psh(0,i):z,b?z:psh(0,i)),r=j2(r,pop(0,i));y=j2(z,y);}
  z=cll(c);W(i<16){if(l&1<<i)z=j3(psh(0,i),z,pop(0,i));++i;}R j3(y,z,r);}
 
+//! to register, constant or global
 K d(I r,K x){
  P(Ax,(r=q(x))?M|=1<<r,u(r,c0()):x)I s=15&r,a;K y,z;
- S((y=xy,c(a=*xC)),
+ S((y=xy,c(a=*xC)), //!< a is function, y is 1st argument
   case'N':
   C('W',R w(x))
   C('$',R u(r,v(r,x,1)))
@@ -119,22 +149,22 @@ K d(I r,K x){
   I m,b=t(y);
   P(3>xn,
    '&'==a?SH(b,e(0,y)):
-   '%'==a?y=e(0,y),u(s,j2(y,cv(s,yu))):
-   '\\'==a?y=e(s,y),O2(b,1,s,u(yu,c0()),y):
-   //'/'==a?y=e(s,y),O2(b,4,s,u(yu,c0()),y): //!< FIXME?
+   '%'==a?y=e(0,y),u(s,j2(y,cv(s,yu))):         //!< conversion to float
+   '\\'==a?y=e(s,y),O2(b,1,s,u(yu,c0()),y):     //!< shift left, implemented as addition to itself
    O2(
     0,
-    '#'==a?-3:
-    '*'==a?1+hh(y):
-    '/'==a?4:
-    U(a),
+    '#'==a?-3:                                  //!< number of elements
+    '*'==a?1+hh(y):                             //!< deref / 1st element
+    '/'==a?4:                                   //!< shift right (4 is div for floats, shr for ints)
+    U(a),                                       //!< dyadic function
     s,
-    e(s,y),
-    kc(128+('#'==a?-1:'*'!=a))
+    e(s,y),                                     //!< first argument is y
+    kc(128+('#'==a?-1:'*'!=a))                  //!< second argument is one (kc(129)) or kc(127) for # (why?) or zero for * (why?)
    )
   )
-  z=xz;a=U(a),r=U('<')<a||16-r?r:0;
-  P(!Ay&&!q(y)&&!Az&&!q(y),
+  z=xz;                                         //!< z is the second argument
+  a=U(a),r=U('<')<a||16-r?r:0;                  //!< a is func number, r will be zero for the 1st literal long argument if the op is not a comparison
+  P(!Ay&&!q(y)&&!Az&&!q(y),                     //!< FIXME bug? last one: q(z)
    M|=1<<(m=D[KF==b]++),
    y=e(0,y),M&=~(1<<m),
    z=O2(b,a,r,y,f(m,z)),
