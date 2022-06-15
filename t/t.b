@@ -1,16 +1,3 @@
-m[i]{k:0;N(x){r:-1.5+2*i%x;N(x){s:-1+2*j%x;p:q:0.;m:50;W(m*4>(t:p*p)+u:q*q){m-:1;q:s+2*p*q;p:r+t-u};k+:0=m}};k}
-m[10]
-\\
-/r[I]{n:#x;h:/n;h}
-/x:!10
-/r[x]
-/\\
-/r[I]{n:#x;h:/#x;c:0;N(h){t:x[i];j:-1+n-i;x[i]:x[j];x[j]:t};x}
-/x:!10
-/r[x]
-/\\
-
-m[i]{k:0;N(x){r:-1.5+2*i%x;N(x){s:-1+2*j%x;p:q:0.;m:50;W(m*4>(t:p*p)+u:q*q){m-:1;q:s+2*p*q;p:r+t-u};k+:0=m}};k}
 a[ii]$[x;a[-x;$[y;a[x;-y];1]];+y]
 b[Ii]{h:#x;l:0;W(h>l)$[y>x[i:/l+h];l:i+1;h:i];l}
 f[iII]{m:0;$[k:-x;W(x){x-:1;j:*y;N(k)y[i]:y[+i];y[k]:j;j:f[k;y;z];$[m<j;m:j;]};{N(#y)z[i]:y[i];W(j:*z){m+:1;N(j){k:z[i];z[i]:z[j];z[j]:k;j-:1}}}];m}
@@ -44,8 +31,9 @@ w:t[0;2]
 
 /reverse
 x:!10
-r[x]
-
+o:r[x]
+i[Ii]{x[y]}
+9=i[o;0]
 \\
 
 /time

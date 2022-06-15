@@ -35,6 +35,9 @@ dis: l
 dbg: l
 	@lldb -b -o run -- ./l t.b
 
+tst: l
+	@./l t/t.b
+
 cln:
 	@rm -f g l
 
