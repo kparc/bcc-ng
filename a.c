@@ -2,8 +2,7 @@
 #define BASE 0x70000000L
 #define O printf
 //J read(),write();I open(),close(),fstat(),munmap();S mmap();V exit();
-_ I clzl(I n){R 60-__builtin_clzl(n);}
-ZF ms(){J a,d;asm volatile("rdtsc":"=a"(a),"=d"(d));R((d<<32)+a)*.58e-6;}
+
 V w2(S s){write(2,s,strlen((char*)s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
 ZK _dmp(S s,S x,J n){I d=open((V*)s,O_RDWR|O_CREAT|O_TRUNC,S_IRWXU);Qs(0>d,(S)s)write(d,x,n);R close(d),0;}K dmp(S s,K x){R _dmp(s,xC,xn-2);}
 
@@ -71,10 +70,6 @@ ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}
 ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(W):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}
 
-// floating point numbers in 64 bits use the first 12 bits for the sign and the exponent.
-// the exponent will only be zero for negative zeros and subnormal numbers, but these are not supported,
-// since DAZ (denormal-as-zero) and FTZ (flush to zero) are set.
-ZV csr(){R;asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);");}
 V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}
 
 //V _start(){asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);lea 8(%rsp),%rdi;jmp km");}

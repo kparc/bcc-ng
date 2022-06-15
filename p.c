@@ -37,7 +37,6 @@ extern I M,a,RET;K v(I r,K x,I n),f(I r,K x);I l(S s,I c);I1(q);V1(lnk);K1(ev);
 //!bracket balancer
 #define BLIM 16
 ZI m2(S s,S t){R*s==*t&&s[1]==t[1];}ZS bq(S x){W((x=sc(++x,'"'))&&!({I i=0;W('\\'==x[--i]);1&i;})){};R x;} //!< parse quoted string with esc sequences
-ZS str(S s){}
 ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
  W(*++x){
   $(m2((S)" /",x),s=sc(x,'\n');
@@ -49,10 +48,7 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
  }R n?x:0;}//!< bracket balancer
 
 K ps(S s){
- O("bb: %s\n", bq("  \"asf\\\"asdf"));
- R 0;
- O("%s\n",s);
- S b=bb(s);P(b,qs(*b?b:AB("bal"))) //<! balance brackets
+ S b;P(b=bb(s),qs(*b?b:(S)"bal")) //<! balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
  P('!'==*tp,++tp,X(k,enm(ki(ip(tp,sl(tp))))))
@@ -65,8 +61,8 @@ K ps(S s){
   I a=t(x);
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
   //dis(zy); // disasm
-  lnk(zy);
   dmp((S)"t/lnk.bin",zy); // dump
+  lnk(zy);
  }
  //dis(zy); // disasm
  //N(26,O("%c: %p\n",'a'+i,G[i]))  // globals

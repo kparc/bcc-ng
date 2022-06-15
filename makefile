@@ -1,7 +1,7 @@
 SRC=a.c b.c p.c
-CC=gcc-10
-O=-Os -g
-CF=$O -minline-all-stringops -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
+CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
+O=-O0 -g
+CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
 LF=
 OD=objdump
 #-s -nostdlib A.S
@@ -10,7 +10,7 @@ ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  ifeq ($(shell uname -m),arm64)
-	CF+= -arch x86_64 -msse
+	CF+= -arch x86_64
  endif
  OD=/opt/homebrew/opt/binutils/bin/objdump
 endif
