@@ -1,62 +1,14 @@
 #include"a.h"// read/write mmap/munmap printf/scanf malloc/free
-#define BASE 0x70000000L
-#define O printf
-//J read(),write();I open(),close(),fstat(),munmap();S mmap();V exit();
+extern J W;K3(l1);K1(l2);K mf(S s,J*n);//m.c
 
 V w2(S s){write(2,s,strlen((char*)s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
 ZK _dmp(S s,S x,J n){I d=open((V*)s,O_RDWR|O_CREAT|O_TRUNC,S_IRWXU);Qs(0>d,(S)s)write(d,x,n);R close(d),0;}K dmp(S s,K x){R _dmp(s,xC,xn-2);}
-
-ZK M[31];ZJ W=-32;//!< M memory buckets, W wssize (W0 initial offset for GT header and seed alloc c0() \see init()
-S ma(I d,size_t n){ZJ p=BASE;p+=d?0:n;V*r=mmap((V*)(d?0:p-n),n,PROT_READ|PROT_WRITE|PROT_EXEC,d?MAP_PRIVATE:(MAP_ANON|MAP_PRIVATE|MAP_FIXED),d-!d,0);
- P(r==MAP_FAILED,O("%s (%ld)\n",strerror(errno),n),(S)0)R r;}
-K mf(S s,J*n){struct stat b;I d=open((V*)s,O_RDONLY);Qs(0>d,(S)s)R(K)(fstat(d,&b),s=(*n=b.st_size)?ma(d,*n):s,close(d),s);}
 
 // printf scanf 
 ZC b[24];ZS ng(S s){R*--s='-',s;}ZS pu(S s,J i){J j;do*--s='0'+i-10*(j=i/10);W(i=j);R s;}ZF x(I n){F e=1;N(n,e*=10)R e;}S pi(J i){R 0>i?ng(pi(-i)):pu(b+23,i);} //P(NI==f||0>(j|k),nf)
 S pf(F f){P(0>f,ng(pf(-f)))P(!f,(S)"0.0")I n=6;W(f<1e6)--n,f*=10;W(f>=1e7)++n,f/=10;S p=n?p=pi(n),*--p='e',p:b+23;n=f+.5;W(99<n&&!(n%10))n/=10;R p=pu(p,n),p[-1]=*p,*p--='.',p;}
 J ip(S p,I n){P('-'==*p,-ip(p+1,n-1))J j=0;N(n,j=10*j+p[i]-'0')R j;}ZS hh(S s,C c){N(2,C a=i?c&15:c>>4;s[i]="0W"[9<a]+a)R s;}S px(J j){S s=b+23;unsigned long k=j;do hh(s-=2,k);W(k>>=8);R s;}
 F fp(S p,I n){P('-'==*p,-fp(p+1,n-1))I l=scn(p,'e',n),m=scn(p,'.',l),f=l<n?ip(p+l+1,n-l-1):0,j=ip(p,m),k;m+=m<l,k=ip(p+m,MN(9,l-=m));k+=j*x(l),f-=l;R 0>f?k/x(-f):k*x(f);} 
-
-K m1(J n){K x,r;             //!< allocate a memory block
-    I i=clzl(n+7),j=i;       //!< i is the bucket id, log2((I)n)
-    P((x=M[i]),M[i]=xx,x);   //!< if there is a free block on top of the list M[i], pop and return
-    W(!(x=++j<31             //!< otherwise, scan for a free block of a larger size
-      ?M[j]:                 //!< if one exists, use it, otherwise..
-      8+(K)ma(0,16L<<(j=MX(18,i))))); //!< ..mmap additional ram, at least 4mb + 8 bytes for mturnnnn
-    xm=i,M[j]=xx,r=x;        //!< assign bucket id to the new block and push it on top of the list M[j]
-    //! assign  fill the smaller empty buckets as follows:
-    W(i<j)                   //!< j-i are the empty memory slots
-     x+=16L<<xm,             //!< the next available memory region x..
-     M[*(J*)(x-8)=i++]=x,    //!< ..is assigned to a bucket in a corresponding slot with 8-byte preamble.
-     xx=0;R r;}
-
-V1(l0){if((J)xy)l0(xy),l0(xz);xx=M[xm],M[xm]=x;}K3(l1){K r=m1(24);R rt=8,rn=3,rx=x,ry=y,rz=z,r;}K1(l2){R kp((S)"[]");}//!< struct/fixedarray experiment
-
-//      0 1 2 3 4 5 6 7
-//!     K c h i j e f s ()
-J nt[]={8,1,2,4,8,4,8,4};//!< list int8 int16 int32 int64 real double sym
-J ws(){R W;}K1(r1){P(Ax,x)R++xr?x:(O("r1\n"),exit(1),(K)0L);/*AB("r1");*/}
-V1(r0){//O("r0 %llx Ax %d xn %d\n",x,Ax,!Ax?xn:0);
- if(Ax||!x||KS==xt)R;if(8==xt){l0(x);R;}if(xr){--xr;R;}if(!xt||KS<xt)N1(xn,r0(Xx))W-=16L<<xm,xx=M[xm],M[xm]=x;}
-K tn(I t,I n){K x=m1(MX(1,n)*nt[KS<t?0:t]);R W+=16L<<xm,xu=0,xt=t,xn=n,x;}
-
-//! append items of y after the i-th element of x
-K xiy(K x,I i,K y){
- memcpy(xC+NX*i,(V*)y,NX*yn);   //!< NX is the (N)ative byte width of a single item in the list x
- if(!yt)N(yn,r1(Yx))            //!< if y is a mixed list, increase refcounts of items in y
- R Y0(x);}                      //!< recursively decrease refcounts of y and return x.
-
-//! join two lists x and y, or append an atom y to list x
-K2(j2){I m=xn,n=m+(Ay?1:yn);    //!< m is the old size of x, n is the new one (inc n by 1 if y is an atom)
-    P(!m&&!xt,X0(y))            //!< if x is empty, decrease refcount of x and return y
-    if(xr||8+NX*n>16L<<xm)      //!< if x has references, or there is not enough space left in the x's membucket...
-      x=xiy(tn(xt,n),0,x);      //!< ..copy x to a new array of size n
-    else xu=0,xn=n;             //!< otherwise, set the size of x to the new size, then:
-    Ay?(K)memcpy(xC+NX*m,&y,NX) //<! for atoms, append the new item via memcpy
-      :xiy(x,m,y);R x;}         //<! for lists, use xiy to append y items to the x's tail.
-
-// struct/fixedarray experiment
-//ZK1(l2){R kp("[]");}ZV1(l0){if((J)xy)l0(xy),l0(xz);xx=M[xm],M[xm]=x;}K3(l1){K r=m1(24);R rt=8,rn=3,rx=x,ry=y,rz=z,r;}
 
 // REPL \ltwvf DAZ FTZ
 K G[26],ps(S s);K1(ev);ZK es();ZK K0;K k0(){R r1(K0);}ZK vf(I f){K r=kS(0);N(26,K x=G[i];if(NL-x)if(f^(Ax||xt))r=j2(r,ks(i)))R r;}

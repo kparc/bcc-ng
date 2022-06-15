@@ -1,4 +1,4 @@
-SRC=a.c b.c p.c
+SRC=a.c b.c p.c m.c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
 O=-O0 -g
 CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
@@ -17,11 +17,11 @@ ifeq ($(shell uname),Darwin)
  
 endif
 
-g: cln a.c b.c p.c *.h makefile
+g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
 
-l: cln a.c b.c p.c *.h makefile
+l: cln *.c *.h makefile
 	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
 
 tcc:
