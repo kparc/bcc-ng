@@ -9,10 +9,12 @@ OD=objdump
 ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
+ OD=/usr/local/opt/binutils/bin/objdump
  ifeq ($(shell uname -m),arm64)
 	CF+= -arch x86_64 -mavx2
+	OD=/opt/homebrew/opt/binutils/bin/objdump
  endif
- OD=/opt/homebrew/opt/binutils/bin/objdump
+ 
 endif
 
 g: cln a.c b.c *.h makefile
