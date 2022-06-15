@@ -10,28 +10,30 @@ ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  ifeq ($(shell uname -m),arm64)
-	CF+= -arch x86_64
+	CF+= -arch x86_64 -mavx2
  endif
  OD=/opt/homebrew/opt/binutils/bin/objdump
 endif
 
-b: cln a.c b.c *.h makefile
+g: cln a.c b.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
 
 l: cln a.c b.c *.h makefile
 	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
-	@./$@ t/t.b
 
 tcc:
 	tcc -std=c99 -O0 -g $(SRC) $(CF) -o bt
 	./bt t.b
 
-dis:
+dis: l
+	./l t.b
 	@$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
-	#sudo lldb ./b
+
+dbg: l
+	@lldb -b -o run -- ./l t.b
 
 cln:
-	@rm -f b l
+	@rm -f g l
 
 all: d

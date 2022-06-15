@@ -1,6 +1,6 @@
 #include"a.h"
 
-extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x);I1(t);I U(I i);
+extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x);I1(t);I U(I i);I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 
                 // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
