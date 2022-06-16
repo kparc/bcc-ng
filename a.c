@@ -1,7 +1,7 @@
 #include"a.h"// read/write mmap/munmap printf/scanf malloc/free
 extern J AWS;K3(l1);K1(l2);K mf(S s,J*n);//m.c
 
-V w2(S s){write(2,s,sl(s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
+V w2(S s){write(2,s,sl(s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}//ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
 ZK _dmp(S s,S x,J n){I d=open((V*)s,O_RDWR|O_CREAT|O_TRUNC,S_IRWXU);Qs(0>d,(S)s)write(d,x,n);R close(d),0;}K dmp(S s,K x){R _dmp(s,xC,xn-2);}
 
 // printf scanf 

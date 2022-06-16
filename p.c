@@ -97,6 +97,7 @@ K ps(S s){
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
   //dis(zy); // disasm
   dmp((S)"t/lnk.bin",zy); // dump
+  system(OBJDUMP);
   lnk(zy);
  }
  //dis(zy); // disasm

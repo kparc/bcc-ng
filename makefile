@@ -10,12 +10,15 @@ ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  OD=/usr/local/opt/binutils/bin/objdump
+ OBJDUMP="/usr/local/opt/binutils/bin/objdump -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8"
  ifeq ($(shell uname -m),arm64)
 	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
+	OBJDUMP="/opt/homebrew/opt/binutils/bin/objdump -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8"
  endif
- 
 endif
+
+CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
