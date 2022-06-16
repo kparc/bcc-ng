@@ -73,7 +73,11 @@ K ps(S s){
  K x=p(); o(x);O("\n");
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
  {
-  I a=t(x);
+  I a=t(x); //!< type
+  // z will contain:
+  // - the evaluated string in x
+  // - function value (string of machine code followed by D[0] and D[1]) with return type a
+  // - arguments that do not fit in registers
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
   //dis(zy); // disasm
   dmp((S)"t/lnk.bin",zy); // dump
