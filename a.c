@@ -1,5 +1,5 @@
 #include"a.h"// read/write mmap/munmap printf/scanf malloc/free
-extern J W;K3(l1);K1(l2);K mf(S s,J*n);//m.c
+extern J AWS;K3(l1);K1(l2);K mf(S s,J*n);//m.c
 
 V w2(S s){write(2,s,sl(s));}ZS r2(S s){ZC b[256];R w2(s),b[read(0,b,256)-1]=0,b;}ZI rand(){ZJ j0=-314159;R j0=4294957665L*j0+(j0>>32);}
 ZK _dmp(S s,S x,J n){I d=open((V*)s,O_RDWR|O_CREAT|O_TRUNC,S_IRWXU);Qs(0>d,(S)s)write(d,x,n);R close(d),0;}K dmp(S s,K x){R _dmp(s,xC,xn-2);}
@@ -20,7 +20,7 @@ ZK1(se){P(Ax,KS==Ax?c2('`','a'+xi):KC==Ax?X0(cc(x=c1(xi))):kp(KI==Ax?pi(xi):KF==
 K1(o){K y=QQ-Ax?se(x):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));R Y0(write(2,yC,yn)),nl(),x;}ZK1(pr){if(NL-x)r0(o(x));R x;}
 ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=0,a=t[1]?0:(*t=='/')-(*t=='\\');if(!d&&!a&&'/'-*t)Q(pr(es(t)))d+=a,t=u;}if(n)munmap(s,n);R NL;}
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}
-ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(W):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}
+ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(AWS):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}
 
 V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}
 I main(I c,char**a){R km((S*)a),0;}

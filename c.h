@@ -12,7 +12,8 @@ typedef unsigned long long K,UJ;
 
 #define R return
 #define O printf
-#define P(b,a...)   if(b)return(a);
+//#define P(b,a...)   if(b)return(a);
+#define P(b,a...)   if(b)R({a;});                          //!< "bail early" predicate aka panic.
 #define N(n,a...)   {I i=0,_n=(n);while(i<_n){a;++i;}}
 #define W(b...)     while((b))              //while
 #define $(b,a...)   if(b){a;}else           //cond
