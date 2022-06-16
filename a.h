@@ -23,7 +23,8 @@ _ K pn(S s,I n){R(K)memcpy((V*)kC(n),s,n);}_ K kp(S s){R pn(s,sl(s));}
 #define A(x) ({J _j=(J)(x);!_j||_j>>52?KF:15&_j>>48;})
 #define I(x) (I)(J)(x) //(-1UL>>16&(J)(x))
 #define Q(x)        P(QQ==A(x),x) //#define Q(c,i)      P(c,qi(i))  //error index(nyi,rank,length,type,..)
-#define Qs(c,s)     P(c,qs(s))  //error string
+#define FN(x)       (!Ax&&!xt)  //!< is x a function?
+#define Qs(c,s)     P(c,qs(s))  //!< error string
 #define N1(n,a...)  {I i=0,_n=(n);do{a;}while(++i<_n);}
 
 // access x y z r

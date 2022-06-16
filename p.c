@@ -1,5 +1,6 @@
 #include"a.h"
-extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
+extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);V1(dis);
+I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 
 //!class           !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
@@ -58,10 +59,11 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
   $('"'==(a=c(*x)),s=bq(x);
   P(!s,x)x=s)
   $(sc("{[(",a),P(BLIM==++n,x)b[n]=*x)
-   if(sc("}])",a))P(!n||b[n--]!=*x-1-*x/64,x)
+  $(sc("}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
  }R n?x:0;}//!< bracket balancer
 
 K ps(S s){
+ if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];Qs(NL==x,s)P(FN(x),os((S)xx),dis(xy),NL);R qs(s);}//!< KPC FIXME quick temporary hack to pretty print-opcodes by referencing function name
  S b;P(b=bb(s),qs(*b?b:(S)"bal")) //<! balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;

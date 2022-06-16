@@ -211,7 +211,8 @@ V1(lnk){S s=xC;W(s<xC+xn){
   *(I*)r=(0xe8==*s?a-'a'==*r?x:26==*r?(K)l1:((K*)G[*r])[1]:32>*r?(K)&zF[2+*r-16]:(K)(G+*r-'a'))-(K)r-4;
  s+=n;}}
 
-//!disasm
-V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
+//!pretty print function opcodes and its return type
+//V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
+V1(dis){S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))oc(' ');oc(KS<xu?'K':KF==xu?'f':'j');nl();}
 
 //:~
