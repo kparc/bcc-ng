@@ -15,8 +15,10 @@ K G[26],ps(S s);K1(ev);ZK es();ZK K0;K k0(){R r1(K0);}ZK vf(I f){K r=kS(0);N(26,
 ZK Li(K x,I i){R!xt||KS<xt?Xx:KC==xt?kc(Xc):KI==xt?ki(Xi):ks(Xi);}ZK e1(K(*f)(),K x){K r=kK(xn);N1(rn,Rx=f?f(Li(x,i)):Li(x,i))R r;}
 K sS(I c,K x){I n=c?xn:0;N(xn,K y=Xx;n+=yn)K r=kC(n);if(c)--rn;S s=rC;N(xn,K y=Xx;s=((S)memcpy(s,(V*)y,yn))+yn;if(c)*s++=c)R X0(r);}
 ZK1(cc){N(xn,if(94u<Xc-32){K r=kC(2*xn);N(xn,hh(rC+2*i,Xc))R j2(c2('0'+xu,'x'),r);})R cj('"',jc(r1(x),'"'));}
+
 ZK1(se){P(Ax,KS==Ax?c2('`','a'+xi):KC==Ax?X0(cc(x=c1(xi))):kp(KI==Ax?pi(xi):KF==Ax?pf(xf):(S)"+"+!xi))P(8==xt,l2(x))
  P(1==xn,cj(',',se(Li(x,0))))I t=KS<xt?0:xt;P(KC==t,cc(x))P(!xn,c2("!("[!t],")  0   `"[t]))x=sS(";      "[t],e1(se,x));R!t?cj('(',jc(x,')')):x;}
+
 K1(o){K y=QQ-Ax?se(x):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));R Y0(write(2,yC,yn)),nl(),x;}ZK1(pr){if(NL-x)r0(o(x));R x;}
 ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=0,a=t[1]?0:(*t=='/')-(*t=='\\');if(!d&&!a&&'/'-*t)Q(pr(es(t)))d+=a,t=u;}if(n)munmap(s,n);R NL;}
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}

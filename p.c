@@ -42,6 +42,7 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
    P('2'==a&&'*'==*tp,++tp,x=p(),                              //!<  translate 2*x to left shift \x, skip 2* and parse the right operand
     u(t(x),k2(kc('\\'),x)))                                    //!<  inherit type of x and return monadic tuple
    --tp;x=n(Na()))                                             //!<  parse a number
+  //C('\'',P('\''==*tp,AB(*tp))x=kc(*tp++);P('\''!=*tp,AB(*tp))R x) // char experiment
   C('a',                                                       //!< identifier:
    x='['==*tp?++tp,                                            //!<  a) if followed by [expr], it is an array indexing or a function call:
    pE(T[b=a-'a']?T[b]-8:                                       //!<   if varname has no type, it is a func call; for arrays, unset high bit
@@ -106,7 +107,7 @@ K ps(S s){
  // non-assignining expressions return their value to the printer.
  R k?X(k,r?z:Z0(ev(z))):z;}
 
-//! ("[i]{source}";0xrtype0xopcodes0xconsts) xyu is return type k|f|j
-K1(ev){x=xy,x=KS<xu?((K(*)())x)():KF==xu?kf(((F(*)())x)()):ki(((J(*)())x)());R x;}
+//! ("[i]{source}";0xrtype0xopcodes0xconsts) xyu is return type k|f|j|c
+K1(ev){x=xy,x=KS<xu?((K(*)())x)():KF==xu?kf(((F(*)())x)()):KC==xu?kc(((J(*)())x)()):ki(((J(*)())x)());R x;}
 
 //:~
