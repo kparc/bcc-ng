@@ -1,22 +1,25 @@
 #include"a.h"
-extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);V1(dis);
-I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
+extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);V1(dis);ZK p();
 
-//!class           !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+//!char class      !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
 
 ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));} //!< int or float
-ZS pq(){R sc((S)";})]",*tp);}K1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}ZK p();
+ZS pq(){R sc((S)";})]",*tp);}I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 
-ZK pE(I a,I c){              //!< parse an expr: c operator, a optional rettype
- K r=k1(kc(c)),x;            //!< store operator as char in K array
- do r=jk(r,x=pq()            //!< append parse trees of subsequent exprs to r
-      ?n(ki(0))              //!< null-terminate expr when reached ;})]
-      :p());                 //!< parse the next expression
- W(';'==*tp++);              //!< semicolon is the only expression separator (FIXME multiline)
- R u(a?a:t(x),r);}           //!< force return type or use type of the last expr
+// encode integers up to 127 as bytes with the highest bit set
+// other numbers are appended at the end of z and return index
+// (indices <16 correspond to registers, zn-3 is the index in
+// the z is of K vals: z[0] is the source and z[1] is opcodes)
+ZK1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}
 
-//ZK pE(I a,I c){K r=k1(kc(c)),x;do r=jk(r,x=pq()?n(ki(0)):p());W(';'==*tp++);R u(a?a:t(x),r);}
+ZK pE(I a,I c){         //!< parse an expr: c operator, a optional rettype
+ K r=k1(kc(c)),x;       //!< store operator as char in K array
+ do r=jk(r,x=pq()       //!< append parse trees of subsequent exprs to r
+      ?n(ki(0))         //!< null-terminate expr when reached ;})]
+      :p());            //!< parse the next expression
+ W(';'==*tp++);         //!< semicolon is the only expression separator (FIXME multiline)
+ R u(a?a:t(x),r);}      //!< force return type or use type of the last expr
 
 //! parse next char on tape
 ZK p(){K x,y;I a,b;                                            //!< a operator, xy operands, b return type
@@ -72,13 +75,15 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
  }R n?x:0;}//!< bracket balancer
 
 K ps(S s){
- if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];Qs(NL==x,s)P(FN(x),os((S)xx),dis(xy),NL);R qs(s);}//!< KPC FIXME quick temporary hack to pretty print-opcodes by referencing function name
- S b;P(b=bb(s),qs(*b?b:(S)"bal")) //<! balance brackets
+ //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];Qs(NL==x,s)P(FN(x),os((S)xx),dis(xy),NL);R qs(s);}//!< FIXME quick hack to pretty print opcodes by referencing function name
+ S b;P(b=bb(s),qs(*b?b:(S)"bal"))              //!< balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
- S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
+ S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;
+ K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
+ z=k2(kp(tp-!!r),NL); // -!!r fix bracket
  P('!'==*tp,++tp,X(k,til(ki(ip(tp,sl(tp))))))
  P('"'==*tp,++tp,b=tp,X(k,pn(b,bq(tp)-b)))
- z=k2(kp(tp),NL);
+ //z=k2(kp(tp),NL);
  if(!tp[1]&&26u>*tp-'a')r1(G[*tp-'a']);
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}
  K x=p(); o(x);O("\n");
