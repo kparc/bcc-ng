@@ -75,7 +75,7 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
  }R n?x:0;}//!< bracket balancer
 
 K ps(S s){
- if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];Qs(NL==x,s)P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
+ if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
  S b;P(b=bb(s),qs(*b?b:(S)"bal"))                //!< balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s;   //!< reset state
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;
@@ -83,7 +83,7 @@ K ps(S s){
  P('!'==*tp,++tp,X(k,til(ki(ip(tp,sl(tp))))))
  P('"'==*tp,++tp,b=tp,X(k,pn(b,bq(tp)-b)))
  z=k2(kp(tp-!!r),NL); // !!r fix bracket
- if(!tp[1]&&26u>*tp-'a')r1(G[*tp-'a']);
+ if(!tp[1]&&26u>*tp-'a'){$(NL!=G[*tp-'a'],r1(G[*tp-'a']))R /*os(s),*/NL;} //!< undeclared global
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}
  K x=p(); o(x);O("\n");
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
