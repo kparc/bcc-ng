@@ -7,7 +7,16 @@ I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]
 
 ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));} //!< int or float
 ZS pq(){R sc((S)";})]",*tp);}K1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}ZK p();
-ZK pE(I a,I c){K r=k1(kc(c)),x;do r=jk(r,x=pq()?n(ki(0)):p());W(';'==*tp++);R u(a?a:t(x),r);}
+
+ZK pE(I a,I c){              //!< parse an expr: c operator, a optional rettype
+ K r=k1(kc(c)),x;            //!< store operator as char in K array
+ do r=jk(r,x=pq()            //!< append parse trees of subsequent exprs to r
+      ?n(ki(0))              //!< null-terminate expr when reached ;})]
+      :p());                 //!< parse the next expression
+ W(';'==*tp++);              //!< semicolon is the only expression separator (FIXME multiline)
+ R u(a?a:t(x),r);}           //!< force return type or use type of the last expr
+
+//ZK pE(I a,I c){K r=k1(kc(c)),x;do r=jk(r,x=pq()?n(ki(0)):p());W(';'==*tp++);R u(a?a:t(x),r);}
 
 //! parse next char on tape
 ZK p(){K x,y;I a,b;                                            //!< a operator, xy operands, b return type
@@ -75,7 +84,11 @@ K ps(S s){
  K x=p(); o(x);O("\n");
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
  {
-  I a=t(x);
+  I a=t(x); //!< type
+  // z will contain:
+  // - the evaluated string in x
+  // - function value (machine code followed by D[0] and D[1]) with return type a
+  // - arguments that do not fit in registers
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
   //dis(zy); // disasm
   dmp((S)"t/lnk.bin",zy); // dump
