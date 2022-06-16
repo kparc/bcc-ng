@@ -76,7 +76,7 @@ K ps(S s){
   I a=t(x); //!< type
   // z will contain:
   // - the evaluated string in x
-  // - function value (string of machine code followed by D[0] and D[1]) with return type a
+  // - function value (machine code followed by D[0] and D[1]) with return type a
   // - arguments that do not fit in registers
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
   //dis(zy); // disasm
