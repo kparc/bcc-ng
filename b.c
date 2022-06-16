@@ -52,12 +52,12 @@ ZK cll(I c){R c5(CLL,c);}                                                       
 //!opmap         01234567890123
 I U(I i){R l((S)" +-*% &|  <=>",i);}           //!< TODO cst mod neq not flr ...
 
-ZK o2f(I o,I x,I y){
-R 127>y  //    0    1    2     3      4    5    6   7   8   9   10
+ZK o2f(I o,I x,I y){R 127>y
+    //       0    1    2     3      4    5    6   7   8   9   10
     //ints:  mov  add  sub  imul         cmp  and              xor
     ?i((I[]){0x8b,0x03,0x2b,0x0faf, 0x0,0x3b,0x23,0x0,0x0,0x0,0x33}[o],x,y)
-    :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],A[x]),y-128):c5(0xb8+(7&A[x]),y-128));}//!< move to register x
-//                            0 1 234 5 6 78910                                            //!< add,sub,cmp,and,or,xor
+    :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],A[x]),y-128):c5(0xb8+(7&A[x]),y-128));} //!< move to register x
+//                            0 1 234 5 6 78910                                             //!< add,sub,cmp,and,or,xor
 
 //!return object code to execute opcode o with arguments x and y and leave the argument of type t in register r
 ZK o2(I t,I o,I r,I x,I y){K z;//O("o2: t=%c o=%d r=%d x=%p y=%p\n"," chijefs CHIJEFS"[t],o,r,x,y);
@@ -91,7 +91,6 @@ ZK ZR(I t,C r){R u(r,o2(t,2,r,r,r));}           //!< set register r of type t to
 ZK MV(I t,I r,K y){R O2(t,0,r,u(r,c0()),y);}    //!< move value y with type t to register r (0 is mov, the first arg is empty array)
 ZK SH(I t,K y){R u(yu,j2(y,sh(t,yu)));}         //!< nyi
 
-ZI1(hh){I t=T[xi-'a'];R 14==t?-2:13==t?-4:2*t-26;}
 ZI1(q){I i=xi-'a';R Ax?26u>i&&L[i]?L[i]:0:':'==*xC?I(xy):0;}
 
 //!type of x
@@ -104,11 +103,12 @@ I1(t){I a=xi-'a';
   xt+8;R r;}                              //!< array (element type + 4th bit)
 
 //!expr x to register r
-ZK e(I r,K x){K y=d(r,x);if(Ay){
-    I qz=128==yi||(32>yi&&!zK[2+yi-16]);  //!< if y is zero, either coded as a small int(128), or in the z array
-    R qz?ZR(t(x),r)                       //!< set register to zero
-        :MV(t(x),r,y);                    //!< otherwise move value to register
-  }else R y;}                             //!< for arrays and functions, pass y.
+ZK e(I r,K x){K y=d(r,x);
+ if(Ay){
+ I qz=128==yi||(32>yi&&!zK[2+yi-16]);     //!< if y is zero, either coded as a small int(128), or in the z array
+ R qz?ZR(t(x),r)                          //!< set register to zero
+     :MV(t(x),r,y);                       //!< otherwise move value to register
+ }else R y;}                              //!< for arrays and functions, pass y.
 
 ZK E(I r,K x){I i=xn-1;K z=e(r,Xx),y=kK(i--);r=zu,Yx=z;W(i--)Yx=e(0,xK[i+1]);R u(r,sS(0,y));}
 
@@ -136,6 +136,7 @@ ZK g(I c,K x){K y=c0(),z,r=c0();I i=0,l=a?M:0;W(++i<xn){z=Xx;I l=M&1<<i,b=Az||12
  z=cll(c);W(i<16){if(l&1<<i)z=j3(psh(0,i),z,pop(0,i));++i;}R j3(y,z,r);}
 
 //!to register, constant or global
+ZI1(hh){I t=T[xi-'a'];R 14==t?-2:13==t?-4:2*t-26;}
 K d(I r,K x){
  P(Ax,(r=q(x))?M|=1<<r,u(r,c0()):x)
  I s=15&r,a;K y,z;

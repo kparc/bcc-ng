@@ -23,6 +23,7 @@ I m(I x){I k=0;N(x,F r=-1.5+i*2./x;N(x,F s=-1+i*2./x,p,q,t,u;p=q=0;I m=50;W(m*(4
 //timer
 F ms(){J a,d;asm volatile("rdtsc":"=a"(a),"=d"(d));R((d<<32)+a)*.58e-6;}
 
+I collatz(I n){I c=0;W(n!=1){n=n&1?(n<<1)+n+1:n>>1;c++;}R c;}//!<
 
 I*rev(I*a,I n){
     I t;
