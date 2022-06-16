@@ -1,35 +1,50 @@
 #include"a.h"
 extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 
-                // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+//!class           !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
 
-ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));}
+ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));} //!< int or float
 ZS pq(){R sc((S)";})]",*tp);}K1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}ZK p();
 ZK pE(I a,I c){K r=k1(kc(c)),x;do r=jk(r,x=pq()?n(ki(0)):p());W(';'==*tp++);R u(a?a:t(x),r);}
 
-ZK p(){K x,y;I a,b;
- S('0'-c('-'==(a=*tp++)?tp['.'==*tp]:'.'==a?*tp:a)?c(a):'0',
-  case'N':T[N++]=KI;
-  C('W',R++tp,x=p(),++tp,x=k3(kc(a),x,p()),N-='N'==a,x)
-  //C('O',R++tp,x=p(),++tp,x=k2(kc(a),x),x)
-  case'$':++tp;
-  C('{',R pE(0,a))
-  C('+',R x=p(),u('#'==a?KI:'%'==a?KF:t(x)-8*('*'==a),k2(kc(a),x)))
-  C('[',R pE(12,a))
-  C('(',x=p(),++tp)
-  C('0',P('2'==a&&'*'==*tp,++tp,x=p(),u(t(x),k2(kc('\\'),x)))--tp;x=n(Na()))
-  C('a',
-   x='['==*tp?++tp,
-   pE(T[b=a-'a']?T[b]-8:(x=G[b],x=xy,*D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a):kc(a)),
-  R AB(tp-1))
- P(pq(),x)
- P('+'-c(a=*tp++),AB(tp-1))
- $(':'==*tp,++tp,a+=128);
- b=t(y=p());
- $(':'==a&&Ax,T[xi-'a']=b)b='%'-a?MX(b,t(x)):KF;
+//! parse next char on tape
+ZK p(){K x,y;I a,b;                                            //!< a operator, xy operands, b return type
+ S('0'-c('-'==(a=*tp++)?tp['.'==*tp]:'.'==a?*tp:a)?c(a):'0',   //!< special case: if expr starts with a minus, dot or a minus-dot, it may be a number
+  case'N':T[N++]=KI;                                           //!< 'for' loop, increment loop variable (ij..) and fallthrough to W
+  C('W',R                                                      //!< W|N(cnd){body}
+   ++tp,x=p(),++tp,                                            //!<  parse cnd expr into x
+   x=k3(kc(a),x,p()),                                          //!<  x is (W|N,cnd,body)
+   N-='N'==a,x)                                                //!<  decrement loop variable (N loops only)
+  case'$':++tp;                                                //!< $[ctf], fallthrough
+  C('{',R pE(0,a))                                             //!< inner scope, parse enclosed expressions
+  C('+',R x=p(),                                               //!< operator: parse right operand and store rettype in xu:
+   u('#'==a?KI:                                                //!<  count #x is int
+     '%'==a?KF:                                                //!<  division x%y is float
+     t(x)-8*('*'==a),                                          //!<  first *x is list type
+     k2(kc(a),x)))                                             //!<  other ops inherit type of right operand
+  C('[',R pE(12,a))                                            //!< parse a dyadic expression inside square brackets
+  C('(',x=p(),++tp)                                            //!< parse a fenced expression
+  C('0',                                                       //!< number:
+   P('2'==a&&'*'==*tp,++tp,x=p(),                              //!<  translate 2*x to left shift \x, skip 2* and parse the right operand
+    u(t(x),k2(kc('\\'),x)))                                    //!<  inherit type of x and return monadic tuple
+   --tp;x=n(Na()))                                             //!<  parse a number
+  C('a',                                                       //!< identifier:
+   x='['==*tp?++tp,                                            //!<  a) if followed by [expr], it is an array indexing or a function call:
+   pE(T[b=a-'a']?T[b]-8:                                       //!<   if varname has no type, it is a func call; for arrays, unset high bit
+    (x=G[b],x=xy,                                              //!<   x is the varname, xy is the code
+     *D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a)          //!<   D[0] and D[1] are stored after RET, op is the array|function name (a)
+     :kc(a)),                                                  //!<  b) if not, it is a variable reference.
+  R AB(tp-1))                                                  //!< unmapped class is an error.
+ P(pq(),x)                                                     //!< if reached end of expression, return its parse tree
+ P('+'-c(a=*tp++),AB(tp-1))                                    //!< otherwise next char should be an operator:
+ $(':'==*tp,++tp,a+=128);                                      //!< for assignment, set high bit of op char byte.
+ b=t(y=p());                                                   //!< parse right operand into y and get its type into b
+ $(':'==a&&Ax,T[xi-'a']=b)                                     //!< for assignment, rettype is the type of the right operand
+  b='%'-a?MX(b,t(x)):KF;                                       //!< for div, force rettype to float, for all others uuse the widest one (KF>KJ>KI>KC)
  #define ff(x) (KF-b||KF==t(x)?x:Ax&&126<xi?n(kf(xi-128)):u(KF,k2(kc('%'),x)))
- R u(U('<')<U(a)?KI:b,k3(kc(a),ff(x),ff(y)));}
+ R u(U('<')<U(a)?KI:b,                                         //!< if operator is a comparison (<=>), force return type to int
+    k3(kc(a),ff(x),ff(y)));}                                   //!< return (op,left,right)
 
 extern I M,a,RET;K v(I r,K x,I n),f(I r,K x),ev(K);I l(S s,I c),q(K);V1(lnk);
 
