@@ -213,6 +213,6 @@ V1(lnk){S s=xC;W(s<xC+xn){
 
 //!pretty print function opcodes and its return type
 //V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
-V1(dis){S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}w2(" -> ");oc(KS<xu?'K':KF==xu?'f':KI==xu?'j':KC==xu?'c':'?');nl();N(2,w2(px(*s++)))oc(' ');nl();}
+V1(dis){S s=xC;oc(' ');W(s<xC+xn-2){oc(' ');N(ln(s),w2(px(*s++)));};oc(' ');N(2,w2(px(*s++)))w2(" -> ");oc(KS<xu?'K':KF==xu?'f':KI==xu?'j':KC==xu?'c':'?');nl();}
 
 //:~
