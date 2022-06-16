@@ -17,7 +17,7 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
    x=k3(kc(a),x,p()),                                          //!<  x is (W|N,cnd,body)
    N-='N'==a,x)                                                //!<  decrement loop variable (N loops only)
   case'$':++tp;                                                //!< $[ctf], fallthrough
-  C('{',R pE(0,a))                                             //!< inner scope, parse enclosed expressions
+  C('{',R pE(0,a))                                             //!< inner scope, descend and parse enclosed expression(s)
   C('+',R x=p(),                                               //!< operator: parse right operand and store rettype in xu:
    u('#'==a?KI:                                                //!<  count #x is int
      '%'==a?KF:                                                //!<  division x%y is float
