@@ -51,6 +51,7 @@ K ps(S s){
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s; //!< reset
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
  P('!'==*tp,++tp,X(k,til(ki(ip(tp,sl(tp))))))
+ P('"'==*tp,++tp,b=tp,X(k,pn(b,bq(tp)-b)))
  z=k2(kp(tp),NL);
  if(!tp[1]&&26u>*tp-'a')r1(G[*tp-'a']);
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}
