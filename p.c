@@ -60,7 +60,7 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
  R u(U('<')<U(a)?KI:b,                                         //!< if operator is a comparison (<=>), force return type to int
     k3(kc(a),ff(x),ff(y)));}                                   //!< return (op,left,right)
 
-extern I M,a,RET;K v(I r,K x,I n),f(I r,K x),ev(K);I l(S s,I c),q(K);V1(lnk);
+extern I M,a,ret();K v(I r,K x,I n),f(I r,K x),ev(K);I l(S s,I c);V1(lnk);
 
 //!bracket balancer
 #define BLIM 16
@@ -71,12 +71,12 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
   P(!s,n?x:0)x=s)
   $('"'==(a=c(*x)),s=bq(x);
   P(!s,x)x=s)
-  $(sc("{[(",a),P(BLIM==++n,x)b[n]=*x)
-  $(sc("}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
+  $(sc((S)"{[(",a),P(BLIM==++n,x)b[n]=*x)
+  $(sc((S)"}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
  }R n?x:0;}//!< bracket balancer
 
 K ps(S s){
- if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
+ //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
  S b;P(b=bb(s),qs(*b?b:(S)"bal"))                //!< balance brackets
  a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s;   //!< reset state
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;
@@ -94,7 +94,7 @@ K ps(S s){
   // - the evaluated string in x
   // - function value (machine code followed by D[0] and D[1]) with return type a
   // - arguments that do not fit in registers
-  zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(RET,*D,D[1])));
+  zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(ret(),*D,D[1])));
   //dis(zy); // disasm
   dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
   lnk(zy);

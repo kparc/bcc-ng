@@ -1,3 +1,7 @@
+r[I]{n:#x;h:/#x;c:0;N(h){t:x[i];j:-1+n-i;x[i]:x[j];x[j]:t};x}
+x:!10
+r[x]
+\\
 f[i]{x+x}
 \\
 //I collatz(I n){I c=0;W(n!=1){n=n&1?(n<<1)+n+1:n>>1;c++;}R c;}
