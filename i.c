@@ -47,24 +47,24 @@ K op(I t,I o,I r,I x,I y){K z;O("op(t=%c o=%x r=%s x=%d y=%d) -> "," chijefs CHI
   h((C[]){0x10,0x58,0x5c,0x59,0x5e,0x2e,0,0,0x2a}[o],r,y)))
 
  I a=126<y,s;
- P(0<=o&&r==x&&(!a||3-o),                                    //!< shl|shr
-    4-o?o2f(o,r,y):                                          //!< 4 is % forces arguments to be floats, for integers means right shift (/)
-    129-y?AB("/"):                                           //!< shift by one or fail
-    i(0xd1,16+7,r))                                          //!< right shift by one
- P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))        //!< neg
+ P(0<=o&&r==x&&(!a||3-o),                                       //!< shl|shr
+    4-o?o2f(o,r,y):                                             //!< 4 is % forces arguments to be floats, for integers means right shift (/)
+    129-y?AB("/"):                                              //!< shift by one or fail
+    i(0xd1,16+7,r))                                             //!< right shift by one
+ P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))           //!< neg
  P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y)))
  R s=
     0<o?0:
     3+(o+1)/2,        //     mov  mov      lea  imul
     rex(r,a?0:y,x,c3(0>o?1&o?0x8b:0x89:3-o?0x8d:0x6b,m(3-o?a:3,RG(r),a?RG(x):4),a?(2-o?y-128:128-y)<<s:m(s,A[y],A[x])));}
 
-K psh(I t,I x){R rex(0,0,x,c1(0x50+(7&RG(x))));}                                  //!< push from reg A[x]
-K pop(I t,I x){R rex(0,0,x,c1(0x58+(7&RG(x))));}                                  //!< pop to reg A[x]
-K jmp(I n){R n<-128||n>127?c5(JT(4),0>n?n-3:n):c2(JT(0),n);}                       //!< jump (c5 long c2 short)
-K tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                                     //!< test (sets sz if x is not zero), nyi for floats
-K cnd(I o,I x){R j2(i(0x0f20+JT(o),16,x),i(0x0fb6,x,x));}                          //!< cond (set byte on conditon functions: 0x0f90,...)
+K psh(I t,I x){R rex(0,0,x,c1(0x50+(7&RG(x))));}                //!< push from reg A[x]
+K pop(I t,I x){R rex(0,0,x,c1(0x58+(7&RG(x))));}                //!< pop to reg A[x]
+K jmp(I n){R n<-128||n>127?c5(JT(4),0>n?n-3:n):c2(JT(0),n);}    //!< jump (c5 long c2 short)
+K tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                  //!< test (sets sz if x is not zero), nyi for floats
+K cnd(I o,I x){R j2(i(0x0f20+JT(o),16,x),i(0x0fb6,x,x));}       //!< cond (set byte on conditon functions: 0x0f90,...)
 K jjj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
-K cll(I c){R c5(CLL,c);}                                                           //!< call
-I ret(){R RET;}                                                                    //!< return
+K cll(I c){R c5(CLL,c);}                                        //!< call
+I ret(){R RET;}                                                 //!< return
 
 //:~

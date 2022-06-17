@@ -20,6 +20,9 @@ endif
 
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
+clear:
+	@echo "\x1b[H\x1b[2J" # clear screen
+
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
@@ -31,14 +34,14 @@ tcc:
 	tcc -std=c99 -O0 -g $(SRC) $(CF) -o bt
 	./bt t.b
 
-dis: l
-	./l t.b
+dis: l clear
+	@./l t.b
 	@#$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
 
 dbg: l
 	@lldb -b -o run -- ./l t.b
 
-tst: l
+tst: l clear
 	@./l t/t.b
 
 cln:
