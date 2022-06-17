@@ -86,7 +86,7 @@ K ps(S s){
  z=k2(kp(tp-!!r),NL); // !!r fix bracket
  if(!tp[1]&&26u>*tp-'a'){$(NL!=G[*tp-'a'],r1(G[*tp-'a']))R /*os(s),*/NL;} //!< undeclared global
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}
- K x=p(); o(x);O("\n");
+ K x=p(); //o(x);
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
  {
   I a=t(x);//!< type

@@ -18,9 +18,12 @@ K jjj(K x,I n);
 #define Xi xI[i]
 #define Xc ((S)x)[i]
 
+#ifndef TEST
 ZK inst(K x){N(xn,O("%.2x%c",Xc,i==(xn-1)?0:' '));O("\n");R x;}
-
 #define trc(ff,f,a...) (O("%s: ",#ff),fflush(0),inst(f(a)))
+#else
+#define trc(ff,f,a...) f(a)
+#endif
 
 #define OP(a...)  trc(OP,op,a)
 #define CND(a...) trc(CND,cnd,a)
