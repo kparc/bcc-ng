@@ -42,7 +42,7 @@ I1(t){I a=xi-'a';
   xt+8;R r;}                                    //!< array (element type + 4th bit)
 
 //!expr x to register r
-ZK e(I r,K x){O("e: r=%d ",r);fflush(0);o(r1(x));
+ZK e(I r,K x){//O("e: r=%d ",r);fflush(0);o(r1(x));
  K y=d(r,x);
  if(Ay){
   I qz=128==yi||(32>yi&&!zK[2+yi-16]);          //!< if y is zero, either coded as a small int(128), or in the z array
@@ -66,7 +66,7 @@ K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
 ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
 K v(I r,K x,I n){K y=xz,z;I c=!n&&!Ay&&a==*yC,l=M;
  z=vh(xK[3],r,n),M=l,y=vh(y,r,n),x=b(1,xy);
- y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):c1(RET()));
+ y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):c1(ret()));
  R j3(jc(x,yn),y,z);}
 
 //!while|for
