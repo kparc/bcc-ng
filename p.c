@@ -13,15 +13,16 @@ ZS pq(){R sc((S)";})]",*tp);}I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 // the z is of K vals: z[0] is the source and z[1] is opcodes)
 ZK1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}
 
-ZK pE(I a,I c){         //!< parse an expr: c operator, a optional rettype
- K r=k1(kc(c)),x;       //!< store operator as char in K array
- do r=jk(r,x=pq()       //!< append parse trees of subsequent exprs to r
-      ?n(ki(0))         //!< null-terminate expr when reached ;})]
-      :p());            //!< parse the next expression
- W(';'==*tp++);         //!< semicolon is the only expression separator (FIXME multiline)
- R u(a?a:t(x),r);}      //!< force return type or use type of the last expr
+//!parse an expr: c operator, a optional rettype
+ZK pE(I a,I c){
+ K r=k1(kc(c)),x;     //!< store operator as char in K array
+ do r=jk(r,x=pq()     //!< append parse trees of subsequent exprs to r
+      ?n(ki(0))       //!< null-terminate expr when reached ;})]
+      :p());          //!< parse the next expression
+ W(';'==*tp++);       //!< semicolon is the only expression separator (FIXME multiline)
+ R u(a?a:t(x),r);}    //!< force return type or use type of the last expr
 
-//! parse next char on tape
+//!parse next token on tape
 ZK p(){K x,y;I a,b;                                            //!< a operator, xy operands, b return type
  S('0'-c('-'==(a=*tp++)?tp['.'==*tp]:'.'==a?*tp:a)?c(a):'0',   //!< special case: if expr starts with a minus, dot or a minus-dot, it may be a number
   case'N':T[N++]=KI;                                           //!< 'for' loop, increment loop variable (ij..) and fallthrough to W
@@ -60,12 +61,11 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
  R u(U('<')<U(a)?KI:b,                                         //!< if operator is a comparison (<=>), force return type to int
     k3(kc(a),ff(x),ff(y)));}                                   //!< return (op,left,right)
 
-extern I M,a,ret();K v(I r,K x,I n),f(I r,K x),ev(K);I l(S s,I c);V1(lnk);
+extern I M,a,ret(),l(S s,I c);K v(I r,K x,I n),f(I r,K x),ev(K);V1(lnk);
 
-//!bracket balancer
 #define BLIM 16
 ZI m2(S s,S t){R*s==*t&&s[1]==t[1];}ZS bq(S x){W((x=sc(++x,'"'))&&!({I i=0;W('\\'==x[--i]);1&i;})){};R x;} //!< parse quoted string with esc sequences
-ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
+ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1; //!< bracket balancer
  W(*++x){
   $(m2((S)" /",x),s=sc(x,'\n');
   P(!s,n?x:0)x=s)
@@ -73,12 +73,12 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1;
   P(!s,x)x=s)
   $(sc((S)"{[(",a),P(BLIM==++n,x)b[n]=*x)
   $(sc((S)"}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
- }R n?x:0;}//!< bracket balancer
+ }R n?x:0;}
 
 K ps(S s){
  //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
- S b;P(b=bb(s),qs(*b?b:(S)"bal"))                //!< balance brackets
- a=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);M=0;tp=s;   //!< reset state
+ S b=bb(s);P(b,qs(*b?b:(S)"bal"))                //!< balance brackets
+ a=M=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);tp=s;     //!< reset state
  S r='['==tp[1]&&(r=sc(tp,']'))&&*++r?r:0;
  K*k=r||':'==tp[1]?a=*tp,tp+=2,G+a-'a':0;
  P('!'==*tp,++tp,X(k,til(ki(ip(tp,sl(tp))))))
@@ -89,16 +89,18 @@ K ps(S s){
  K x=p(); o(x);O("\n");
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
  {
-  I a=t(x); //!< type
+  I a=t(x);//!< type
   // z will contain:
   // - the evaluated string in x
   // - function value (machine code followed by D[0] and D[1]) with return type a
   // - arguments that do not fit in registers
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(ret(),*D,D[1])));
-  //dis(zy); // disasm
   dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
+  //dis(zy); // disasm
+  //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
   lnk(zy);
  }
+
  //dis(zy); // disasm
  //N(26,O("%c: %p\n",'a'+i,G[i]))  // dump globals
 

@@ -15,19 +15,19 @@ I U(I i){R l((S)" +-*% &|  <=>",i);}                                            
 K u(I u,K x){R xu=u,x;}                                                            //!< assign return type to function value
 
 //!compare                             convert to float                    nyi
-ZK cm(I t,I x,I y){R o2(t,5,x,x,y);}ZK cv(I x,I y){R o2(KF,8,x,x,A[y]);}ZK sh(I t,I r){R AB("sh");}
+ZK cm(I t,I x,I y){R OP(t,5,x,x,y);}ZK cv(I x,I y){R OP(KF,8,x,x,REG(y));}ZK sh(I t,I r){R AB("sh");}
 
 //!dispatch comparison|operator|funcall
-ZK O2(I t,I f,I r,K x,K y){I i=Ay?yi:yu;        //!< y is either value or function name
+ZK o2(I t,I f,I r,K x,K y){I i=Ay?yi:yu;        //!< y is either value or function name
  R u(r,j3(
     Ay?c0():y,
     x,
-    10>f?o2(t,f,r,xu,i):                        //!< function
-    j2(cm(t,xu,i),16>r?cc(f-9,r):c1(f-9))       //!< comparison
+    10>f?OP(t,f,r,xu,i):                        //!< function
+    j2(cm(t,xu,i),16>r?CND(f-9,r):c1(f-9))      //!< comparison
     ));}
 
-ZK ZR(I t,C r){R u(r,o2(t,2,r,r,r));}           //!< set register r of type t to zero (2 is subtract, i.e. r-r=0)
-ZK MV(I t,I r,K y){R O2(t,0,r,u(r,c0()),y);}    //!< move value y with type t to register r (0 is mov, the first arg is empty array)
+ZK ZR(I t,C r){R u(r,OP(t,2,r,r,r));}           //!< set register r of type t to zero (2 is subtract, i.e. r-r=0)
+ZK MV(I t,I r,K y){R o2(t,0,r,u(r,c0()),y);}    //!< move value y with type t to register r (0 is mov, the first arg is empty array)
 ZK SH(I t,K y){R u(yu,j2(y,sh(t,yu)));}         //!< nyi
 
 ZI1(q){I i=xi-'a';R Ax?26u>i&&L[i]?L[i]:0:':'==*xC?I(xy):0;}
@@ -53,10 +53,10 @@ ZK e(I r,K x){O("e: r=%d ",r);fflush(0);o(r1(x));
 ZK E(I r,K x){I i=xn-1;K z=e(r,Xx),y=kK(i--);r=zu,Yx=z;W(i--)Yx=e(0,xK[i+1]);R u(r,sS(0,y));}
 
 //!branch out
-ZK b(I f,K x){K y=d(16,x);R Ay?AB("b"):16==yu?yC[yn-1]=JJ[yC[yn-1]+f*4],y:j3(y,tst(t(x),yu),c1(JJ[f?2:6]));}
+ZK b(I f,K x){K y=d(16,x);R Ay?AB("b"):16==yu?yC[yn-1]=JT(yC[yn-1]+f*4),y:j3(y,TST(t(x),yu),c1(JT(f?2:6)));}
 
 //!force: transform values and other expressions into object code, except conditional expressions, and move result to register r
-K f(I r,K x){O("f: r=%d ",r);fflush(0);o(r1(x));
+K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
  K y=e(r,x);
  R r-yu
     ?MV(t(x),r,y)
@@ -66,30 +66,31 @@ K f(I r,K x){O("f: r=%d ",r);fflush(0);o(r1(x));
 ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
 K v(I r,K x,I n){K y=xz,z;I c=!n&&!Ay&&a==*yC,l=M;
  z=vh(xK[3],r,n),M=l,y=vh(y,r,n),x=b(1,xy);
- y=j2(y,n||c?yn-=c*B,jmp(1-n?n-xn-yn-3:zn):c1(ret()));R j3(jc(x,yn),y,z);}
+ y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):c1(RET()));
+ R j3(jc(x,yn),y,z);}
 
 //!while|for
 ZV1(mm){I i;$(Ax,if(26u>xi-'a'&&L[i=xi-'a'])M|=1<<L[i])$(':'==*xC&&A(xy),i=I(xy)-'a',M&=~(1<<L[i]),mm(xz))N(xn,mm(sc((S)"{WNC",*xC)?xK[xn-1-i]:Xx))}
 ZK1(w){I i='N'==*xC?L[N++]:0,j=0;mm(x);K y=xy,z=xz;I jj;
- P(!i&&!Az&&'$'==*zC,x=b(1,y),z=v(0,z,-xn-1),jj=-xn-1-zn-2,j3(jc(x,zn+2),z,jmp(jj)))
- x=i?M|=1<<i,jc(cm(0,i,j=(j=q(y))?j:*D),JJ[1]):b(0,y),z=i?j2(e(0,z),o2(0,1,i,i,129)):e(0,z);
- I n=-zn-xn-1;z=j3(jmp(zn),z,n<-128?--xn,j2(x,Jj(x,n)):jc(x,n));R i?--N,M&=~(1<<i),j3(f(j,y),ZR(0,i),z):z;}
+ P(!i&&!Az&&'$'==*zC,x=b(1,y),z=v(0,z,-xn-1),jj=-xn-1-zn-2,j3(jc(x,zn+2),z,JMP(jj)))
+ x=i?M|=1<<i,jc(cm(0,i,j=(j=q(y))?j:*D),JT(1)):b(0,y),z=i?j2(e(0,z),OP(0,1,i,i,129)):e(0,z);
+ I n=-zn-xn-1;z=j3(JMP(zn),z,n<-128?--xn,j2(x,JJJ(x,n)):jc(x,n));R i?--N,M&=~(1<<i),j3(f(j,y),ZR(0,i),z):z;}
 
-ZK g(I c,K x){O("g: c=%d ",c);fflush(0);o(r1(x));
+ZK g(I c,K x){//O("g: c=%d ",c);fflush(0);o(r1(x));
  K y=c0(),z,r=c0();I i=0,l=a?M:0;
  W(++i<xn){
   z=Xx;I l=M&1<<i,b=Az||128>*zC&&':'-*zC||i-L[I(zy)-'a'],h=2-i||Az||26>c;z=f(i,z);
-  $(!h,z=j3(psh(0,3),z,pop(0,3)));
-  $( l,z=j2(b?psh(0,i):z,b?z:psh(0,i)),r=j2(r,pop(0,i)));
+  $(!h,z=j3(PSH(0,3),z,POP(0,3)));
+  $( l,z=j2(b?PSH(0,i):z,b?z:PSH(0,i)),r=j2(r,POP(0,i)));
   y=j2(z,y);}
- z=cll(c);
- W(i<16){if(l&1<<i)z=j3(psh(0,i),z,pop(0,i));++i;}
+ z=CLL(c);
+ W(i<16){if(l&1<<i)z=j3(PSH(0,i),z,POP(0,i));++i;}
  R j3(y,z,r);}
 
-//!to register, constant or global
 ZI1(hh){I t=T[xi-'a'];R 14==t?-2:13==t?-4:2*t-26;}
 
-K d(I r,K x){O("d: r=%d ",r);fflush(0);o(r1(x));
+//!to register, constant or global
+K d(I r,K x){//O("d: r=%d ",r);fflush(0);o(r1(x));
  P(Ax,(r=q(x))?M|=1<<r,u(r,c0()):x)
  I s=15&r,a;K y,z;
  S((y=xy,c(a=*xC)), //!< a is function, y is 1st argument
@@ -98,22 +99,22 @@ K d(I r,K x){O("d: r=%d ",r);fflush(0);o(r1(x));
   C('$',R u(r,v(r,x,1)))
   C('{',R E(r,x))
   C('[',R g(26,x))
-  C('a',R T[a-'a']?O2(0,1+hh(xx),s,d(0,xx),d(0,y)):g(a-'a',x))
+  C('a',R T[a-'a']?o2(0,1+hh(xx),s,d(0,xx),d(0,y)):g(a-'a',x))
   //C('O',R O("aha\n"),o(xy),O("--\n"))
-  C(0,R y=d(0,y),O2(t(x),U(a-128),yu,y,d(s,xz))),
+  C(0,R y=d(0,y),o2(t(x),U(a-128),yu,y,d(s,xz))),
 
   $(':'==a,
    P(Ay,r=L[yi-'a'],M&=~(1<<r),f(r,xz))
    y=d(0,yy),z=e(s,xz),x=xy;
-   R r=zu,u(r,j2(z,O2(0,hh(xx),r,d(0,xx),y))));
+   R r=zu,u(r,j2(z,o2(0,hh(xx),r,d(0,xx),y))));
 
   //! monadic ops
   I m,b=t(y);
   P(3>xn,
    '&'==a?SH(b,e(0,y)):
    '%'==a?y=e(0,y),u(s,j2(y,cv(s,yu))):         //!< conversion to float
-   '\\'==a?y=e(s,y),O2(b,1,s,u(yu,c0()),y):     //!< shift left, implemented as addition to itself
-   O2(
+   '\\'==a?y=e(s,y),o2(b,1,s,u(yu,c0()),y):     //!< shift left, implemented as addition to itself
+   o2(
     0,
     '#'==a?-3:                                  //!< number of elements
     '*'==a?1+hh(y):                             //!< deref / 1st element
@@ -130,12 +131,12 @@ K d(I r,K x){O("d: r=%d ",r);fflush(0);o(r1(x));
   P(!Ay&&!q(y)&&!Az&&!q(y),                     //!< FIXME bug? last one: q(z)
    M|=1<<(m=D[KF==b]++),
    y=e(0,y),M&=~(1<<m),
-   z=O2(b,a,r,y,f(m,z)),
+   z=o2(b,a,r,y,f(m,z)),
    --D[KF==b],z)
 
   R Ay&&!q(y)&&2-a&&4-a
-   ?O2(b,U('<')<a?11-a+11:a,r,e(s,z),y)
-   :O2(b,a,r,e(s,y),d(s,z))
+   ?o2(b,U('<')<a?11-a+11:a,r,e(s,z),y)
+   :o2(b,a,r,e(s,y),d(s,z))
  )}
 
 //!opcode length
@@ -145,7 +146,7 @@ ZI ln(S s){I o=*s++,      //!< opcode
     R 
      4==h?1+ln(s):        //!< h=4 rex
      ret()==o||5==h?1:    //!< h=5 push/pop
-     *JJ==o||7==h?2:      //!< h=7 conditional jumps
+     JT(0)==o||7==h?2:    //!< h=7 conditional jumps
      0xe==h||0xb==h?5:    //!< h=0xe call, h=0xb mov
      p&&8==*s/16?6:       //!< conditional jumps
      // 3==s[p]/64 => mod == 11 => r/m is a register
