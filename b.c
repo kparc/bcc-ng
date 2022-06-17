@@ -58,9 +58,7 @@ ZK b(I f,K x){K y=d(16,x);R Ay?AB("b"):16==yu?yC[yn-1]=JT(yC[yn-1]+f*4),y:j3(y,T
 //!force: transform values and other expressions into object code, except conditional expressions, and move result to register r
 K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
  K y=e(r,x);
- R r-yu
-    ?MV(t(x),r,y) //<! if not a function, move value y to register r
-    :y;}
+ R r-yu?MV(t(x),r,y):y;} //<! if not a function, move value y to register r
 
 //!ctf
 ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
