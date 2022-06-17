@@ -29,7 +29,6 @@ ZK inst(K x){N(xn,O("%.2x%c",Xc,i==(xn-1)?0:' '));O("\n");R x;}
 #define TST(a...) trc(TST,tst,a)
 #define JMP(a...) trc(JMP,jmp,a)
 #define CLL(a...) trc(CLL,cll,a)
-#define RET(a...) trc(RET,ret,a)
 #define JJJ(a...) trc(JJJ,jjj,a)
 
 //:~

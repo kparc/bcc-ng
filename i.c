@@ -4,7 +4,7 @@
 //      eax edi esi edx ecx r8 r9,        ebx              ebp esp                 //!<  000 eax 001 ecx 010 edx 011 ebx 100 esp 101 ebp 110 esi 111 edi
 ZI A[]={0,  7,  6,  2,  1,  8, 9,  10,11, 3,  12,13,14,15, 5,  4  },               //!< addresses of registers in function calling convention order
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
-  jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8;                //!< jump table
+  jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
 
 ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
 ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                    //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
@@ -60,6 +60,6 @@ K tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                                  
 K cnd(I o,I x){R j2(i(0x0f20+JT(o),16,x),i(0x0fb6,x,x));}                          //!< cond (set byte on conditon functions: 0x0f90,...)
 K jjj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
 K cll(I c){R c5(CLL,c);}                                                           //!< call
-I ret(){R 0xc3;}                                                                   //!< return
+I ret(){R RET;}                                                                   //!< return
 
 //:~
