@@ -1,6 +1,6 @@
 SRC=a.c m.c p.c b.c i.c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
-O=-O0 -g
+O=-O0 -g -DTEST
 CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation
 LF=
 OD=objdump

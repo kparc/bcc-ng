@@ -12,7 +12,11 @@ typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef
 typedef unsigned long long K,UJ;
 
 #define R return
+#ifdef TEST
+#define O(a...) (0)
+#else
 #define O printf
+#endif
 //#define P(b,a...)   if(b)return(a);
 #define P(b,a...)   if(b)R({a;});                          //!< "bail early" predicate aka panic.
 #define N(n,a...)   {I i=0,_n=(n);while(i<_n){a;++i;}}
