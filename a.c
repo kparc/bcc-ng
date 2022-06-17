@@ -14,18 +14,35 @@ F fp(S p,I n){P('-'==*p,-fp(p+1,n-1))I l=scn(p,'e',n),m=scn(p,'.',l),f=l<n?ip(p+
 K G[26],ps(S s);K1(ev);ZK es();ZK K0;K k0(){R r1(K0);}ZK vf(I f){K r=kS(0);N(26,K x=G[i];if(NL-x)if(f^(Ax||xt))r=j2(r,ks(i)))R r;}
 ZK Li(K x,I i){R!xt||KS<xt?Xx:KC==xt?kc(Xc):KI==xt?ki(Xi):ks(Xi);}ZK e1(K(*f)(),K x){K r=kK(xn);N1(rn,Rx=f?f(Li(x,i)):Li(x,i))R r;}
 K sS(I c,K x){I n=c?xn:0;N(xn,K y=Xx;n+=yn)K r=kC(n);if(c)--rn;S s=rC;N(xn,K y=Xx;s=((S)memcpy(s,(V*)y,yn))+yn;if(c)*s++=c)R X0(r);}
-ZK1(cc){N(xn,if(94u<Xc-32){K r=kC(2*xn);N(xn,hh(rC+2*i,Xc))R j2(c2('0'+xu,'x'),r);})R cj('"',jc(r1(x),'"'));}
+ZK1(cc){N(xn,if(94u<Xc-32){K r=kC(2*xn);N(xn,hh(rC+2*i,Xc))R j2(c2('0'+xu,'x'),r);})
+//R cj('"',jc(r1(x),'"'));}
+R r1(x);}
 
-ZK1(se){P(Ax,KS==Ax?c2('`','a'+xi):KC==Ax?X0(cc(x=c1(xi))):kp(KI==Ax?pi(xi):KF==Ax?pf(xf):(S)"+"+!xi))P(8==xt,l2(x))
- P(1==xn,cj(',',se(Li(x,0))))I t=KS<xt?0:xt;P(KC==t,cc(x))P(!xn,c2("!("[!t],")  0   `"[t]))x=sS(";      "[t],e1(se,x));R!t?cj('(',jc(x,')')):x;}
+#define TAB 0
+I tb(I n){P(!TAB,n)O("\n");N(n,O(" "))R n;}ZC ty(K x){R KS==Ax?'s':KC==Ax?'c':KI==Ax?'i':KF==Ax?'f':'+'+!xi;}
+ZI typ(K x){R KS==Ax?O("`%c",'a'+xi):KC==Ax?((94u<xi-32)?O("0x%x",xi):O("%c",xi)):KI==Ax?O("%d",xi):KF==Ax?O("%f",xf):O("%c",'+'+!xi);}
+ZI depth=0,len[16],max[16];
+
+ZK1(se){
+ $(Ax,typ(x);$(!len[depth]||len[depth]<max[depth],O(";"));len[depth]++){
+  $(len[depth]&&len[depth]<=max[depth],tb(depth));len[depth]++;len[++depth]=0,max[depth]=xn-1;O("(");}
+
+ P(Ax,KS==Ax?c2('`','a'+xi):KC==Ax?X0(cc(x=c1(xi))):kp(KI==Ax?pi(xi):KF==Ax?pf(xf):(S)"+"+!xi))//!< atom
+ P(8==xt,l2(x))
+ P(1==xn,cj(',',se(Li(x,0))))
+ I t=KS<xt?0:xt;
+ P(KC==t,cc(x))
+ P(!xn,c2("!("[!t],")  0   `"[t]))
+ x=sS(";      "[t],e1(se,x));
+
+ O(")");$(len[--depth]<=max[depth],O(";"));
+ R!t?(cj('(',jc(x,')'))):x;}
 
 K1(o){K y=QQ-Ax?se(x):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));R Y0(write(2,yC,yn)),nl(),x;}ZK1(pr){if(NL-x)r0(o(x));R x;}
 ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=0,a=t[1]?0:(*t=='/')-(*t=='\\');if(!d&&!a&&'/'-*t)Q(pr(es(t)))d+=a,t=u;}if(n)munmap(s,n);R NL;}
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}
 ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(AWS):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}
-
-V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}
-I main(I c,char**a){R km((S*)a),0;}
+V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r2((S)" ")));}I main(I c,char**a){R km((S*)a),0;}
 
 //V _start(){asm("movl $0x9fc0,-4(%rsp);ldmxcsr -4(%rsp);lea 8(%rsp),%rdi;jmp km");}
 //K qi(I i){R qs((S[]){"nyi","rank","length","type","domain","value"}[i]);}

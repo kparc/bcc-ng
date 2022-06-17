@@ -26,28 +26,28 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
  S('0'-c('-'==(a=*tp++)?tp['.'==*tp]:'.'==a?*tp:a)?c(a):'0',   //!< special case: if expr starts with a minus, dot or a minus-dot, it may be a number
   case'N':T[N++]=KI;                                           //!< 'for' loop, increment loop variable (ij..) and fallthrough to W
   C('W',R                                                      //!< W|N(cnd){body}
-   ++tp,x=p(),++tp,                                            //!<  parse cnd expr into x
-   x=k3(kc(a),x,p()),                                          //!<  x is (W|N,cnd,body)
-   N-='N'==a,x)                                                //!<  decrement loop variable (N loops only)
+   ++tp,x=p(),++tp,                                            //!<   parse cnd expr into x
+   x=k3(kc(a),x,p()),                                          //!<   x is (W|N,cnd,body)
+   N-='N'==a,x)                                                //!<   decrement loop variable (N loops only)
   case'$':++tp;                                                //!< $[ctf], fallthrough
   C('{',R pE(0,a))                                             //!< inner scope, descend and parse enclosed expression(s)
   C('+',R x=p(),                                               //!< operator: parse right operand and store rettype in xu:
-   u('#'==a?KI:                                                //!<  count #x is int
-     '%'==a?KF:                                                //!<  division x%y is float
-     t(x)-8*('*'==a),                                          //!<  first *x is list type
-     k2(kc(a),x)))                                             //!<  other ops inherit type of right operand
+   u('#'==a?KI:                                                //!<   count #x is int
+     '%'==a?KF:                                                //!<   division x%y is float
+     t(x)-8*('*'==a),                                          //!<   first *x is list type
+     k2(kc(a),x)))                                             //!<   other ops inherit type of right operand
   C('[',R pE(12,a))                                            //!< parse a dyadic expression inside square brackets
   C('(',x=p(),++tp)                                            //!< parse a fenced expression
   C('0',                                                       //!< number:
-   P('2'==a&&'*'==*tp,++tp,x=p(),                              //!<  translate 2*x to left shift \x, skip 2* and parse the right operand
-    u(t(x),k2(kc('\\'),x)))                                    //!<  inherit type of x and return monadic tuple
-   --tp;x=n(Na()))                                             //!<  parse a number
+   P('2'==a&&'*'==*tp,++tp,x=p(),                              //!<   translate 2*x to left shift \x, skip 2* and parse the right operand
+    u(t(x),k2(kc('\\'),x)))                                    //!<   inherit type of x and return monadic tuple
+   --tp;x=n(Na()))                                             //!<   parse a number
   //C('\'',P('\''==*tp,AB(*tp))x=kc(*tp++);P('\''!=*tp,AB(*tp))R x) // char experiment
   C('a',                                                       //!< identifier:
    x='['==*tp?++tp,                                            //!<  a) if followed by [expr], it is an array indexing or a function call:
-   pE(T[b=a-'a']?T[b]-8:                                       //!<   if varname has no type, it is a func call; for arrays, unset high bit
-    (x=G[b],x=xy,                                              //!<   x is the varname, xy is the code
-     *D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a)          //!<   D[0] and D[1] are stored after RET, op is the array|function name (a)
+   pE(T[b=a-'a']?T[b]-8:                                       //!<     if varname has no type, it is a func call; for arrays, unset high bit
+    (x=G[b],x=xy,                                              //!<     x is the varname, xy is the code
+     *D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a)          //!<     D[0] and D[1] are stored after RET, op is the array|function name (a)
      :kc(a)),                                                  //!<  b) if not, it is a variable reference.
   R AB(tp-1))                                                  //!< unmapped class is an error.
  P(pq(),x)                                                     //!< if reached end of expression, return its parse tree
