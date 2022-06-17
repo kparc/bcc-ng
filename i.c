@@ -1,8 +1,8 @@
 #include"a.h"
 #include"i.h"
 
-//      eax edi esi edx ecx r8 r9,        ebx              ebp esp                 //!<  000 eax 001 ecx 010 edx 011 ebx 100 esp 101 ebp 110 esi 111 edi
-ZS a[]={"eax","edi","esi","edx","ecx","r8", "r9","r10","r11","ebx","r12","r13","r14","r15","ebp","esp"}; //!< addresses of registers in function calling convention order
+// 000 eax 001 ecx 010 edx 011 ebx 100 esp 101 ebp 110 esi 111 edi
+ZS a[]={"eax","edi","esi","edx","ecx","r8", "r9","r10","r11","ebx","r12","r13","r14","r15","ebp","esp"};
 ZI A[]={0,    7,     6,    2,    1,    8,    9,  10,   11,    3,    12,   13,   14,   15,   5,    4   }, //!< addresses of registers in function calling convention order
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
