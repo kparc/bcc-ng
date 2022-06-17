@@ -14,8 +14,8 @@ K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 I U(I i){R l((S)" +-*% &|  <=>",i);}                                               //!< TODO cst mod neq not flr ...
 K u(I u,K x){R xu=u,x;}                                                            //!< assign return type to function value
 
-//!compare                             convert to float                    nyi
-ZK cm(I t,I x,I y){R OP(t,5,x,x,y);}ZK cv(I x,I y){R OP(KF,8,x,x,REG(y));}ZK sh(I t,I r){R AB("sh");}
+//!compare                             convert to float                     nyi
+ZK cm(I t,I x,I y){R OP(t,5,x,x,y);}ZK cv(I x,I y){R OP(KF,8,x,x,RG(y));}ZK sh(I t,I r){R AB("sh");}
 
 //!dispatch comparison|operator|funcall
 ZK o2(I t,I f,I r,K x,K y){I i=Ay?yi:yu;        //!< y is either value or function name

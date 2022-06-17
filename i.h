@@ -5,7 +5,7 @@
 #pragma GCC diagnostic ignored "-Wint-conversion"
 #pragma GCC diagnostic ignored "-Wpedantic"
 
-ZI B=5;I JT(I n);//,REG(I n);    //!< register, jump table entry
+ZI B=5;I JT(I n),RG(I n);     //!< register, jump table entry
 
 K op(I t,I o,I r,I x,I y);    //!< return object code to execute opcode o with arguments x and y and leave the argument of type t in register r
 K cnd(I o,I x);               //!< cond (set byte on conditon functions: 0x0f90,...)
