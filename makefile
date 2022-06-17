@@ -33,7 +33,7 @@ tcc:
 
 dis: l
 	./l t.b
-	@$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
+	@#$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
 
 dbg: l
 	@lldb -b -o run -- ./l t.b
