@@ -6,13 +6,12 @@ ZS a[]={"eax","edi","esi","edx","ecx","r8", "r9","r10","r11","ebx","r12","r13","
 ZI A[]={0,    7,     6,    2,    1,    8,    9,  10,   11,    3,    12,   13,   14,   15,   5,    4   }, //!< addresses of registers in function calling convention order
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
-
-I JT(I n){R jt[n];}I REG(I n){R A[n];}                                             //!< jump table entry, register
+I JT(I n){R jt[n];}ZI REG(I n){R A[n];}                                             //!< jump table entry, register
 
 ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
-ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                    //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
+ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                          //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte
 
-ZK rex(I r,I x,I b,K y){                                    //!< rex instructions
+ZK rex(I r,I x,I b,K y){                                          //!< rex instructions
  R(r=7<REG(r))+(x=7<REG(x))+(b=7<REG(b))?cj(0x40+4*r+2*x+b,y):y;} //!< 0x41=rex.b 0x42=rex.x 0x43=rex.xb 0x44=rex.r 0x45=rex.rb 0x46=rex.rx 0x47=rex.rxb
 
 //! opcode o, arguments x y (not rex, x should never be >15)
