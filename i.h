@@ -1,6 +1,10 @@
 #include"c.h"
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wint-conversion"
+//#pragma GCC diagnostic ignored "-Wpedantic"
+
 ZI B=5;I JT(I n),REG(I n);    //!< register, jump table entry
 
 K op(I t,I o,I r,I x,I y);    //!< return object code to execute opcode o with arguments x and y and leave the argument of type t in register r
