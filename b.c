@@ -11,8 +11,8 @@ K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);
 K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 
 //!opmap         01234567890123
-I U(I i){R l((S)" +-*% &|  <=>",i);}                                               //!< TODO cst mod neq not flr ...
-K u(I u,K x){R xu=u,x;}                                                            //!< assign return type to function value
+I U(I i){R l((S)" +-*% &|  <=>",i);}            //!< TODO cst mod neq not flr ...
+K u(I u,K x){R xu=u,x;}                         //!< assign return type to function value
 
 //!compare                             convert to float                     nyi
 ZK cm(I t,I x,I y){R OP(t,5,x,x,y);}ZK cv(I x,I y){R OP(KF,8,x,x,RG(y));}ZK sh(I t,I r){R AB("sh");}
@@ -59,8 +59,8 @@ ZK b(I f,K x){K y=d(16,x);R Ay?AB("b"):16==yu?yC[yn-1]=JT(yC[yn-1]+f*4),y:j3(y,T
 K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
  K y=e(r,x);
  R r-yu
-    ?MV(t(x),r,y)
-    :y;}//<! if not a function, move value y to register r
+    ?MV(t(x),r,y) //<! if not a function, move value y to register r
+    :y;}
 
 //!ctf
 ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
