@@ -2,7 +2,7 @@
 extern S tp;extern C N,L[26],T[26],D[2];extern K z,u(I u,K x),til(J x);I1(t);I U(I i);V1(dis);ZK p();
 
 //!char class      !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNOaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
+I c(I c){R 128>c?"   +$++ ()++ + +0000000000+;+++  aaaaaaaaaaaaaNaaaaaaaaWaaa[+]+ `aaaaaaaaaaaaaaaaaaaaaaaaaa{+} "[c-32]:0;}
 
 ZK Na(){S r=tp;W(10u>*++tp-'0'||'.'==*tp){};I f=0;N(tp-r,f|='.'==r[i])R f?kf(fp(r,tp-r)):ki(ip(r,tp-r));} //!< int or float
 ZS pq(){R sc((S)";})]",*tp);}I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
@@ -75,7 +75,18 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1; //!< bracket balancer
   $(sc((S)"}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
  }R n?x:0;}
 
+
+#ifndef TEST
+enum {Amb=227,Red=196,Cya=207};
+#define clr(c)            (O("\x1b[38;5;%dm\n",c))  //<! color on
+#define off()             (O("\x1b[0m\n"),fflush(0))          //<! color off
+#endif
+
 K ps(S s){
+  clr(Red);
+  O("%s\n",s); // disasm
+  off();
+
  //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
  S b=bb(s);P(b,qs(*b?b:(S)"bal"))                //!< balance brackets
  a=M=0,N=8,*D=D[1]=1;N(26,L[i]=T[i]=0);tp=s;     //!< reset state
@@ -86,7 +97,7 @@ K ps(S s){
  z=k2(kp(tp-!!r),NL); // !!r fix bracket
  if(!tp[1]&&26u>*tp-'a'){$(NL!=G[*tp-'a'],r1(G[*tp-'a']))R /*os(s),*/NL;} //!< undeclared global
  if(r){X(k,k2(r1(zx),u(KI,c2(1,1))));N(r-tp-1,L[23+i]=D[0]++,T[23+i]=l((S)" chijefs CHIJEFS",tp[i]))tp=r;}
- K x=p(); //o(x);
+ K x=p(); o(x);
  N(23,if(T[i])L[i]=D[KF==T[i]]++)
  {
   I a=t(x);//!< type
@@ -97,8 +108,12 @@ K ps(S s){
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(ret(),*D,D[1])));
 
   #ifndef TEST
-  dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
+  dmp((S)"t/lnk.bin",zy);
+  clr(Cya);
+  system(OBJDUMP); // disasm
+  off();
   #endif
+
   //dis(zy); // disasm
   //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
   lnk(zy);

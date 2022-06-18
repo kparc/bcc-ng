@@ -1,6 +1,6 @@
 #pragma once
 
-//! posix wrappers
+//!posix wrappers
 #ifdef USE_AW_MALLOC
 void*aw_malloc(size_t n);
 void*aw_realloc(void*p,size_t n);

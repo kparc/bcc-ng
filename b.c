@@ -10,9 +10,11 @@ K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);
 // tp   tape
 K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 
-//!opmap         01234567890123
-I U(I i){R l((S)" +-*% &|  <=>",i);}            //!< TODO cst mod neq not flr ...
-K u(I u,K x){R xu=u,x;}                         //!< assign return type to function value
+//!ops    01234567890123
+S OPS=(S)" +-*% &|  <=>";              //!< TODO cst mod neq not flr ...
+
+I U(I i){R l(OPS,i);}
+K u(I u,K x){R xu=u,x;}                //!< assign return type to function value
 
 //!compare                             convert to float                     nyi
 ZK cm(I t,I x,I y){R OP(t,5,x,x,y);}ZK cv(I x,I y){R OP(KF,8,x,x,RG(y));}ZK sh(I t,I r){R AB("sh");}

@@ -2,8 +2,10 @@
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wint-conversion"
+#pragma GCC diagnostic ignored "-Wpointer-sign"
 #pragma GCC diagnostic ignored "-Wpedantic"
+
+extern S OPS;                 //!< operator map
 
 ZI B=5;I JT(I n),RG(I n);     //!< register, jump table entry
 
@@ -24,7 +26,7 @@ K jjj(K x,I n);
 
 #ifndef TEST
 ZK inst(K x){N(xn,O("%.2x%c",Xc,i==(xn-1)?0:' '));O("\n");R x;}
-#define trc(ff,f,a...) (O("%s: ",#ff),fflush(0),inst(f(a)))
+#define trc(ff,f,a...) (O("   %s ",#ff),fflush(0),inst(f(a)))
 #else
 #define trc(ff,f,a...) f(a)
 #endif
