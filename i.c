@@ -6,6 +6,10 @@ ZS a[]={"eax","edi","esi","edx","ecx","r8d","r9d","r10","r11d","ebx","r12d","r13
 ZI A[]={0,    7,     6,    2,    1,    8,    9,    10,   11,    3,    12,    13,    14,    15,    5,    4   }, //!< addresses of registers in function calling convention order
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
+
+ZS RVa[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","t3","t4","t5","t6"};
+ZI RVA[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
+
 I JT(I n){R jt[n];}I RG(I n){R A[n];}                                              //!< jump table entry, register
 
 ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
@@ -38,10 +42,13 @@ ZK o2f(I o,I x,I y){R 127>y
     :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],RG(x)),y-128):c5(0xb8+(7&RG(x)),y-128));} //!< move to register x
 
 #define CYA "\x1b[38;5;207m"  //<! color on
+#define RED "\x1b[38;5;196m"  //<! color on
 #define OFF "\x1b[0m"         //<! color off
 
 //!return object code to execute opcode o with arguments x and y and store argument of type t in register r
-K op(I t,I o,I r,I x,I y){K z;O("(t=%c o=%s%c%s r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],CYA,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
+K op(I t,I o,I r,I x,I y){K z;
+ O("(t=%c o=%s%c%s r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],CYA,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
+ O("%s(t=%c o=%c r=%s x=%s y=%-3s)%s\t-> ",RED," chijefs CHIJEFS"[t],' '==OPS[o]?'M':OPS[o],RVa[r],RVa[x],y<16?(char*)RVa[y]:128<y?(char*)pi(y-128):"mem",OFF);
  P(KF==t,
   8u>y-8?AB("vex"):j2(c2(0xc5,16*(8&~r)+8*(15&~x)+(5-o?3:1)),
   // for fp (with 0f prefix): i2f int to float
@@ -55,6 +62,8 @@ K op(I t,I o,I r,I x,I y){K z;O("(t=%c o=%s%c%s r=%s x=%s y=%-3s)\t-> "," chijef
     129-y?AB("/"):                                              //!< shift by one or fail
     i(0xd1,16+7,r))                                             //!< right shift by one
  P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))           //!< neg
+
+ O("HERE a=%d -> ",a);
  P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y)))
  R s=
     0<o?0:
