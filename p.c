@@ -113,7 +113,6 @@ K ps(S s){
   system(OBJDUMP); // disasm
   off();
   #endif
-
   //dis(zy); // disasm
   //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
   lnk(zy);

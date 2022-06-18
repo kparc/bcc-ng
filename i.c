@@ -7,8 +7,8 @@ ZI A[]={0,    7,     6,    2,    1,    8,    9,    10,   11,    3,    12,    13,
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
 
-ZS RVa[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","t3","t4","t5","t6"};
-ZI RVA[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
+  ZS RVa[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","t3","t4","t5","t6"};
+//ZI RVA[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
 
 I JT(I n){R jt[n];}I RG(I n){R A[n];}                                              //!< jump table entry, register
 
@@ -57,13 +57,15 @@ K op(I t,I o,I r,I x,I y){K z;
   h((C[]){0x10,0x58,0x5c,0x59,0x5e,0x2e,0,0,0x2a}[o],r,y)))
 
  I a=126<y,s;
+
+ //P(2==o,i(0xf7,16+3,r))                                       //!< FIXME neg
+
  P(0<=o&&r==x&&(!a||3-o),                                       //!< shl|shr
     4-o?o2f(o,r,y):                                             //!< 4 is % forces arguments to be floats, for integers means right shift (/)
     129-y?AB("/"):                                              //!< shift by one or fail
     i(0xd1,16+7,r))                                             //!< right shift by one
  P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))           //!< neg
 
- O("HERE a=%d -> ",a);
  P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y)))
  R s=
     0<o?0:
