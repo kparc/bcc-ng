@@ -35,7 +35,7 @@ ZK h(I o,I x,I y){R j2(
 
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?RG(x):x-16,16>y?RG(y):y));}     //!< o opcode, xy arguments (maybe rex)
 
-ZK o2f(I o,I x,I y){R 127>y
+ZK f(I o,I x,I y){R 127>y
     //       0    1    2     3     4   5    6    7   8   9   10
     //ints:  mov  add  sub  imul       cmp  and              xor
     ?i((I[]){0x8b,0x03,0x2b,0x0faf,0x0,0x3b,0x23,0x0,0x0,0x0,0x33}[o],x,y)
@@ -59,12 +59,12 @@ K op(I t,I o,I r,I x,I y){K z;
  //P(2==o,i(0xf7,16+3,r))                                       //!< FIXME neg
 
  P(0<=o&&r==x&&(!a||3-o),                                       //!< shl|shr
-    4-o?o2f(o,r,y):                                             //!< 4 is % forces arguments to be floats, for integers means right shift (/)
+    4-o?f(o,r,y):                                               //!< 4 is % forces arguments to be floats, for integers means right shift (/)
     129-y?AB("/"):                                              //!< shift by one or fail
     i(0xd1,16+7,r))                                             //!< right shift by one
- P(0<o&&r==y,z=o2f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))           //!< neg
+ P(0<o&&r==y,z=f(o,r,x),2-o?z:j2(z,i(0xf7,16+3,r)))             //!< neg
 
- P((a?3:1)<o,j2(o2f(0,r,x),o2f(o,r,y)))
+ P((a?3:1)<o,j2(f(0,r,x),f(o,r,y)))
  R s=
     0<o?0:
     3+(o+1)/2,        //     mov  mov      lea  imul
