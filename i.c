@@ -7,10 +7,11 @@ ZI A[]={0,    7,     6,    2,    1,    8,    9,    10,   11,    3,    12,    13,
   //    jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe   jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76, 0x0f83},CLL=0xe8,RET=0xc3;       //!< jump table
 
+//           0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15    16    17   18   19   20   21
   ZS RVa[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","t3","t4","t5","t6"};
 //ZI RVA[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
 
-I JT(I n){R jt[n];}I RG(I n){R A[n];}                                              //!< jump table entry, register
+I JT(I n){R jt[n];}I RG(I n){R A[n];}                             //!< jump table entry, register
 
 ZK c5(I o,I n){R cj(o,pn((S)&n,4));}
 ZI m(I a,I b,I c){R 64*a+8*(7&b)+(7&c);}                          //!< convert octal abc to int, used to fill mod(2),reg(3),r/m(3) byte

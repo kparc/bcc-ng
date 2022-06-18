@@ -49,7 +49,7 @@ typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef
 
 //!ansi color
 #define CYA "\x1b[38;5;105m"  //<! color on
-#define GRN "\x1b[38;5;10m"   //<! color on
+#define GRN "\x1b[38;1;10m"   //<! color on
 #define RED "\x1b[38;5;196m"  //<! color on
 #define OFF "\x1b[0m"         //<! color off
 
