@@ -76,16 +76,14 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1; //!< bracket balancer
  }R n?x:0;}
 
 
-#ifndef TEST
-enum {Amb=227,Red=196,Cya=207};
-#define clr(c)            (O("\x1b[38;5;%dm\n",c))  //<! color on
-#define off()             (O("\x1b[0m\n"),fflush(0))          //<! color off
-#endif
+//#ifndef TEST
+//enum {Amb=227,Red=196,Cya=207};
+//#define clr(c)            (O("\x1b[38;5;%dm\n",c))  //<! color on
+//#define off()             (O("\x1b[0m\n"),fflush(0))          //<! color off
+//#endif
 
 K ps(S s){
-  clr(Red);
-  O("%s\n",s); // disasm
-  off();
+  O("%s%s%s\n\n",RED,s,OFF);                     //!< source
 
  //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
  S b=bb(s);P(b,qs(*b?b:(S)"bal"))                //!< balance brackets
@@ -108,10 +106,7 @@ K ps(S s){
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(ret(),*D,D[1])));
 
   #ifndef TEST
-  dmp((S)"t/lnk.bin",zy);
-  clr(Cya);
-  system(OBJDUMP); // disasm
-  off();
+  dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
   //dis(zy); // disasm
   //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm

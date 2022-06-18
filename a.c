@@ -23,16 +23,14 @@ R r1(x);}
 #define TYP 0
 I tb(I n){P(!TAB,n)O("\n");N(n,O(" "))R n;}ZC ty(K x){R KS==Ax?'s':KC==Ax?'c':KI==Ax?'i':KF==Ax?'f':'+'+!xi;}
 #if PRT
-#define CYA "\x1b[38;5;207m"  //<! color on
-#define OFF "\x1b[0m"         //<! color off
 ZI typ(K x){R KS==Ax?O("`%c",'a'+xi):KC==Ax?((94u<xi-32)?O("0x%x",xi):O("%c",xi)):KI==Ax?O("%d",xi):KF==Ax?O("%f",xf):O("%c",'+'+!xi);}
 ZI len[16],max[16]; //!< FIXME recursion
 #endif
 
 ZK se(K x,I d){
  #if PRT
- $(Ax,typ(x);$(!len[d]||len[d]<max[d],O(";"));len[d]++){
-  $(len[d]&&len[d]<=max[d],tb(d));len[d]++;len[++d]=0,max[d]=xn-1;$(TYP,O("%c ("," chijefs CHIJEFS"[xu]))O("(");}
+ $(Ax,$(len[d],typ(x))O(GRN),typ(x),O(OFF);
+  $(!len[d]||len[d]<max[d],O(";"));len[d]++){$(len[d]&&len[d]<=max[d],tb(d));len[d]++;len[++d]=0,max[d]=xn-1;$(TYP,O("%c ("," chijefs CHIJEFS"[xu]))O("(");}
  #endif
  P(Ax,KS==Ax?c2('`','a'+xi):KC==Ax?X0(cc(x=c1(xi))):kp(KI==Ax?pi(xi):KF==Ax?pf(xf):(S)"+"+!xi))//!< atom
  P(8==xt,l2(x))
@@ -46,7 +44,7 @@ ZK se(K x,I d){
  #endif
  R!t?(cj('(',jc(x,')'))):x;}
 
-K1(o){K y=QQ-Ax?se(x,0):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));$(PRT,O("\n\n");R x;);R Y0(write(2,yC,yn)),nl(),x;}ZK1(pr){if(NL-x)r0(o(x));R x;}
+K1(o){K y=QQ-Ax?se(x,0):j2(kp((S)"ERROR: "),kp((S)(-1UL>>16&(J)x)));$(PRT,O("\n\n");R x;);R Y0(write(2,yC,yn)),nl(),x;}ZK1(pr){O(GRN);if(NL-x)r0(o(x));O(OFF);R x;}
 ZS1(ld){J n;s=(S)mf(s,&n);Q((K)s)S t=s,u;I a,d=0;W(t<s+n&&d>=0){u=sc(t,10),*u++=0,a=t[1]?0:(*t=='/')-(*t=='\\');if(!d&&!a&&'/'-*t)Q(pr(es(t)))d+=a,t=u;}if(n)munmap(s,n);R NL;}
 ZS1(tm){S t=sc(s,' ');Qs(!t,s)*t=0;I n=':'-*s++?1:10u>*s-'0'?ip(s,t-s):(J)es(s);K x='\\'-*++t?ps(t):0,r;F a=ms();N(n,Q(r=x?ev(x):ld(t+3))r0(r))if(x)r0(x);R ki(ms()-a);}
 ZS1(es){K x;P('\\'-*s,!*s?NL:(x=ps(s))&&NL-x?X0(ev(x)):x)if(!*++s||'\\'==*s)exit(0);R!s[1]?'w'==*s?ki(AWS):sc((S)"vf",*s)?vf('f'==*s):qs(s):'t'==*s?tm(s+1):'l'==*s?ld(s+2):qs(s);}

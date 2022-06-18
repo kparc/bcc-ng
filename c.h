@@ -8,8 +8,7 @@
 #include<sys/types.h>
 #include<sys/mman.h>
 #include<sys/stat.h>
-typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef void V;
-typedef unsigned long long K,UJ;
+typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef void V;typedef unsigned long long K,UJ;
 
 #define R return
 #ifdef TEST
@@ -47,6 +46,12 @@ typedef unsigned long long K,UJ;
 #define AB(s)       (os((S)s),exit(1),(K)0L) //abort string
 
 #define sl(s) strlen((char*)s)
+
+//!ansi color
+#define CYA "\x1b[38;5;105m"  //<! color on
+#define GRN "\x1b[38;5;10m"   //<! color on
+#define RED "\x1b[38;5;196m"  //<! color on
+#define OFF "\x1b[0m"         //<! color off
 
 //:~
 

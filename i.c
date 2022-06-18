@@ -41,14 +41,10 @@ ZK o2f(I o,I x,I y){R 127>y
     //                        0 1 234 5 6 78910                                             //!< add,sub,cmp,and,or,xor
     :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],RG(x)),y-128):c5(0xb8+(7&RG(x)),y-128));} //!< move to register x
 
-#define CYA "\x1b[38;5;207m"  //<! color on
-#define RED "\x1b[38;5;196m"  //<! color on
-#define OFF "\x1b[0m"         //<! color off
-
 //!return object code to execute opcode o with arguments x and y and store argument of type t in register r
 K op(I t,I o,I r,I x,I y){K z;
- O("(t=%c o=%s%c%s r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],CYA,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
- O("%s(t=%c o=%c r=%s x=%s y=%-3s)%s\t-> ",RED," chijefs CHIJEFS"[t],' '==OPS[o]?'M':OPS[o],RVa[r],RVa[x],y<16?(char*)RVa[y]:128<y?(char*)pi(y-128):"mem",OFF);
+ O("(t=%c o=%s%c%s r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],GRN,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
+ O("%s(t=%c o=%c r=%s x=%s y=%-3s)%s\t-> ",GRN," chijefs CHIJEFS"[t],' '==OPS[o]?'M':OPS[o],RVa[r],RVa[x],y<16?(char*)RVa[y]:128<y?(char*)pi(y-128):"mem",OFF);
  P(KF==t,
   8u>y-8?AB("vex"):j2(c2(0xc5,16*(8&~r)+8*(15&~x)+(5-o?3:1)),
   // for fp (with 0f prefix): i2f int to float
