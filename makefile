@@ -21,7 +21,7 @@ endif
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
 clear:
-	@echo "\x1b[H\x1b[2J" # clear screen
+	echo "\x1b[H\x1b[2J" # clear screen
 
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
