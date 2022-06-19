@@ -11,9 +11,8 @@ ZS a[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s
 ZI A[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
 
 #define V UI
-K rv(V i){R pn((S)&i,4);}
+ZK rv(V i){R pn((S)&i,4);}
 
-//opcode | (func3 << 12) | (rd << 7) | (rs1 << 15) | (imm << 20)
 ZK EU(V o,V f3,V rd,V s1,V im)       {R rv(o|f3<<12|rd<<7|s1<<15|im<<20);}
 ZK EI(V o,V f3,V rd,V s1,V im)       {R EU(o,f3,rd,s1,im);}
 ZK ER(V o,V f3,V rd,V s1,V s2,V f7)  {R rv(o|f3<<12|rd<<7|s1<<15|s2<<20|f7<<25);}
@@ -22,15 +21,12 @@ ZK ES(V o,V f3,V s1,V s2,V im)       {R rv(o|f3<<12|(im&0x1f)<<7|s1<<15|s2<<20|(
 #ifdef RV
 
 //!return object code to execute opcode o with arguments x and y and store argument of type t in register r
-K op(I t,I o,I r,I x,I y){//K z;
+K op(I t,I o,I r,I x,I y){
  O("(t=%c o='%s%c%s' r=%s x=%s y=%-3s) -> "," chijefs CHIJEFS"[t],GRN,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
 
  P(KF==t,AB("vop: rv float nyi\n"))
 
- I a=126<y;
- //I ll=a?0:8; // rv32/64
- I ll=0;
- K z=0;
+ K z=0;I a=126<y,ll=0;//I ll=a?0:8; // rv32/64
  r=A[r],x=A[x],y=a?y-128:A[y];
 
  #define IR(l,f3,r,x,y,f7) z=a?EI(0x13|l,f3,r,x,y):ER(0x33|l,f3,r,x,y,f7) 

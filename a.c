@@ -21,8 +21,8 @@ R r1(x);}
 #define PRT 1
 #define TAB 1
 #define TYP 0
-I tb(I n){P(!TAB,n)O("\n");N(n,O(" "))R n;}ZC ty(K x){R KS==Ax?'s':KC==Ax?'c':KI==Ax?'i':KF==Ax?'f':'+'+!xi;}
 #if PRT
+I tb(I n){P(!TAB,n)O("\n");N(n,O(" "))R n;}ZC ty(K x){R KS==Ax?'s':KC==Ax?'c':KI==Ax?'i':KF==Ax?'f':'+'+!xi;}
 ZI typ(K x){R KS==Ax?O("`%c",'a'+xi):KC==Ax?((94u<xi-32)?O("0x%x",xi):O("%c",xi)):KI==Ax?O("%d",xi):KF==Ax?O("%f",xf):O("%c",'+'+!xi);}
 ZI len[16],max[16]; //!< FIXME recursion
 #endif

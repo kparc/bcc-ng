@@ -10,7 +10,7 @@ K3(l1);I c(I c),l(S,I),U(I i);K d(I r,K x);
 // tp   tape
 K z;C N=8,D[2]={1,1},L[26],T[26];I M=0,a=0;S tp;
 
-//!ops    01234567890123
+//!ops    0123456789012
 S OPS=(S)" +-*% &|  <=>";              //!< TODO cst mod neq not flr ...
 
 I U(I i){R l(OPS,i);}
@@ -63,18 +63,46 @@ K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
  R r-yu?MV(t(x),r,y):y;} //<! if not a function, move value y to register r
 
 //!ctf
-ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
+ZK h(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
 K v(I r,K x,I n){K y=xz,z;I c=!n&&!Ay&&a==*yC,l=M;
- z=vh(xK[3],r,n),M=l,y=vh(y,r,n),x=b(1,xy);
+ z=h(xK[3],r,n),M=l,y=h(y,r,n),x=b(1,xy);
  y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):ret());
  R j3(jc(x,yn),y,z);}
 
 //!while|for
-ZV1(mm){I i;$(Ax,if(26u>xi-'a'&&L[i=xi-'a'])M|=1<<L[i])$(':'==*xC&&A(xy),i=I(xy)-'a',M&=~(1<<L[i]),mm(xz))N(xn,mm(sc((S)"{WNC",*xC)?xK[xn-1-i]:Xx))}
-ZK1(w){I i='N'==*xC?L[N++]:0,j=0;mm(x);K y=xy,z=xz;I jj;
- P(!i&&!Az&&'$'==*zC,x=b(1,y),z=v(0,z,-xn-1),jj=-xn-1-zn-2,j3(jc(x,zn+2),z,JMP(jj)))
- x=i?M|=1<<i,jc(cm(0,i,j=(j=q(y))?j:*D),JT(1)):b(0,y),z=i?j2(e(0,z),OP(0,1,i,i,129)):e(0,z);
- I n=-zn-xn-1;z=j3(JMP(zn),z,n<-128?--xn,j2(x,JJJ(x,n)):jc(x,n));R i?--N,M&=~(1<<i),j3(f(j,y),ZR(0,i),z):z;}
+ZV1(m){I i;
+ $(Ax,if(26u>xi-'a'&&L[i=xi-'a'])M|=1<<L[i])
+  $(':'==*xC&&A(xy),i=I(xy)-'a',M&=~(1<<L[i]),m(xz))
+   N(xn,m(sc((S)"{WNC",*xC)?xK[xn-1-i]:Xx))}
+
+ZK1(w){O("w:\n");fflush(0);
+ I i='N'==*xC?L[N++]:0,j=0;m(x);
+
+ K y=xy,z=xz;
+
+ //O("w: y=");fflush(0);o(r1(y));
+ //O("w: z=");fflush(0);o(r1(z));
+
+ P(!i&&!Az&&'$'==*zC,  //!< loop body is a $[ctf]
+    x=b(1,y),
+    z=v(0,z,-xn-1),
+    j=-xn-1-zn-2,
+    j3(jc(x,zn+2),z,JMP(j)))
+
+ x=i
+    ?M|=1<<i,jc(cm(0,i,j=(j=q(y))?j:*D),JT(1))
+    :b(0,y),
+ z=i
+    ?j2(e(0,z),OP(0,1,i,i,129))
+    :e(0,z);
+
+ I n=-zn-xn-1;
+ z=j3(JMP(zn),
+    z,
+    n<-128
+     ?--xn,j2(x,JJJ(x,n))
+     :jc(x,n));
+ R i?--N,M&=~(1<<i),j3(f(j,y),ZR(0,i),z):z;}
 
 ZK g(I c,K x){//O("g: c=%d ",c);fflush(0);o(r1(x));
  K y=c0(),z,r=c0();I i=0,l=a?M:0;

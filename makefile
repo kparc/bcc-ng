@@ -30,23 +30,22 @@ endif
 
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
+dis: l clear
+	@./l t.b
+
 clear:
 	@echo "\x1b[H\x1b[2J" # clear screen
+
+l: cln *.c *.h makefile
+	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
 
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
 
-l: cln *.c *.h makefile
-	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
-
 tcc:
 	tcc -std=c99 -O0 -g $(SRC) $(CF) -o bt
 	./bt t.b
-
-dis: l clear
-	@./l t.b
-	@#$(OD) -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8
 
 dbg: l
 	@lldb -b -o run -- ./l t.b

@@ -13,8 +13,7 @@ ZS pq(){R sc((S)";})]",*tp);}I l(S s,I c){S t=sc(s,c);R t?t-s:0;}
 // the z is of K vals: z[0] is the source and z[1] is opcodes)
 ZK1(n){R kc(KI==Ax&&129u>1+xi?128+xi:(z=jk(z,x),16+zn-3));}
 
-//!parse an expr: c operator, a optional rettype
-ZK pE(I a,I c){
+ZK E(I a,I c){        //!< parse an expr: c operator, a optional rettype
  K r=k1(kc(c)),x;     //!< store operator as char in K array
  do r=jk(r,x=pq()     //!< append parse trees of subsequent exprs to r
       ?n(ki(0))       //!< null-terminate expr when reached ;})]
@@ -31,13 +30,13 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
    x=k3(kc(a),x,p()),                                          //!<   x is (W|N,cnd,body)
    N-='N'==a,x)                                                //!<   decrement loop variable (N loops only)
   case'$':++tp;                                                //!< $[ctf], fallthrough
-  C('{',R pE(0,a))                                             //!< inner scope, descend and parse enclosed expression(s)
+  C('{',R E(0,a))                                              //!< inner scope, descend and parse enclosed expression(s)
   C('+',R x=p(),                                               //!< operator: parse right operand and store rettype in xu:
    u('#'==a?KI:                                                //!<   count #x is int
      '%'==a?KF:                                                //!<   division x%y is float
      t(x)-8*('*'==a),                                          //!<   first *x is list type
      k2(kc(a),x)))                                             //!<   other ops inherit type of right operand
-  C('[',R pE(12,a))                                            //!< parse a dyadic expression inside square brackets
+  C('[',R E(12,a))                                             //!< parse a dyadic expression inside square brackets
   C('(',x=p(),++tp)                                            //!< parse a fenced expression
   C('0',                                                       //!< number:
    P('2'==a&&'*'==*tp,++tp,x=p(),                              //!<   translate 2*x to left shift \x, skip 2* and parse the right operand
@@ -46,7 +45,7 @@ ZK p(){K x,y;I a,b;                                            //!< a operator, 
   //C('\'',P('\''==*tp,AB(*tp))x=kc(*tp++);P('\''!=*tp,AB(*tp))R x) // char experiment
   C('a',                                                       //!< identifier:
    x='['==*tp?++tp,                                            //!<  a) if followed by [expr], it is an array indexing or a function call:
-   pE(T[b=a-'a']?T[b]-8:                                       //!<     if varname has no type, it is a func call; for arrays, unset high bit
+   E(T[b=a-'a']?T[b]-8:                                        //!<     if varname has no type, it is a func call; for arrays, unset high bit
     (x=G[b],x=xy,                                              //!<     x is the varname, xy is the code
      *D=MX(*D,xC[xn-2]),D[1]=MX(D[1],xC[xn-1]),xu),a)          //!<     D[0] and D[1] are stored after RET, op is the array|function name (a)
      :kc(a)),                                                  //!<  b) if not, it is a variable reference.
@@ -102,12 +101,11 @@ K ps(S s){
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
   //dis(zy); // disasm
-  //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
 
   #ifndef RV
   lnk(zy);
-
-  #ifndef TEST
+  //#ifndef TEST
+  #if 0
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
   #endif
