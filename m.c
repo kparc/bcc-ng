@@ -48,7 +48,6 @@ K til(J x){K r=kI(xi);N(rn,Ri=i)R r;}
 
 //! posix wrappers
 #ifdef USE_AW_MALLOC
-
 //V aw_malloc_init(){k0=kK(0),AWS=0;}                     //!< seed allocation
 V*aw_malloc(size_t n){P(!n,(V*)0)R(V*)tn(KC,(I)n);}   //!< allocate a list of n bytes
 V aw_free(V*p){r0((K)p);}
@@ -61,7 +60,6 @@ V*aw_calloc(size_t n,size_t sz){                      //!< allocate n*sz bytes a
     I nn=MX(1,n)*MX(1,sz);K x=tn(KC,nn);              //!< calculate new length and allocate a new list
     N(nn/8,xJ[i]=0LL)N(nn%8,xC[nn-i]=0)R(V*)x;}       //!< zero out first with 8-byte stride, then byte-wise
     //R mset((_*)x,0,nn);}                            //!< zero out using memset(3)
-
 #endif
 
 //:~

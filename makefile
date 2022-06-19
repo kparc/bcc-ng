@@ -1,6 +1,6 @@
 SRC=a.c m.c p.c b.c i.c v.c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
-RV?=1
+RV?=0
 O=-O0 -g -UTEST
 
 ifeq ($(RV),1)
