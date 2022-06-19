@@ -3,3 +3,7 @@ l
 *.dSYM
 .DS_Store
 *.bin
+t/*.bst
+t/*.e
+t/*.lst
+

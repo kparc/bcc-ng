@@ -75,13 +75,6 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1; //!< bracket balancer
   $(sc((S)"}])",a),P(!n||b[n--]!=*x-1-*x/64,x));
  }R n?x:0;}
 
-
-//#ifndef TEST
-//enum {Amb=227,Red=196,Cya=207};
-//#define clr(c)            (O("\x1b[38;5;%dm\n",c))  //<! color on
-//#define off()             (O("\x1b[0m\n"),fflush(0))          //<! color off
-//#endif
-
 K ps(S s){
   O("%s%s%s\n\n",RED,s,OFF);                     //!< source
 
@@ -110,12 +103,14 @@ K ps(S s){
   #endif
   //dis(zy); // disasm
   //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
+
+  #ifndef RV
   lnk(zy);
 
   #ifndef TEST
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
-
+  #endif
  }
 
  //dis(zy); // disasm
