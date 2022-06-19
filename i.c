@@ -1,10 +1,8 @@
 #include"a.h"
 #include"i.h"
 
-#ifndef RV
 //!addresses of registers in function calling convention order
 ZS a[]={"eax","edi","esi","edx","ecx","r8d","r9d","r10","r11d","ebx","r12d","r13d","r14d","r15d","ebp","esp"};
-#endif
 ZI A[]={ 0,    7,    6,    2,    1,    8,    9,    10,   11,    3,    12,    13,    14,    15,    5,    4   },
 //      jmp  jb   jz   jnbe jmp32 jnb  jnz  jbe  jnb32
   jt[]={0xeb,0x72,0x74,0x77,0xe9, 0x73,0x75,0x76,0x0f83}; //!< jump table
@@ -34,18 +32,20 @@ ZK h(I o,I x,I y){R j2(
 
 ZK i(I o,I x,I y){R rex(16>x?x:0,0,16>y?y:0,h(o,16>x?RG(x):x-16,16>y?RG(y):y));}     //!< o opcode, xy arguments (maybe rex)
 
-ZK f(I o,I x,I y){R 127>y
-    //       0    1    2     3     4   5    6    7   8   9   10
-    //ints:  mov  add  sub  imul       cmp  and              xor
-    ?i((I[]){0x8b,0x03,0x2b,0x0faf,0x0,0x3b,0x23,0x0,0x0,0x0,0x33}[o],x,y)
-    //                        0 1 234 5 6 78910                                                 //!< add,sub,cmp,and,or,xor
-    :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],RG(x)),y-128):c5(0xb8+(7&RG(x)),y-128));}   //!< move to register x
+ZK f(I o,I x,I y){
+ R 127>y
+ //       0    1    2     3     4   5    6    7   8   9   10
+ //ints:  mov  add  sub  imul       cmp  and              xor
+ ?i((I[]){0x8b,0x03,0x2b,0x0faf,0x0,0x3b,0x23,0x0,0x0,0x0,0x33}[o],x,y)
+ //                        0 1 234 5 6 78910                                                 //!< add,sub,cmp,and,or,xor
+ :rex(0,0,x,o?c3(0x83,m(3," \0\5  \7\4\1  \6"[o],RG(x)),y-128):c5(0xb8+(7&RG(x)),y-128));}   //!< c5 move to register x
 
 K psh(I t,I x){R rex(0,0,x,c1(0x50+(7&RG(x))));}                //!< push from reg A[x]
 K pop(I t,I x){R rex(0,0,x,c1(0x58+(7&RG(x))));}                //!< pop to reg A[x]
 K jmp(I n){R n<-128||n>127?c5(JT(4),0>n?n-3:n):c2(JT(0),n);}    //!< jump (c5 long c2 short)
 K tst(I t,I x){R KF==t?AB("tst"):i(0x85,x,x);}                  //!< test (sets sz if x is not zero), nyi for floats
-K cnd(I o,I x){R j2(i(0x0f20+JT(o),16,x),i(0x0fb6,x,x));}       //!< cond (set byte on conditon functions: 0x0f90,...)
+K cnd(I o,I x){O("(o=%d x=%s)\t\t\t-> ",o,a[x]);
+ R j2(i(0x0f20+JT(o),16,x),i(0x0fb6,x,x));}       //!< cond (set byte on conditon functions: 0x0f90,...)
 K jjj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
 
 #ifndef RV

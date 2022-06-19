@@ -68,12 +68,11 @@ K op(I t,I o,I r,I x,I y){
  R z;}
 
 K cll(){
-  I docall=1;
-  I tr=docall?1:5;                //!< ra or t0
+  I docall=1,tr=docall?1:5;       //!< ra or t0
   R j2(EU(0x17,0,0,0,(1<<7)),     //!< auipc TR, 0 %call(func)
        EI(0x67,0,tr,tr,0));}      //!< jalr  TR, r(TR)
 
-K ret(){R EI(0x67,0,0,1,0);}; // jalr x0,x1,0 aka ret  ZK 
+K ret(){R EI(0x67,0,0,1,0);};     //!< jalr x0,x1,0 aka ret
 #endif
 
 //:~

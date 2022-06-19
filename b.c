@@ -83,7 +83,7 @@ ZK1(w){O("w:\n");fflush(0);
  //O("w: y=");fflush(0);o(r1(y));
  //O("w: z=");fflush(0);o(r1(z));
 
- P(!i&&!Az&&'$'==*zC,  //!< loop body is a $[ctf]
+ P(!i&&!Az&&'$'==*zC,  //!< loop body is $[ctf]
     x=b(1,y),
     z=v(0,z,-xn-1),
     j=-xn-1-zn-2,
