@@ -16,8 +16,8 @@ K pop(I t,I x);               //!< pop to reg A[x]
 K tst(I t,I x);               //!< test (sets sz if x is not zero), nyi for floats
 K jmp(I n);                   //!< jump (c5 long c2 short)
 K cll(I c);                   //!< call
-I ret();                      //!< return
 K jjj(K x,I n);
+I ret();                      //!< return from subroutine
 
 #define xI ((I*)x)
 #define xn xI[-1]
@@ -25,7 +25,13 @@ K jjj(K x,I n);
 #define Xc ((S)x)[i]
 
 #ifndef TEST
-ZK inst(K x){N(xn,O("%.2x%c",Xc,i==(xn-1)?0:' '));O("\n");R x;}
+
+#ifndef RV
+ZK inst (K x){N(xn,O("%.2x%c",Xc,i==(xn-1)?0:' '))R O("\n"),x;}
+#else
+ZK inst(K x){_N(xn,O("%.2x",Xc));R O("\n"),x;}
+#endif
+
 #define trc(ff,f,a...) (O("   %s ",#ff),fflush(0),inst(f(a)))
 #else
 #define trc(ff,f,a...) f(a)

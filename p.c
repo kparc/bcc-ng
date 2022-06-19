@@ -103,7 +103,7 @@ K ps(S s){
   // - the evaluated string in x
   // - function value (machine code followed by D[0] and D[1]) with return type a
   // - arguments that do not fit in registers
-  zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),c3(ret(),*D,D[1])));
+  zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),j2(ret(),c2(*D,D[1]))));
 
   #ifndef TEST
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
@@ -111,6 +111,11 @@ K ps(S s){
   //dis(zy); // disasm
   //dmp((S)"t/lnk.bin",zy);system(OBJDUMP); // disasm
   lnk(zy);
+
+  #ifndef TEST
+  dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
+  #endif
+
  }
 
  //dis(zy); // disasm

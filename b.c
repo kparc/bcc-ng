@@ -66,7 +66,7 @@ K f(I r,K x){//O("f: r=%d ",r);fflush(0);o(r1(x));
 ZK vh(K x,I r,I n){R++tp,1<n?e(0,x):f(r,x);}
 K v(I r,K x,I n){K y=xz,z;I c=!n&&!Ay&&a==*yC,l=M;
  z=vh(xK[3],r,n),M=l,y=vh(y,r,n),x=b(1,xy);
- y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):c1(ret()));
+ y=j2(y,n||c?yn-=c*B,JMP(1-n?n-xn-yn-3:zn):ret());
  R j3(jc(x,yn),y,z);}
 
 //!while|for

@@ -1,3 +1,5 @@
+#pragma once
+
 #include<stdlib.h> //system()
 #include<unistd.h>
 #include<string.h>
@@ -8,7 +10,7 @@
 #include<sys/types.h>
 #include<sys/mman.h>
 #include<sys/stat.h>
-typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef void V;typedef unsigned long long K,UJ;
+typedef unsigned char C,*S;typedef int I;typedef int UI;typedef long J;typedef double F;typedef void V;typedef unsigned long long K,UJ;
 
 #define R return
 #ifdef TEST
@@ -18,8 +20,9 @@ typedef unsigned char C,*S;typedef int I;typedef long J;typedef double F;typedef
 #endif
 //#define P(b,a...)   if(b)return(a);
 #define P(b,a...)   if(b)R({a;});                          //!< "bail early" predicate aka panic.
-#define N(n,a...)   {I i=0,_n=(n);while(i<_n){a;++i;}}
-#define W(b...)     while((b))              //while
+#define W(b...)     while((b))                             //!< while
+#define N(n,a...)   {I i=0,_n=(n);W(i<_n){a;++i;}}
+#define _N(n,a...)  {I i=(n);W(i--){a;}}                   //!< walk something backwards.
 #define $(b,a...)   if(b){a;}else           //cond
 #define C(i,a...)   case i:{a;}break;       //case
 #define S(i,c,a...) switch(i){c default:a;} //switch

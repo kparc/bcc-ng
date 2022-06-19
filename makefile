@@ -1,6 +1,15 @@
-SRC=a.c m.c p.c b.c i.c
+SRC=a.c m.c p.c b.c i.c v.c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
+RV=0
 O=-O0 -g -UTEST
+
+ifeq ($(RV),1)
+	O+= -DRV
+	DIS=-m riscv:rv32
+else
+	DIS=-m i386 -M intel,x86-64
+endif
+
 CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
 LF=
 OD=objdump
@@ -10,11 +19,12 @@ ifeq ($(shell uname),Darwin)
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  OD=/usr/local/opt/binutils/bin/objdump
- OBJDUMP="/usr/local/opt/binutils/bin/objdump -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8"
+ OBJDUMP="/usr/local/opt/binutils/bin/objdump -b binary  -D t/lnk.bin | tail -n+8"
  ifeq ($(shell uname -m),arm64)
 	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
-	OBJDUMP="/opt/homebrew/opt/binutils/bin/objdump -b binary -m i386 -M intel,x86-64 -D t/lnk.bin | tail -n+8"
+	OBJDUMP="/opt/homebrew/opt/binutils/bin/objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
+	#riscv riscv:rv64 riscv:rv32
  endif
 endif
 
