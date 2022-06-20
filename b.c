@@ -24,7 +24,7 @@ ZK o2(I t,I f,I r,K x,K y){I i=Ay?yi:yu;        //!< y is either value or functi
  R u(r,j3(
     Ay?c0():y,
     x,
-    10>f?OP(t,f,r,xu,i):                        //!< function
+    10>f?OP(t,f,r,xu,i):                        //!< operator
     j2(cm(t,xu,i),16>r?CND(f-9,r):c1(f-9))      //!< comparison
     ));}
 
@@ -118,7 +118,7 @@ ZK g(I c,K x){//O("g: c=%d ",c);fflush(0);o(r1(x));
 ZI1(hh){I t=T[xi-'a'];R 14==t?-2:13==t?-4:2*t-26;}
 
 //!to register, constant or global
-K d(I r,K x){//O("d: r=%d ",r);fflush(0);o(r1(x));
+K d(I r,K x){//O("d: r=%d 15&r=%d",r,15&r);fflush(0);o(r1(x));
  P(Ax,(r=q(x))?M|=1<<r,u(r,c0()):x)
  I s=15&r,a;K y,z;
  S((y=xy,c(a=*xC)), //!< a is function, y is 1st argument

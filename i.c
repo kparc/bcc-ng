@@ -51,8 +51,7 @@ K jjj(K x,I n){R cj(0x0f,c5(16+xC[xn],n-4));}
 #ifndef RV
 
 //!return object code to execute opcode o with arguments x and y and store argument of type t in register r
-K op(I t,I o,I r,I x,I y){K z;
- O("(t=%c o='%s%c%s' (%d) r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],GRN,0==o?'M':5==o?'C':OPS[o],OFF,o,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
+K op(I t,I o,I r,I x,I y){K z;oOP();
 
  P(KF==t,8u>y-8?AB("vex"):j2(c2(0xc5,16*(8&~r)+8*(15&~x)+(5-o?3:1)),
   // for fp (with 0f prefix): i2f int to float
@@ -79,7 +78,7 @@ K op(I t,I o,I r,I x,I y){K z;
     rex(r,a?0:y,x,c3(0>o?1&o?0x8b:0x89:3-o?0x8d:0x6b,m(3-o?a:3,RG(r),a?RG(x):4),a?(2-o?y-128:128-y)<<s:m(s,RG(y),RG(x))));}
 
 K cll(I c){R c5(0xe8,c);}                                       //!< call
-I ret(){R c1(0xc3);}                                            //!< return
+K ret(){R c1(0xc3);}                                            //!< return
 #endif
 
 //:~

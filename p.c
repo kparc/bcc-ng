@@ -105,7 +105,7 @@ K ps(S s){
   #ifndef RV
   lnk(zy);
   //#ifndef TEST
-  #if 0
+  #if 1
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
   #endif

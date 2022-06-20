@@ -1,6 +1,8 @@
 #include"c.h"
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
+#define oOP() O("(t=%c o='%s%c%s' (%d) r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],GRN,0==o?'M':5==o?'C':OPS[o],OFF,o,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem")
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpointer-sign"
 #pragma GCC diagnostic ignored "-Wpedantic"
@@ -17,7 +19,7 @@ K tst(I t,I x);               //!< test (sets sz if x is not zero), nyi for floa
 K jmp(I n);                   //!< jump (c5 long c2 short)
 K cll(I c);                   //!< call
 K jjj(K x,I n);
-I ret();                      //!< return from subroutine
+K ret();                      //!< return from subroutine
 
 #define xI ((I*)x)
 #define xn xI[-1]

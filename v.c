@@ -1,4 +1,5 @@
 #include"a.h"
+#include"i.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpointer-sign"
@@ -21,8 +22,7 @@ ZK ES(V o,V f3,V s1,V s2,V im)       {R rv(o|f3<<12|(im&0x1f)<<7|s1<<15|s2<<20|(
 #ifdef RV
 
 //!return object code to execute opcode o with arguments x and y and store argument of type t in register r
-K op(I t,I o,I r,I x,I y){
- O("(t=%c o='%s%c%s' r=%s x=%s y=%-3s) -> "," chijefs CHIJEFS"[t],GRN,' '==OPS[o]?'M':OPS[o],OFF,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem");
+K op(I t,I o,I r,I x,I y){oOP();
 
  P(KF==t,AB("vop: rv float nyi\n"))
 
@@ -71,6 +71,14 @@ K cll(){
   I docall=1,tr=docall?1:5;       //!< ra or t0
   R j2(EU(0x17,0,0,0,(1<<7)),     //!< auipc TR, 0 %call(func)
        EI(0x67,0,tr,tr,0));}      //!< jalr  TR, r(TR)
+
+//call offset                       Call far-away subroutine
+//    auipc  x1, offset[31:12]
+//    jalr   x1, x1, offset[11:0]
+
+//tail offset                       Tail call far-away subroutine
+//    auipc x6, offset[31:12]
+//    jalr  x0, x6, offset[11:0]
 
 K ret(){R EI(0x67,0,0,1,0);};     //!< jalr x0,x1,0 aka ret
 #endif
