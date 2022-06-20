@@ -38,7 +38,7 @@ endif
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
 all: clear
-	@#make dis
+	@make dis
 	@RV=1 make dis
 
 dis: l
