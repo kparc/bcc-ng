@@ -18,9 +18,9 @@ ZK1(cc){N(xn,if(94u<Xc-32){K r=kC(2*xn);N(xn,hh(rC+2*i,Xc))R j2(c2('0'+xu,'x'),r
 //R cj('"',jc(r1(x),'"'));}
 R r1(x);}
 
-#define PRT 1
-#define TAB 1
-#define TYP 0
+#define PRT 1     // print parse tree
+#define TAB 1     // indent parse tree
+#define TYP 0     // trace return types
 #if PRT
 I tb(I n){P(!TAB,n)O("\n");N(n,O(" "))R n;}ZC ty(K x){R KS==Ax?'s':KC==Ax?'c':KI==Ax?'i':KF==Ax?'f':'+'+!xi;}
 ZI typ(K x){R KS==Ax?O("`%c",'a'+xi):KC==Ax?((94u<xi-32)?O("0x%x",xi):O("%c",xi)):KI==Ax?O("%d",xi):KF==Ax?O("%f",xf):O("%c",'+'+!xi);}
@@ -56,3 +56,4 @@ V km(S*a){csr();N(26,G[i]=NL)*(K*)(K0=kK(0))=c0();if(*++a)pr(ld(*a));W(1)pr(es(r
 //ZK2(wr1){QC(x)x=jc(x,0);QC(y)unlink(x);I d=open(x,0102,0666);Qs(0>d,x)ftruncate(d,yn);R x=X0(ma(1,d,0,yn)),dsn(x,y,yn),mu(x,yn),Y0(NL);}
 //K1(rd0){R Ss(0,rd1(x));} //{-1_'(0,1+&x=y)_y} K2(wr0){R wr1(x,sS(0,y));} //{,/x,'y}          
 
+//:~

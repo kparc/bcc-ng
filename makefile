@@ -1,6 +1,6 @@
 SRC=a.c m.c p.c b.c i.c v.c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
-RV?=0
+RV?=1
 O=-O0 -g -UTEST
 
 ifeq ($(RV),1)
@@ -24,8 +24,11 @@ ifeq ($(shell uname),Darwin)
 	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
 	OBJDUMP="/opt/homebrew/opt/binutils/bin/objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
-	#riscv riscv:rv64 riscv:rv32
  endif
+endif
+
+ifeq ($(shell uname -m),riscv64)
+	OBJDUMP="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 endif
 
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
@@ -38,7 +41,7 @@ dis: l
 	@./l t.b
 
 clear:
-	@echo "\x1b[H\x1b[2J" # clear screen
+	@#echo "\x1b[H\x1b[2J" # clear screen
 
 l: cln *.c *.h makefile
 	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
