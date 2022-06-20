@@ -2,7 +2,7 @@ MAKEFLAGS+=--silent
 
 SRC=[ampbiv].c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
-RV?=1
+RV?=0
 O=-Os -g -UTEST
 
 ifeq ($(RV),1)
@@ -15,9 +15,9 @@ endif
 CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
 LF=
 OD=objdump
-#-s -nostdlib A.S
 
 ifeq ($(shell uname),Darwin)
+ CC=clang
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  OD=/usr/local/opt/binutils/bin/objdump
@@ -30,7 +30,8 @@ ifeq ($(shell uname),Darwin)
 endif
 
 ifeq ($(shell uname -m),riscv64)
-	OBJDUMP="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
+	RV=1
+	OD="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 	CC=tcc
 endif
 
