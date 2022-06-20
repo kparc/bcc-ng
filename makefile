@@ -31,6 +31,7 @@ endif
 
 ifeq ($(shell uname -m),riscv64)
 	RV=1
+	DIS=-m riscv:rv32
 	OBJDUMP="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 	CC=tcc
 endif
@@ -53,10 +54,6 @@ l: cln *.c *.h makefile
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
 	@./$@ t/t.b
-
-tcc:
-	tcc -std=c99 -O0 -g $(SRC) $(CF) -o bt
-	./bt t.b
 
 dbg: l
 	@lldb -b -o run -- ./l t.b
