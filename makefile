@@ -66,3 +66,4 @@ cln:
 
 b:
 	tcc -std=c99 $(SRC) $(CF) -O2 -o $@
+	./$@
