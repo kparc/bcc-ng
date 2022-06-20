@@ -1,7 +1,9 @@
-SRC=a.c m.c p.c b.c i.c v.c
+MAKEFLAGS+=--silent
+
+SRC=[ampbiv].c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
 RV?=1
-O=-O0 -g -UTEST
+O=-Os -g -UTEST
 
 ifeq ($(RV),1)
 	O+= -DRV
@@ -29,6 +31,7 @@ endif
 
 ifeq ($(shell uname -m),riscv64)
 	OBJDUMP="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
+	CC=tcc
 endif
 
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
@@ -44,7 +47,7 @@ clear:
 	@#echo "\x1b[H\x1b[2J" # clear screen
 
 l: cln *.c *.h makefile
-	@clang -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
+	@$(CC) -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
 
 g: cln *.c *.h makefile
 	@$(CC) -o $@ $(LF) $(SRC) $(CF)
@@ -63,4 +66,5 @@ tst: l clear
 cln:
 	@rm -f g l
 
-all: d
+b:
+	tcc -std=c99 $(SRC) $(CF) -O2 -o $@

@@ -127,7 +127,8 @@ ZI clzl(I n){I i=0;W(n)n/=2,++i;R i-4;}ZV csr(){R;}  //<! FIXME tcc ldmxcsr nyi 
 #if __i386
 UJ ms(){UJ a;asm volatile("rdtsc":"=A"(a));R a;}
 #elif __riscv
-static UJ ms(){UJ a;asm volatile("csrr %0," "cycle":"=r"(a));R a;}
+//static UJ ms(){UJ a;asm volatile("csrr %0," "cycle":"=r"(a));R a;}   //!< FIXME TCC
+static UJ ms(){R 0;}
 #elif  __aarch64__
 UJ ms(){UJ a;asm volatile("mrs %0,cntvct_el0":"=r"(a));R a;}
 #elif __x86_64
