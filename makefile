@@ -31,7 +31,7 @@ endif
 
 ifeq ($(shell uname -m),riscv64)
 	RV=1
-	OD="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
+	OBJDUMP="objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 	CC=tcc
 endif
 
