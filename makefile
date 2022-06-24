@@ -1,6 +1,6 @@
 MAKEFLAGS+=--silent
 
-SRC=[ampbiv].c
+SRC=[ampbivt].c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
 RV?=0
 O=-Os -g -UTEST
@@ -67,3 +67,7 @@ cln:
 b:
 	tcc -std=c99 $(SRC) $(CF) -O2 -o $@
 	./$@
+
+trie:
+	@$(CC) -o $@ $(LF) t.c $(CF) -DRUN_TESTS_TRI
+

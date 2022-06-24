@@ -102,17 +102,17 @@ K ps(S s){
   #endif
   //dis(zy); // disasm
 
-  #ifndef RV
+  //#ifndef RV
   lnk(zy);
   //#ifndef TEST
   #if 1
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
-  #endif
+  //#endif
  }
 
  //dis(zy); // disasm
- //N(26,O("%c: %p\n",'a'+i,G[i]))  // dump globals
+ N(26,if(G[i]-NL)O("GLOB %c = %p ",'a'+i,(V*)G[i]),fflush(0),o(r1(G[i])))  // dump globals
 
  // k!=0 is assignment: function values are (src;bin) tuples,
  // everything else gets assigned with the evaluation result.

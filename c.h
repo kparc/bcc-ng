@@ -18,17 +18,18 @@ typedef unsigned char C,*S;typedef int I;typedef int UI;typedef long J;typedef d
 #else
 #define O printf
 #endif
-//#define P(b,a...)   if(b)return(a);
 #define P(b,a...)   if(b)R({a;});                          //!< "bail early" predicate aka panic.
 #define W(b...)     while((b))                             //!< while
-#define N(n,a...)   {I i=0,_n=(n);W(i<_n){a;++i;}}
+#define N(n,a...)   {I i=0,_n=(n);W(i<_n){a;++i;}}         //!< no stinking loops.
 #define _N(n,a...)  {I i=(n);W(i--){a;}}                   //!< walk something backwards.
-#define $(b,a...)   if(b){a;}else           //cond
-#define C(i,a...)   case i:{a;}break;       //case
-#define S(i,c,a...) switch(i){c default:a;} //switch
+#define $(b,a...)   if(b){a;}else                          //!< cond
+#define S(i,c,a...) switch(i){c default:a;}                //!< switch
+#define C(i,a...)   case i:{a;}break;                      //!< case+break
 
 #define MN(a,b)    ({typeof(a)_a=(a);typeof(a)_b=(b);_a<_b?_a:_b;})
 #define MX(a,b)    ({typeof(a)_a=(a);typeof(a)_b=(b);_a>_b?_a:_b;})
+#define IN(l,x,r)  ((l)<=(x)&&(x)<=(r))
+#define CNT(x)     (sizeof(x)/sizeof(x[0]))
 
 #define ZI static I
 #define ZC static C
@@ -57,5 +58,3 @@ typedef unsigned char C,*S;typedef int I;typedef int UI;typedef long J;typedef d
 #define OFF "\x1b[0m"         //<! color off
 
 //:~
-
-

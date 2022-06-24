@@ -191,8 +191,15 @@ V1(lnk){S s=xC;W(s<xC+xn){
  I n=ln(s+=4==*s/16),p=0xc5==*s?2:0x0f==*s;S r=s+n-4; //!< 4==*s/16 => rex instruction, skip it
  if(0xe8==*s|| //!< function call
     (p?8-s[1]/16:4>*s/16||8==*s/16)&&5==(0xc7&s[1+p])) //!< check if instruction uses relative address argument:
-  *(I*)r=(0xe8==*s?a-'a'==*r?x:26==*r?(K)l1:((K*)G[*r])[1]:32>*r?(K)&zF[2+*r-16]:(K)(G+*r-'a'))-(K)r-4;
- s+=n;}}
+
+  *(I*)r=(
+    0xe8==*s?(
+        a-'a'==*r?x
+        :26==*r?(K)l1
+        :((K*)G[*r])[1])
+        :32>*r?(K)&zF[2+*r-16]:(K)(G+*r-'a')
+    )-(K)r-4;
+    s+=n;}}
 
 //!pretty print function opcodes and its return type
 //V1(dis){w2(px(xu)),oc(':');S s=xC;W(s<xC+xn-2){N(ln(s),w2(px(*s++)))oc(' ');}N(2,w2(px(*s++)))nl();}
