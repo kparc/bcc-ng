@@ -75,7 +75,7 @@ ZS bb(S x){C b[BLIM];I n=0,a;S s;x-=1; //!< bracket balancer
  }R n?x:0;}
 
 K ps(S s){
-  O("%s%s%s\n\n",RED,s,OFF);                     //!< source
+  O("\n%s%s%s\n\n",GRN,s,OFF);                     //!< source
 
  //if(26u>*s-'a'&&!s[1]){K x=G[*s-'a'];P(FN(x),os((S)xx),dis(xy),NL);}//!< FIXME quick hack to pretty print opcodes by referencing function name
  S b=bb(s);P(b,qs(*b?b:(S)"bal"))                //!< balance brackets
@@ -105,14 +105,15 @@ K ps(S s){
   //#ifndef RV
   lnk(zy);
   //#ifndef TEST
-  #if 1
+  #if 0
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
   #endif
   //#endif
  }
 
  //dis(zy); // disasm
- N(26,if(G[i]-NL)O("GLOB %c = %p ",'a'+i,(V*)G[i]),fflush(0),o(r1(G[i])))  // dump globals
+
+ //N(26,if(G[i]-NL)O("GLOB %c = %p ",'a'+i,(V*)G[i]),fflush(0),o(r1(G[i])))  // dump globals
 
  // k!=0 is assignment: function values are (src;bin) tuples,
  // everything else gets assigned with the evaluation result.

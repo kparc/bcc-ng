@@ -75,7 +75,7 @@ ZV1(m){I i;
   $(':'==*xC&&A(xy),i=I(xy)-'a',M&=~(1<<L[i]),m(xz))
    N(xn,m(sc((S)"{WNC",*xC)?xK[xn-1-i]:Xx))}
 
-ZK1(w){O("w:\n");fflush(0);
+ZK1(w){//O("w:\n");fflush(0);
  I i='N'==*xC?L[N++]:0,j=0;m(x);
 
  K y=xy,z=xz;

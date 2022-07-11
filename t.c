@@ -25,10 +25,10 @@ static TN tri_paste(T t,S key,UJ n,V*val,C overwrite){P(!n,NULL)
 
 ZV tri_destroy_node(TN n,V*arg,I depth){free(n);}C tri_is_leaf(TN n){R!!n->val;}
 
-TN tri_insert(T t,S key,sz n,V*val){R tri_paste(t,key,n,val,0);}
+static TN tri_insert(T t,S key,sz n,V*val){R tri_paste(t,key,n,val,0);}
 //TN tri_upsert(T t,S key,sz n,V*val){R tri_paste(t,key,n,val,1);}
 
-TN tri_get(T t,S key){sz l=sl(key);P(!l,NULL)TN curr=t->root;C c,idx;
+static TN tri_get(T t,S key){sz l=sl(key);P(!l,NULL)TN curr=t->root;C c,idx;
  N(l,c=key[i];idx=c-TRI_RANGE_OFFSET;P(!IN(0,idx,TRI_RANGE-1),NULL)P(!curr,NULL)
   curr=curr->children[idx])R curr;}
 
@@ -39,7 +39,7 @@ ZV tri_each_node_reverse(T t,TN curr,TFn fn,V*arg,I depth){
 	N(TRI_RANGE,TN c=curr->children[i];if(c)tri_each_node_reverse(t,c,fn,arg,depth+1))
 	fn(curr,arg,depth);}
 
-V tri_each_reverse(T t,TFn fn,V*arg){tri_each_node_reverse(t,t->root,fn,arg,0);}
+ZV tri_each_reverse(T t,TFn fn,V*arg){tri_each_node_reverse(t,t->root,fn,arg,0);}
 sz tri_destroy(T t){tri_each_reverse(t,tri_destroy_node,NULL);sz r=t->mem;free(t);R r;}
 
 static T KEYWORDS;
@@ -62,7 +62,6 @@ V tri_dump_from(T t,TN n){tri_each_from(t,n,tri_dump_node,NULL);}
 V tri_test_each(TN n,V*arg,I depth){O("key=(%c) depth=%d arg=%ld\n",n->key,depth,(J)arg);}
 
 I main() {
-
 	kw_lut_init();
 	kw_test();
 	exit(0);
@@ -81,8 +80,7 @@ I main() {
 		P(!r,O("can't find trie entry\n"),1)
 		O("found [%d] %ld\n",i, (J)r->val))
 
-	tri_destroy(t);
-	R 0;
+	R tri_destroy(t),0;
 }
 #endif
 
