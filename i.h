@@ -1,7 +1,7 @@
 #include"c.h"
 // :+-*% ^&|<=>  x64 JJ Jj o2 cc tst RET cll psh pop acdbsbsd89..  o[m[s|d]] c3 eb+1 e8+4 e9+4 [f2/66/4*][0f] 5* 7*+1 b*+4 0f8*+4  03 23 2b 3b (6b 83) 89 8b ..
 
-#define oOP() O("(t=%c o='%s%c%s' (%d) r=%s x=%s y=%-3s)\t-> "," chijefs CHIJEFS"[t],GRN,0==o?'M':5==o?'C':OPS[o],OFF,o,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem")
+#define oOP() O("(t=%c o='%s%c%s' (%d) r=%s x=%s y=%-3s (%x))\t-> "," chijefs CHIJEFS"[t],GRN,0==o?'M':5==o?'C':OPS[o],OFF,o,a[r],a[x],y<16?(char*)a[y]:128<y?(char*)pi(y-128):"mem", 128<y?0:y)
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpointer-sign"
