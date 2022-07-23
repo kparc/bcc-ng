@@ -1,4 +1,4 @@
-#include"a.h"
+#include"../a.h"
 
 #define TRI_RANGE 75          //!< 26 lower/upper, 75 alnum
 #define TRI_RANGE_OFFSET 48   //!< 97 ascii lowercase, 65 ascii uppercase, 48 alnum
