@@ -23,27 +23,24 @@ ifeq ($(shell uname),Darwin)
  CC=clang
  LF+= -pagezero_size 1000
  CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
- OD=/usr/local/opt/binutils/bin/objdump
- OBJDUMP="/usr/local/opt/binutils/bin/objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
  ifeq ($(shell uname -m),arm64)
 	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
-	OBJDUMP="/opt/homebrew/opt/binutils/bin/objdump -b binary $(DIS) -D t/lnk.bin | tail -n+8"
  endif
 endif
 
 ifeq ($(shell uname -m),riscv64)
 	RV=1
 	DIS=-m riscv:rv$R
-	OBJDUMP="objdump --adjust-vma=0x%x -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 	#CC=tcc
 endif
 
+OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
 all: cln
-	@#make dis
-	@RV=1 make dis
+	@make dis
+	@#RV=1 make dis
 
 dis: l
 	@./l t.b
