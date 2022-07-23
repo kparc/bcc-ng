@@ -14,14 +14,14 @@ else
 	DIS=-m i386 -M intel,x86-64
 endif
 
-CF=$O -fno-asynchronous-unwind-tables -fno-stack-protector -Wall -Wno-unused-variable -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
+CF=$O -Wall -Wno-unused-variable -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
 LF=
 OD=objdump
 
 ifeq ($(shell uname),Darwin)
  CC=clang
- LF+= -pagezero_size 1000
- CF+= -I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
+ LF+=-pagezero_size 1000
+ CF+=-I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  ifeq ($(shell uname -m),arm64)
 	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
@@ -34,7 +34,7 @@ ifeq ($(shell uname -m),riscv64)
 endif
 
 OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D t/lnk.bin | tail -n+8"
-CF+= -DOBJDUMP=\"$(OBJDUMP)\"
+CF+=-DOBJDUMP=\"$(OBJDUMP)\"
 
 all: cln
 	@make dis
@@ -46,10 +46,10 @@ clear:
 	@#echo "\x1b[H\x1b[2J" # clear screen
 
 l: cln *.c *.h makefile
-	$(CC) -o $@ $(LF) $(SRC) $(CF) -Wno-unknown-warning-option
+	$(CC) -o $@ $(SRC) $(CF) $(LF) -Wno-unknown-warning-option
 
 g: cln *.c *.h makefile
-	$(CC) -o $@ $(LF) $(SRC) $(CF)
+	$(CC) -o $@ $(SRC) $(CF) $(LF)
 	./$@ t/t.b
 
 dbg: l
