@@ -40,7 +40,6 @@ CF+= -DOBJDUMP=\"$(OBJDUMP)\"
 
 all: cln
 	@make dis
-	@#RV=1 make dis
 
 dis: l
 	@./l t.b
