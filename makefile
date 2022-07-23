@@ -4,7 +4,6 @@ A=lp64d
 
 SRC=[ampbiv].c
 CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
-CC=tcc
 RV?=0
 O=-O0 -g -UTEST
 
@@ -30,9 +29,8 @@ ifeq ($(shell uname),Darwin)
 endif
 
 ifeq ($(shell uname -m),riscv64)
-	RV=1
 	DIS=-m riscv:rv$R
-	#CC=tcc
+	CC=tcc
 endif
 
 OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D t/lnk.bin | tail -n+8"
