@@ -59,9 +59,6 @@ tst: l clear
 	./l t/t.b
 
 t:
-	RV=1 make _t
-
-_t:
 	$(CC) -o test $(LF) test.c $O $(CF) -Wno-unknown-warning-option
 
 cln:
@@ -72,6 +69,7 @@ b:
 	./$@
 
 trie:
-	$(CC) -o $@ $(LF) t.c $(CF) -DRUN_TESTS_TRI
+	$(CC) -o tr/$@ $(LF) tr/t.c $(CF) -DRUN_TESTS_TRI
+	tr/trie
 
 .PHONY:t test trie
