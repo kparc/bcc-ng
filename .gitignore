@@ -8,3 +8,4 @@ l
 t/*.bst
 t/*.e
 t/*.lst
+tr/trie
