@@ -15,7 +15,7 @@ ZI A[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  2
 ZK rv(V i){R pn((S)&i,4);}
 
 ZK EU(V o,V f3,V rd,V s1,V im)       {R rv(o|f3<<12|rd<<7|s1<<15|im<<20);}
-ZK EI(V o,V f3,V rd,V s1,V im)       {R EU(o,f3,rd,s1,im);}
+ZK EI(V o,V f3,V rd,V s1,V im)       {R rv(o|f3<<12|rd<<7|s1<<15|im<<20);}
 ZK ER(V o,V f3,V rd,V s1,V s2,V f7)  {R rv(o|f3<<12|rd<<7|s1<<15|s2<<20|f7<<25);}
 ZK ES(V o,V f3,V s1,V s2,V im)       {R rv(o|f3<<12|(im&0x1f)<<7|s1<<15|s2<<20|((im>>5)<<25));}
 
@@ -26,8 +26,10 @@ K op(I t,I o,I r,I x,I y){oOP();
 
  P(KF==t,AB("vop: rv float nyi\n"))
 
- K z=0;I a=126<y,ll=0;//I ll=a?0:8; // rv32/64
+ K z=0;I a=126<y,ll=a?0:8;
+ O("a = %d ll = %d\n",a,ll);
  r=A[r],x=A[x],y=a?y-128:A[y];
+ $('-'==OPS[o]&&a,y=-y);                 // sub is add
 
  #define IR(l,f3,r,x,y,f7) z=a?EI(0x13|l,f3,r,x,y):ER(0x33|l,f3,r,x,y,f7) 
 
@@ -41,7 +43,8 @@ K op(I t,I o,I r,I x,I y){oOP();
     C('%',  IR(ll,     4,r,x,y,1))       // div  d,a,b
     C('\\', IR(ll|ll,  5,r,x,y,0))       // srl  d,a,b
     C('/',  IR(ll,     1,r,x,y,0))       // sll  d,a,b
-    C(' ',z=EI(0x13,   0,r,y,0))         // mv   d,s  (addi rd, rs, 0)
+    C(' ',z=EU(0x13|ll,   0,r,0,y))      // mv   d,s  (addi rd, rs, 0)
+//  C(' ',z=EI(0x13,   0,r,0,2))         // mv   d,s  (addi rd, rs, 0)
     //C('%', ER(ll?0x3b:0x33,6,d,a,b,1))     // rem  d,a,b
     //C(SAR, ER(0x33|ll|ll,  5,d,a,b,0x20))  // sra  d,a,b
     //C(UMOD,ER(0x33|ll,     7,d,a,b,1))     // remu d,a,b
@@ -67,10 +70,12 @@ K op(I t,I o,I r,I x,I y){oOP();
 
  R z;}
 
-K cll(){
-  I docall=1,tr=docall?1:5;       //!< ra or t0
-  R j2(EU(0x17,0,0,0,(1<<7)),     //!< auipc TR, 0 %call(func)
-       EI(0x67,0,tr,tr,0));}      //!< jalr  TR, r(TR)
+K cll(I c){
+  I o=0x70000168-0x700000c8;
+  //O("cll c=%c OFF=%x %d\n",c+'a',o,o);
+  I tail=0,tr=tail?1:5;                        //!< ra or t0
+  R j2(EU(0x17,0,tr,0,0),                      //!< auipc TR, 0 %call(func)
+       EI(0x67,0,tr,tr,-o-4));}                //!< jalr  TR, r(TR)
 
 //call offset                       Call far-away subroutine
 //    auipc  x1, offset[31:12]

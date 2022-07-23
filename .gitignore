@@ -9,3 +9,4 @@ t/*.bst
 t/*.e
 t/*.lst
 trie
+test
