@@ -97,18 +97,15 @@ K ps(S s){
   // - arguments that do not fit in registers
   zy=u(a,j2(X0(Ax||'$'-*xC?f(0,x):v(0,x,0)),j2(ret(),c2(*D,D[1]))));
 
-  #ifndef TEST
+  #ifndef RV
+  lnk(zy);
+  #endif
+
   S b=calloc(1000,1);
   sprintf(b,OBJDUMP,zy);
   dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(b);O(OFF);O("\n"); // disasm
   free(b);
-  #endif
   //dis(zy); // disasm
-
-  #ifndef RV
-  //lnk(zy);dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(OBJDUMP);O(OFF);O("\n"); // disasm
-  #endif
-  //#endif
  }
 
  //dis(zy); // disasm

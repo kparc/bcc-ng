@@ -22,8 +22,8 @@ ifeq ($(shell uname),Darwin)
  CC=clang
  LF+=-pagezero_size 1000
  CF+=-I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
+ CF+= -arch x86_64 -msse
  ifeq ($(shell uname -m),arm64)
-	CF+= -arch x86_64 -msse
 	OD=/opt/homebrew/opt/binutils/bin/objdump
  endif
 endif
