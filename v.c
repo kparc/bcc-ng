@@ -27,7 +27,7 @@ K op(I t,I o,I r,I x,I y){oOP();
  P(KF==t,AB("vop: rv float nyi\n"))
 
  K z=0;I a=126<y,ll=a?0:8;
- O("a = %d ll = %d\n",a,ll);
+ //O("a = %d ll = %d\n",a,ll);
  r=A[r],x=A[x],y=a?y-128:A[y];
  $('-'==OPS[o]&&a,y=-y);                 // sub is add
 
@@ -71,7 +71,7 @@ K op(I t,I o,I r,I x,I y){oOP();
  R z;}
 
 K cll(I c){
-  I o=0x70000168-0x700000c8;
+  I o=0x70000048-0x700000c8;
   //O("cll c=%c OFF=%x %d\n",c+'a',o,o);
   I tail=0,tr=tail?1:5;                        //!< ra or t0
   R j2(EU(0x17,0,tr,0,0),                      //!< auipc TR, 0 %call(func)

@@ -65,7 +65,7 @@ _t:
 	$(CC) -o test $(LF) test.c $O $(CF) -Wno-unknown-warning-option
 
 cln:
-	rm -f g l
+	@rm -f g l
 
 b:
 	tcc -std=c99 $(SRC) $(CF) -O2 -o $@

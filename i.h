@@ -45,7 +45,8 @@ ZK inst(K x){_N(xn,O("%.2x",Xc));R O("\n"),x;}
 #define POP(a...) trc(POP,pop,a)
 #define TST(a...) trc(TST,tst,a)
 #define JMP(a...) trc(JMP,jmp,a)
-#define CLL(a...) trc(CLL,cll,a)
+//#define CLL(a...) trc(CLL,cll,a)
+#define CLL(a...) cll(a)
 #define JJJ(a...) trc(JJJ,jjj,a)
 
 //:~
