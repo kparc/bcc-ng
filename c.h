@@ -10,7 +10,7 @@
 #include<sys/types.h>
 #include<sys/mman.h>
 #include<sys/stat.h>
-typedef unsigned char C,*S;typedef int I;typedef int UI;typedef long J;typedef double F;typedef void V;typedef unsigned long long K,UJ;
+typedef unsigned char C,*S;typedef int I;typedef int UI;typedef unsigned short UH;typedef long J;typedef double F;typedef void V;typedef unsigned long long K,UJ;
 
 #define R return
 #ifdef TEST

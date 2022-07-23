@@ -12,7 +12,8 @@ ZS a[]={"a0","a1","a2","a3","a4","a5","a6","a7","s2","s3","s4","s5","s6","s7","s
 ZI A[]={ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,   26,   27,  28,  29,  30,  31 };
 
 #define V UI
-ZK rv(V i){R pn((S)&i,4);}
+ZK rv (V i){R pn((S)&i,4);}
+ZK rc(UH i){R pn((S)&i,2);}          //!< compressed
 
 ZK EU(V o,V f3,V rd,V s1,V im)       {R rv(o|f3<<12|rd<<7|s1<<15|im<<20);}
 ZK EI(V o,V f3,V rd,V s1,V im)       {R rv(o|f3<<12|rd<<7|s1<<15|im<<20);}
@@ -71,21 +72,28 @@ K op(I t,I o,I r,I x,I y){oOP();
  R z;}
 
 K cll(I c){
-  I o=0x70000048-0x700000c8;
+  I o=0x70000148-0x700000c8;
   //O("cll c=%c OFF=%x %d\n",c+'a',o,o);
   I tail=0,tr=tail?1:5;                        //!< ra or t0
   R j2(EU(0x17,0,tr,0,0),                      //!< auipc TR, 0 %call(func)
-       EI(0x67,0,tr,tr,-o-4));}                //!< jalr  TR, r(TR)
+       EI(0x67,0,tr,tr,o-4));}                 //!< jalr  TR, r(TR)
 
-//call offset                       Call far-away subroutine
+//call offset                       call far-away subroutine
 //    auipc  x1, offset[31:12]
 //    jalr   x1, x1, offset[11:0]
 
-//tail offset                       Tail call far-away subroutine
+//tail offset                       tail call far-away subroutine
 //    auipc x6, offset[31:12]
 //    jalr  x0, x6, offset[11:0]
 
-K ret(){R EI(0x67,0,0,1,0);};     //!< jalr x0,x1,0 aka ret
+K CR(UH o,UH f4,UH rd,UH s1)        {R rc(o|f4<<12|rd<<7|s1<<2);} //!< CR-type
+
+K ret(){
+ K r=EI(0x67,0,0,1,0);               //!< jalr   x0,x1,0    (aka ret)
+ //K r=CR(0x2,0x9,1,0);              //!< c.jalr ra,rs1,0
+ //O("RET %p\n", r);
+ R r;
+}
 #endif
 
 //:~
