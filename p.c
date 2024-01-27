@@ -103,7 +103,7 @@ K ps(S s){
 
   S b=calloc(1000,1);
   sprintf(b,OBJDUMP,zy);
-  dmp((S)"t/lnk.bin",zy);O(CYA);O("\n");system(b);O(OFF);O("\n"); // disasm
+  dmp((S)"ref/lnk.bin",zy);O(CYA);O("\n");system(b);O(OFF);O("\n"); // disasm
   free(b);
   //dis(zy); // disasm
  }

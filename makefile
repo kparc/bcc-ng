@@ -3,7 +3,7 @@ R=64
 A=lp64d
 
 SRC=[ampbiv].c
-CC=$(shell env env which gcc-12||gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
+GCC=$(shell env env which gcc-12||gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
 RV?=0
 O=-O0 -g -UTEST
 
@@ -33,36 +33,33 @@ ifeq ($(shell uname -m),riscv64)
 	CC=tcc
 endif
 
-OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D t/lnk.bin | tail -n+8"
+OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D ref/lnk.bin | tail -n+8"
 CF+=-DOBJDUMP=\"$(OBJDUMP)\"
 
+# default: build bcc w/clang and compile t.b
 all: cln l
-	@./l
 
-dis: cln
-	@./l t.b
-
-l: cln *.c *.h makefile
-	$(CC) -o $@ $(SRC) $(CF) $(LF) -Wno-unknown-warning-option
-
-g: cln *.c *.h makefile
-	$(CC) -o $@ $(SRC) $(CF) $(LF)
-	./$@ t/t.b
-
-dbg: l
+# debug t.b
+db: all
 	lldb -b -o run -- ./l t.b
 
-tst: l clear
-	./l t/t.b
+# clang build + reftest
+l: cln *.c *.h makefile
+	clang -o $@ $(SRC) $(CF) $(LF) -Wno-unknown-warning-option
+	./$@ ref/t.b
 
-t:
-	$(CC) -o test $(LF) test.c $O $(CF) -Wno-unknown-warning-option
+# gcc build + reftest
+g: cln *.c *.h makefile
+	$(GCC) -o $@ $(SRC) $(CF) $(LF)
+	./$@ ref/t.b
 
-cln:
-	@rm -f g l
-
-b:
+# tcc build + reftest
+t: cln *.c *.h makefile
 	tcc -std=c99 $(SRC) $(CF) -O2 -o $@
-	./$@
+	./$@ ref/t.b
 
-.PHONY:t
+# cleanup
+cln:
+	@rm -f l g t
+
+.PHONY:all t cln d
