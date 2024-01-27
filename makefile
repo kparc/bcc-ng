@@ -3,7 +3,7 @@ R=64
 A=lp64d
 
 SRC=[ampbiv].c
-CC=$(shell env env which gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
+CC=$(shell env env which gcc-12||gcc-11||which gcc-10||env which gcc-9||env which gcc-8||echo gcc)
 RV?=0
 O=-O0 -g -UTEST
 
@@ -20,7 +20,7 @@ OD=objdump
 
 ifeq ($(shell uname),Darwin)
  CC=clang
- LF+=-pagezero_size 1000
+ LF+=-pagezero_size 0x4000
  CF+=-I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  CF+= -arch x86_64 -msse
  ifeq ($(shell uname -m),arm64)
@@ -36,14 +36,11 @@ endif
 OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D t/lnk.bin | tail -n+8"
 CF+=-DOBJDUMP=\"$(OBJDUMP)\"
 
-all: cln
-	@make dis
+all: cln l
+	@./l
 
-dis: l
+dis: cln
 	@./l t.b
-
-clear:
-	@#echo "\x1b[H\x1b[2J" # clear screen
 
 l: cln *.c *.h makefile
 	$(CC) -o $@ $(SRC) $(CF) $(LF) -Wno-unknown-warning-option
@@ -68,8 +65,4 @@ b:
 	tcc -std=c99 $(SRC) $(CF) -O2 -o $@
 	./$@
 
-trie:
-	$(CC) -o tr/$@ $(LF) tr/t.c $(CF) -DRUN_TESTS_TRI
-	tr/trie
-
-.PHONY:t test trie
+.PHONY:t

@@ -1,3 +1,0 @@
-          sw sp, x
-          halt
-x:        .word 0
