@@ -1,4 +1,4 @@
-#MAKEFLAGS+=--silent
+MAKEFLAGS+=--silent
 R=64
 A=lp64d
 
@@ -24,7 +24,7 @@ ifeq ($(shell uname),Darwin)
  CF+=-I$(shell xcrun --show-sdk-path)/usr/include -L$(shell xcrun --show-sdk-path)/usr/lib
  CF+= -arch x86_64 -msse
  ifeq ($(shell uname -m),arm64)
-	OD=/opt/homebrew/opt/binutils/bin/objdump
+	OD=$(shell which objdump)
  endif
 endif
 
