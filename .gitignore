@@ -1,11 +1,9 @@
-test
-b
 g
 l
+t
 *.dSYM
 .DS_Store
 *.bin
 t/*.bst
 t/*.e
 t/*.lst
-tr/trie

@@ -126,7 +126,7 @@ ZI clzl(I n){I i=0;W(n)n/=2,++i;R i-4;}ZV csr(){R;}  //<! FIXME tcc ldmxcsr nyi 
 
 #if __i386
 UJ ms(){UJ a;asm volatile("rdtsc":"=A"(a));R a;}
-#elif __riscv
+#elif __riscv||__TINYC__
 //static UJ ms(){UJ a;asm volatile("csrr %0," "cycle":"=r"(a));R a;}   //!< FIXME TCC
 static UJ ms(){R 0;}
 #elif  __aarch64__

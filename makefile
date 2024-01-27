@@ -1,4 +1,4 @@
-MAKEFLAGS+=--silent
+#MAKEFLAGS+=--silent
 R=64
 A=lp64d
 
@@ -37,11 +37,13 @@ OBJDUMP="$(OD) --adjust-vma=0x%llx -b binary $(DIS) -D ref/lnk.bin | tail -n+8"
 CF+=-DOBJDUMP=\"$(OBJDUMP)\"
 
 # default: build bcc w/clang and compile t.b
-all: cln l
+b: cln
+	clang -o $@ $(SRC) $(CF) $(LF) -Wno-unknown-warning-option
+	./$@ t.b
 
 # debug t.b
-db: all
-	lldb -b -o run -- ./l t.b
+d: all
+	lldb -b -o run -- ./b t.b
 
 # clang build + reftest
 l: cln *.c *.h makefile
@@ -62,4 +64,4 @@ t: cln *.c *.h makefile
 cln:
 	@rm -f l g t
 
-.PHONY:all t cln d
+.PHONY:all cln d
