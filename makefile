@@ -42,7 +42,7 @@ b: cln
 	./$@ t.b
 
 # debug t.b
-d: all
+d: b
 	lldb -b -o run -- ./b t.b
 
 # clang build + reftest
