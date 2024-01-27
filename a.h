@@ -11,7 +11,7 @@
 #define X3 13L
 #define QQ 15L
 //extern J nt[],ip();extern K G[],r1(),tn(),j2(),k0(),sS(),enm(),o();V exit(),w2(),r0();S pi(),pf(),px();F fp();
-extern J nt[],ip();extern K G[],ex(K),ps(S),r1(K),tn(I,I),k0(),l1(),sS(I,K),enm(J x),o(K),dmp(S s,K x);I cl(I c);V exit(I),w2(S),r0(K);S pi(J),pf(F),px(J);J ws();F fp(S,I);
+extern J nt[],ip();extern K G[],ex(K),ps(S),r1(K),tn(I,I),k0(),l1(K,K,K),sS(I,K),enm(J x),o(K),dmp(S s,K x);I cl(I c);V exit(I),w2(S),r0(K);S pi(J),pf(F),px(J);J ws();F fp(S,I);
 _ K X(K*k,K y){R r0(*k),*k=y,NL;} //!< swap: release an existing K object under pointer x and replace it with y
 _ I oc(I i){R w2((S)&i),i;}_ V nl(){w2("\n");}_ S os(S s){R w2(s),nl(),s;}_ J oi(J j){R os(pi(j)),j;}_ F of(F f){R os(pf(f)),f;}_ J ox(J j){R os(px(j)),j;}
 _ S sc(S s,I c){W(*s-c)P(!*s++,(S)0)R s;}_ I scn(S s,I c,I n){N(n,P(c==s[i],i))R n;}//_ K P1(J x){R(K)(X1<<48|x);}_ K P2(J x){R(K)(X2<<48|x);}_ K P3(J x){R(K)(X3<<48|x);}

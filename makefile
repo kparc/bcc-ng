@@ -14,7 +14,7 @@ else
 	DIS=-m i386 -M intel,x86-64
 endif
 
-CF=$O -Wall -Wno-unused-variable -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
+CF=$O -Wall -Wno-deprecated-non-prototype -Wno-unused-variable -Wno-pointer-sign -Wno-strict-aliasing -Wno-parentheses -Wno-unused-function -Wno-misleading-indentation -Wno-unused-value
 LF=
 OD=objdump
 
